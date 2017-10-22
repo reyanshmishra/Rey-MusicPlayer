@@ -27,13 +27,15 @@ The awesome Music Player includes a lot of features some of them are mentioned b
 <H1>Screenshots</H1>
 <br>
 
+
+<img src="https://i.imgur.com/Kr16Dfp.jpg" width=761 height=480>
+
+
+<img src="https://i.imgur.com/ZWyP7hr.jpg" width=761 height=480>
+
+
 <img src="https://i.imgur.com/EvKgSz7.jpg" width=761 height=480>
 
-![Alt text](https://github.com/reyanshmishra/Rey-MusicPlayer/blob/master/Screenshots/screenshotsmain.jpg?raw=true "Optional Title")
-
-![Alt text](https://github.com/reyanshmishra/Rey-MusicPlayer/blob/master/Screenshots/screen1.jpg?raw=true "Optional Title")
-
-![Alt text](https://github.com/reyanshmishra/Rey-MusicPlayer/blob/master/Screenshots/screen2.jpg?raw=true "Optional Title")
 
 
 <H1>Developed By</H1>
