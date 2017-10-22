@@ -5,11 +5,7 @@ I Created this application as my college project and when I was learning android
 
 The awesome Music Player includes a lot of features some of them are mentioned below.
 
-- Shake to go to the next song.
-- Choose from 5 different fonts to make UI as you want.
-- Strips views in the songs list, you can enable disable as per your need.
-- Play your music in full screen mode.
-- Eight different scroll view for the layouts animation change as per your need.
+
 - Sort music files in six different ways.
 - Search as per Song, Albums and Artists.
 - Share your favorite songs with your friends directly from nowplaying or from anywhere in the app.
@@ -22,6 +18,7 @@ The awesome Music Player includes a lot of features some of them are mentioned b
 - Flick left/right to play next/previous songs.
 - Expanded notification bar.
 - Seven band equalizer.
+- <b>MP3 Tagger.</b>
 
 
 <H1>Screenshots</H1>
@@ -40,6 +37,8 @@ The awesome Music Player includes a lot of features some of them are mentioned b
 
 <H1>Developed By</H1>
 Reyansh mishra - reyanshmishra@outlook.com
+Website - www.reyanshmishra.com
+
 
 <H1>Credits</H1>
 Jams:-https://github.com/psaravan/JamsMusicPlayer<br>
