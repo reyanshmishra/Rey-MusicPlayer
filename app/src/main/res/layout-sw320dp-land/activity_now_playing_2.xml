@@ -1,0 +1,205 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/now_playing_drawer_frame_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/nowPlayingRootContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        tools:context=".NowPlayingActivity2">
+
+        <!--  <fragment
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:layout="@layout/fragment_playlist_pager_fill"/>-->
+
+        <com.boom.music.player.VelocityViewPager.VelocityViewPager
+            android:id="@+id/nowPlayingPlaylistPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/seekbarIndicatorParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/now_playing_controls_header_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:visibility="invisible"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="40dp">
+
+            <RelativeLayout
+                android:id="@+id/seekbarIndicator"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/seekbarIndicatorText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="00:00:00"
+                    android:textColor="#000000"
+                    android:textSize="18sp"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/now_playing_controls_header_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            app:cardBackgroundColor="@color/white">
+
+
+            <RelativeLayout
+                android:id="@+id/now_playing_controls_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true">
+
+                <SeekBar
+                    android:id="@+id/nowPlayingSeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:indeterminate="false"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:progress="0"
+                    android:thumb="@drawable/transparent_drawable"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_below="@+id/nowPlayingSeekBar"
+                    android:orientation="horizontal"
+                    android:paddingBottom="15dp">
+
+                    <ImageButton
+                        android:id="@+id/shuffleButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="?android:selectableItemBackground"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/shuffle"/>
+
+                    <ImageButton
+                        android:id="@+id/previousButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="1"
+                        android:background="?android:selectableItemBackground"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+                        android:scaleX="1.5"
+                        app:srcCompat="@drawable/skip_backward"/>
+
+                    <RelativeLayout
+                        android:id="@+id/playPauseButtonBackground"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@drawable/drawable_circle">
+
+                        <ImageButton
+                            android:id="@+id/playPauseButton"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerInParent="true"
+                            android:adjustViewBounds="true"
+                            android:background="#00000000"
+                            android:scaleType="centerInside"
+                            android:scaleX="1.2"
+                            android:scaleY="1.2"
+                            android:visibility="visible"
+                            app:srcCompat="@drawable/pause"/>
+
+                    </RelativeLayout>
+
+                    <ImageButton
+                        android:id="@+id/nextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dp"
+                        android:layout_weight="1"
+                        android:background="?android:selectableItemBackground"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+                        android:scaleX="1.5"
+                        app:srcCompat="@drawable/skip_forward"/>
+
+                    <ImageButton
+                        android:id="@+id/repeatButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="?android:selectableItemBackground"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/repeat"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/queue_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        ></RelativeLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/id_toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:elevation="0dp"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="0dp"
+            app:elevation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    </android.support.design.widget.AppBarLayout>
+</RelativeLayout>

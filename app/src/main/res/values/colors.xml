@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2a314c</color>
+    <color name="colorPrimaryDark">#1d233b</color>
+    <color name="textColorSecondary">#5b647c</color>
+    <color name="pink">#f63e62</color>
+
+
+    <color name="black">#ff000000</color>
+    <color name="white">#ffffff</color>
+
+    <color name="gray_light">#D3D3D3</color>
+    <color name="gray">#808080</color>
+    <color name="_light_gray">#abaaaa</color>
+    <color name="transparent">#50000000</color>
+    <color name="darkgray">#A9A9A9</color>
+
+    <color name="kitkat_blue">#33b5e5</color>
+    <color name="green">#006103</color>
+
+    <color name="transparentblack">#70000000</color>
+    <color name="fulltransparent">#00000000</color>
+    <color name="transparentblack2">#30000000</color>
+    <color name="transparent_bg">#55000000</color>
+    <color name="transparent_bg_dark">#99000000</color>
+    <color name="brown">#5d4037</color>
+    <color name="indigo">#3f51b5</color>
+    <color name="deep_purple">#673ab7</color>
+    <color name="blue_gray">#607d8b</color>
+    <color name="teal">#009688</color>
+    <color name="amber">#ffc107</color>
+    <color name="cyan">#00bcd4</color>
+    <color name="deep_orange">#c63609</color>
+
+</resources>

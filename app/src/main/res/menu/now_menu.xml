@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.example.toolbar.MainActivity">
+
+    <item
+        android:id="@+id/item_set_timer"
+        android:title="@string/set_timer"/>
+
+    <item
+        android:id="@+id/item_share_item"
+        android:title="@string/share"
+        app:showAsAction="withText"/>
+
+    <!--<item-->
+    <!--android:id="@+id/item_add_to_playlist"-->
+    <!--android:showAsAction="ifRoom|withText"-->
+    <!--android:mTitleTextView="Add to playlist" />-->
+
+    <item
+        android:id="@+id/item_a_b_repeat"
+        android:title="@string/a_b_repeat"
+        app:showAsAction="withText"/>
+
+</menu>

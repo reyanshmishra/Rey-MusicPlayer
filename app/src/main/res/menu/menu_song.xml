@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/item_search"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/search"
+        android:visible="true"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/item_sort_by_song"
+        android:icon="@drawable/sort_variant"
+        android:title="Sort by"
+        android:visible="true"
+        app:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sort_song_default"
+                    android:title="@string/sort_default"
+                    android:titleCondensed="Options">
+                </item>
+                <item
+                    android:id="@+id/sort_song_name"
+                    android:title="@string/sort_song_name"
+                    android:titleCondensed="Options">
+                </item>
+                <item
+                    android:id="@+id/sort_song_track_no"
+                    android:title="@string/sort_track_no_name"
+                    android:titleCondensed="Options">
+                </item>
+                <item
+                    android:id="@+id/sort_song_duration"
+                    android:title="@string/sort_song_duration_name"
+                    android:titleCondensed="Options">
+                </item>
+                <item
+                    android:id="@+id/sort_song_year"
+                    android:title="@string/sort_song_year_name"
+                    android:titleCondensed="Options">
+                </item>
+                <item
+                    android:id="@+id/sort_song_date_added"
+                    android:title="@string/sort_date_added_name"
+                    android:titleCondensed="Options">
+                </item>
+                <item
+                    android:id="@+id/sort__song_album_name"
+                    android:title="@string/sort_album_name"
+                    android:titleCondensed="Options">
+                </item>
+                <item
+                    android:id="@+id/sort_song_artist_name"
+                    android:title="@string/sort_artist_name"
+                    android:titleCondensed="Options">
+                </item>
+
+                <item
+                    android:id="@+id/sort_song_file_name"
+                    android:title="@string/sort_file_name"
+                    android:titleCondensed="Options">
+                </item>
+
+            </group>
+            <item
+                android:id="@+id/sort_song_type"
+                android:checkable="true"
+                android:title="@string/ascending"
+                android:titleCondensed="Options">
+            </item>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/item_settings"
+        android:title="@string/settings"
+        android:visible="true"
+        app:showAsAction="never"/>
+
+</menu>

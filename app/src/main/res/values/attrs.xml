@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <attr name="fromDegrees" format="float|reference"/>
+    <attr name="toDegrees" format="float|reference"/>
+    <attr name="childSize" format="dimension|reference"/>
+    <declare-styleable name="ArcLayout">
+        <attr name="fromDegrees"/>
+        <attr name="toDegrees"/>
+        <attr name="childSize"/>
+    </declare-styleable>
+    <declare-styleable name="CustomAbsSpinner">
+        <attr name="entries" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension"/>
+        <attr name="civ_border_color" format="color"/>
+        <attr name="civ_border_overlay" format="boolean"/>
+        <attr name="civ_fill_color" format="color"/>
+    </declare-styleable>
+
+
+    <attr name="customAbsSpinnerStyle" format="reference"/>
+    <declare-styleable name="JazzyViewPager">
+        <attr name="style">
+            <enum name="standard" value="0"/>
+            <enum name="tablet" value="1"/>
+            <enum name="cubein" value="2"/>
+            <enum name="cubeout" value="3"/>
+            <enum name="flipvertical" value="4"/>
+            <enum name="fliphorizontal" value="5"/>
+            <enum name="stack" value="6"/>
+            <enum name="zoomin" value="7"/>
+            <enum name="zoomout" value="8"/>
+            <enum name="rotateup" value="9"/>
+            <enum name="rotatedown" value="10"/>
+            <enum name="accordion" value="11"/>
+        </attr>
+        <attr name="fadeEnabled" format="boolean"/>
+        <attr name="outlineEnabled" format="boolean"/>
+        <attr name="outlineColor" format="color|reference"/>
+    </declare-styleable>
+    <array name="viewpagertitle">
+    </array>
+</resources>

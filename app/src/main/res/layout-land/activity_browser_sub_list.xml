@@ -1,0 +1,145 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/browser_sub_drawer_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/browser_sub_header_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible">
+
+
+            <ImageView
+                android:id="@+id/browser_sub_header_image"
+                android:layout_width="match_parent"
+                android:layout_height="340dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/drawable_black_to_transparent"
+                android:scaleType="centerCrop"/>
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/id_toolbar_container"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_alignParentTop="true"
+                android:background="@null"
+                android:elevation="0dp"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:elevation="0dp">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:elevation="0dp"
+                    app:elevation="0dp"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <RelativeLayout
+                android:id="@+id/browser_sub_header_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/drawable_black_to_transparent">
+
+                <TextView
+                    android:id="@+id/browser_sub_header_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="120dp"
+                    android:layout_marginTop="15dp"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:scrollHorizontally="true"
+                    android:shadowColor="#FF454545"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"
+                    android:singleLine="true"
+                    android:text="Header Text"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"/>
+
+                <TextView
+                    android:id="@+id/browser_sub_header_sub_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/browser_sub_header_text"
+                    android:layout_marginRight="120dp"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:scrollHorizontally="true"
+                    android:shadowColor="#FF454545"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"
+                    android:singleLine="true"
+                    android:text="Subtext"
+                    android:textColor="#FF999999"
+                    android:textSize="16sp"/>
+
+                <Button
+                    android:id="@+id/browser_sub_play_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="34dp"
+                    app:backgroundTint="#f63e62"
+                    android:minHeight="0dp"
+                    android:padding="13dp"
+                    android:text="Play All"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    />
+
+                <ImageButton
+                    android:id="@+id/overflow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="3dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="4dp"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/drawable_overflow"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/browser_sub_list_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:drawSelectorOnTop="true"
+            android:paddingTop="28dp"
+            android:visibility="invisible"
+            tools:listitem="@layout/list_view_sub_browser_item"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

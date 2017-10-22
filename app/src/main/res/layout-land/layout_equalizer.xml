@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/id_toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/equalizer"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_x_large"/>
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/seekbar_holders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/id_toolbar_container"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linearLayout8"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="7">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/e50hztxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+                    />
+
+                <com.boom.music.player.Views.VerticalSeekBar
+                    android:id="@+id/slider_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:max="31"
+                    android:progress="16"
+                    android:progressBackgroundTint="@color/gray"
+                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
+                    android:thumbOffset="8dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="50 Hz"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/e130hztxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+
+
+                    />
+
+                <com.boom.music.player.Views.VerticalSeekBar
+                    android:id="@+id/slider_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:max="31"
+                    android:progress="16"
+                    android:progressBackgroundTint="@color/gray"
+                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
+                    android:thumbOffset="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="130 Hz"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/e320hztxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+
+
+                    />
+
+                <com.boom.music.player.Views.VerticalSeekBar
+                    android:id="@+id/slider_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:max="31"
+                    android:progress="16"
+                    android:progressBackgroundTint="@color/gray"
+                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
+                    android:thumbOffset="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="320 Hz"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+
+
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/e800hztxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+
+
+                    />
+
+                <com.boom.music.player.Views.VerticalSeekBar
+                    android:id="@+id/slider_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:max="31"
+                    android:progress="16"
+                    android:progressBackgroundTint="@color/gray"
+                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
+                    android:thumbOffset="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="800 Hz"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/e2khztxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+
+
+                    />
+
+                <com.boom.music.player.Views.VerticalSeekBar
+                    android:id="@+id/slider_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:max="31"
+                    android:progress="16"
+                    android:progressBackgroundTint="@color/gray"
+                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
+                    android:thumbOffset="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="2 kHz"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/e5khztxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+
+
+                    />
+
+                <com.boom.music.player.Views.VerticalSeekBar
+                    android:id="@+id/slider_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:max="31"
+                    android:progress="16"
+                    android:progressBackgroundTint="@color/gray"
+                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
+                    android:thumbOffset="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="5 kHz"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/e12_5khztxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"/>
+
+                <com.boom.music.player.Views.VerticalSeekBar
+                    android:id="@+id/slider_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:max="31"
+                    android:progress="16"
+                    android:progressBackgroundTint="@color/gray"
+                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
+                    android:thumbOffset="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="12.5 Hz"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/white"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9">
+
+            <RelativeLayout
+                android:id="@+id/volume_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true">
+
+                <ImageButton
+                    android:id="@+id/volume_mute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="?selectableItemBackground"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/ic_volume_mute_black_24dp"/>
+
+                <SeekBar
+                    android:id="@+id/volume_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/volume_high"
+                    android:layout_toRightOf="@+id/volume_mute"
+                    android:progressBackgroundTint="@color/gray"
+                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
+                    android:thumbOffset="8dp"/>
+
+                <ImageButton
+                    android:id="@+id/volume_high"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="8dp"
+                    android:background="?selectableItemBackground"
+                    app:srcCompat="@drawable/ic_volume_up_black_24dp"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/control_holders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/buttons"
+                android:layout_below="@+id/volume_holder"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <com.triggertrap.seekarc.SeekArc
+                        android:id="@+id/seek_arc_virtualizer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/seek_arc_margin"
+                        android:padding="@dimen/seek_arc_padding"
+                        android:rotation="180"
+                        app:arcColor="#00000000"
+                        app:max="1000"
+                        app:progress="1"
+                        app:progressColor="@color/pink"
+                        app:progressWidth="@dimen/progress_width"
+                        app:roundEdges="true"
+                        app:startAngle="45"
+                        app:sweepAngle="270"
+                        app:thumb="@color/white"
+                        app:touchInside="true"/>
+
+                    <ImageButton
+                        android:id="@+id/image_button_virtualizer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/seek_arc_margin"
+                        android:adjustViewBounds="true"
+                        android:background="?selectableItemBackground"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:padding="@dimen/seek_arc_padding"
+                        android:scaleType="fitCenter"
+                        android:scaleX="@dimen/control_button_scale"
+                        android:scaleY="@dimen/control_button_scale"
+                        android:src="@drawable/drawable_eq_circle_"/>
+
+                    <TextView
+                        android:id="@+id/virtualizer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+
+                        android:text="@string/virtualizer"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/white"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <com.triggertrap.seekarc.SeekArc
+                        android:id="@+id/seek_arc_bass_boost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/seek_arc_margin"
+                        android:padding="@dimen/seek_arc_padding"
+                        android:rotation="180"
+                        app:arcColor="#00000000"
+                        app:max="1000"
+                        app:progress="1"
+                        app:progressColor="@color/pink"
+                        app:progressWidth="@dimen/progress_width"
+                        app:roundEdges="true"
+                        app:startAngle="45"
+                        app:sweepAngle="270"
+                        app:thumb="@color/white"
+                        app:touchInside="true"/>
+
+                    <ImageButton
+                        android:id="@+id/image_button_bass_boost"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/seek_arc_margin"
+                        android:adjustViewBounds="true"
+                        android:background="?selectableItemBackground"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:padding="@dimen/seek_arc_padding"
+                        android:scaleType="fitCenter"
+                        android:scaleX="@dimen/control_button_scale"
+                        android:scaleY="@dimen/control_button_scale"
+                        android:src="@drawable/drawable_eq_circle_"/>
+
+                    <TextView
+                        android:id="@+id/bass_boost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text="@string/bass_boost"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/white"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttons"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/drawable_button_background">
+
+                        <Spinner
+                            android:id="@+id/reverb_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="0dp"/>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bottom_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1">
+
+                        <Button
+                            android:id="@+id/savePreset"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/drawable_button_background"
+                            android:gravity="center"
+                            android:text="@string/save"
+                            android:textAllCaps="false"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/pink"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/load_preset_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/drawable_button_background"
+                            android:text="@string/load_preset"
+                            android:textAllCaps="false"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/pink"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

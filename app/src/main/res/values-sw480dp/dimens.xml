@@ -1,0 +1,78 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">20dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="normal_height">66dp</dimen>
+    <dimen name="expanded_height">132dp</dimen>
+    <!-- Notification template expanded -->
+    <dimen name="notification_expanded_height">128.0dip</dimen>
+    <dimen name="notification_expanded_buttons_divider_padding">12.0dip</dimen>
+    <dimen name="notification_expanded_button_height">48.0dip</dimen>
+    <dimen name="notification_expanded_button_padding">10.0dip</dimen>
+    <dimen name="notification_expanded_content_padding_top">8.0dip</dimen>
+    <dimen name="notification_expanded_collapse_padding">8.0dip</dimen>
+
+    <!-- Notification template -->
+    <dimen name="notification_big_icon_height">64.0dip</dimen>
+    <dimen name="notification_big_icon_width">64.0dip</dimen>
+    <dimen name="notification_info_container_padding_left">8.0dip</dimen>
+    <dimen name="notification_info_container_padding_bottom">4.0dip</dimen>
+    <dimen name="notification_action_padding">8.0dip</dimen>
+    <dimen name="notification_action_height">48.0dip</dimen>
+    <dimen name="notification_action_width">48.0dip</dimen>
+    <dimen name="albumlist_height">437dip</dimen>
+    <dimen name="viewmargin">128dip</dimen>
+    <item name="menuFromDegrees" format="float" type="dimen">180.0</item>
+    <item name="menuToDegrees" format="float" type="dimen">360.0</item>
+    <dimen name="menuChildSize">30dp</dimen>
+    <dimen name="itemalbum_albumtext_size">16sp</dimen>
+    <dimen name="itemalbum_albumtext_size2">12sp</dimen>
+    <dimen name="itemalbum_albumimage_size">155dp</dimen>
+    <dimen name="itemalbum_albumtextLayout_size">50dp</dimen>
+    <dimen name="timeindicator">30sp</dimen>
+    <dimen name="tool_bar_height">54dp</dimen>
+    <dimen name="menu_item_padding">2dp</dimen>
+    <dimen name="text_right_padding">28dp</dimen>
+    <dimen name="text_right_translation">8dp</dimen>
+    <dimen name="text_wrapper_right_margin">8dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="menu_text_size">15sp</dimen>
+
+
+
+    <!-- Text sizes -->
+    <dimen name="text_size_extra_micro">10.0sp</dimen>
+    <dimen name="text_size_micro">12.0sp</dimen>
+    <dimen name="text_size_small">14.0sp</dimen>
+    <dimen name="text_size_medium">16.0sp</dimen>
+    <dimen name="text_size_large">18.0sp</dimen>
+    <dimen name="text_size_x_large">24.0sp</dimen>
+
+
+    <dimen name="text_size_dayum">36.0sp</dimen>
+    <dimen name="tw_indexview_index_textsize">69dip</dimen>
+    <dimen name="tw_indexview_first_handle_textsize">13dip</dimen>
+    <dimen name="tw_indexview_first_handle_width">20dp</dimen>
+
+    <!-- separator -->
+    <dimen name="tw_separator_min_height">21dp</dimen>
+    <dimen name="tw_separator_width">22dp</dimen>
+    <dimen name="tw_separator_thickness">1dp</dimen>
+
+
+    <dimen name="tw_indexview_rectangle_width_one_letter">102dp</dimen>
+    <dimen name="tw_indexview_rectangle_width_two_letter">135dp</dimen>
+    <dimen name="tw_indexview_rectangle_height">89dp</dimen>
+    <dimen name="tw_indexview_rectangle_characters_width_padding">40dp</dimen>
+    <dimen name="tw_indexview_bg_line_width">1dp</dimen>
+    <dimen name="tw_indexview_rectangle_xpos_offset">90dp</dimen>
+    <dimen name="tw_indexview_first_handle_additional_width">16dp</dimen>
+    <dimen name="tw_indexview_favourite_index_textsize">50dip</dimen>
+    <dimen name="tw_indexview_favourite_rectangle_width">240dp</dimen>
+    <dimen name="list_view_left_icon_size">78dp</dimen>
+
+</resources>

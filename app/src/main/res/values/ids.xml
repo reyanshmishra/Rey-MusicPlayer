@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="text_view_timer_dialog" type="id"/>
+    <item name="btn_ok_timerdialog" type="id"/>
+    <item name="btn_cancel_timerdialog" type="id"/>
+</resources>

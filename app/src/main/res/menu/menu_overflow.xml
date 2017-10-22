@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.example.toolbar.MainActivity">
+
+    <item
+        android:id="@+id/action_album_art"
+        android:icon="@drawable/drawable_image"
+        android:title="Sort by"
+        android:visible="true"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_search_web"
+                android:title="@string/search_web">
+            </item>
+            <item
+                android:id="@+id/action_from_gallery"
+                android:title="@string/from_gallery">
+            </item>
+        </menu>
+    </item>
+</menu>

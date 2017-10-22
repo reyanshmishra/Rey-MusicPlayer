@@ -1,0 +1,10 @@
+<!-- drawable/skip_forward.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportHeight="24"
+        android:viewportWidth="24">
+    <path
+        android:fillColor="#80000000"
+        android:pathData="M4,5V19L11,12M18,5V19H20V5M11,5V19L18,12"/>
+</vector>

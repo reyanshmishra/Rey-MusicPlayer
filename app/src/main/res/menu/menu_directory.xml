@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/item_sort_by_directory"
+        android:title="Sort by"
+        android:visible="true" />
+
+    <item
+        android:id="@+id/item_view_playlist_directory"
+        android:title="View"
+        android:visible="true"></item>
+
+    <item
+        android:id="@+id/item_search"
+        android:icon="@drawable/ic_action_search"
+        android:title="Search"
+        android:visible="true"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/item_shuffle"
+        android:title="Shuffle"
+        android:visible="false" />
+    <item
+        android:id="@+id/item_settings"
+        android:title="Settings"
+        android:visible="true" />
+
+</menu>

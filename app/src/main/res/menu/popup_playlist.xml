@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/popup_playlist_play"
+        android:title="@string/play" />
+    <item
+        android:id="@+id/popup_playlist_play_next"
+        android:title="@string/play_next" />
+
+    <item
+        android:id="@+id/popup_playlist_add_to_queue"
+        android:title="@string/add_to_queue" />
+
+    <item
+        android:id="@+id/popup_playlist_delete"
+        android:title="@string/delete" />
+
+    <item
+        android:id="@+id/popup_playlist_rename"
+        android:title="@string/rename_playlist" />
+
+    <item
+        android:id="@+id/popup_playlist_clear_favorites"
+        android:title="@string/clear_favorites" />
+
+    <item
+        android:id="@+id/popup_playlist_clear_top_played"
+        android:title="@string/clear_top_played" />
+
+    <item
+        android:id="@+id/popup_playlist_edit_weeks"
+        android:title="@string/edit_weeks" />
+
+
+    <item
+        android:id="@+id/popup_playlist_clear_recently_played"
+        android:title="@string/clear_recently_played" />
+
+</menu>

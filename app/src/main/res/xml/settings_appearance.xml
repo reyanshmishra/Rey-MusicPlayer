@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/appearance">
+
+        <Preference
+            android:key="preference_key_app_theme"
+            android:summary="@string/app_theme_description"
+            android:title="@string/application_theme"/>
+
+
+        <Preference
+            android:key="preference_key_startup_screen"
+            android:summary="@string/default_browser_description"
+            android:title="@string/default_browser"/>
+
+        <Preference
+            android:key="preference_key_tab_items"
+            android:summary="@string/choose_tab_items"
+            android:title="@string/tabs"/>
+    </PreferenceCategory>
+</PreferenceScreen>

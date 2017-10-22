@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/popup_song_play_next"
+        android:title="@string/play_next"/>
+    <item
+        android:id="@+id/popup_song_addto_queue"
+        android:title="@string/add_to_queue"/>
+
+    <item
+        android:id="@+id/popup_edit_songs_tags"
+        android:title="@string/edit_tags"/>
+
+    <item
+        android:id="@+id/popup_song_add_to_favs"
+        android:title="@string/add_to_favorites"/>
+
+
+    <item
+        android:id="@+id/popup_song_delete"
+        android:title="@string/delete"/>
+
+    <item
+        android:id="@+id/popup_song_use_as_phone_ringtone"
+        android:title="@string/use_as_phone_ringtone"/>
+
+
+    <item
+        android:id="@+id/popup_song_share"
+        android:title="@string/share"/>
+</menu>

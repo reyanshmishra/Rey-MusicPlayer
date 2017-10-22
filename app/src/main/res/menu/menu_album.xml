@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/item_search"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/Search"
+        android:visible="true"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/item_sort_album"
+        android:icon="@drawable/sort_variant"
+        android:title="@string/sort_by"
+        android:visible="true"
+        app:showAsAction="always">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/album_sort_default"
+                    android:title="@string/sort_default"
+                    android:titleCondensed="Options">
+                </item>
+                <item
+                    android:id="@+id/album_sort_name"
+                    android:title="@string/sort_album_name"
+                    android:titleCondensed="Options">
+                </item>
+
+
+                <item
+                    android:id="@+id/album_sort_year"
+                    android:title="@string/sort_song_year_name"
+                    android:titleCondensed="Options">
+                </item>
+
+                <item
+                    android:id="@+id/album_sort_artist_name"
+                    android:title="@string/sort_artist_name"
+                    android:titleCondensed="Options">
+                </item>
+
+                <item
+                    android:id="@+id/album_sort_no_of_songs"
+                    android:title="@string/sort_no_of_songs"
+                    android:titleCondensed="Options">
+                </item>
+            </group>
+
+            <item
+                android:id="@+id/album_sort_type"
+                android:checkable="true"
+                android:title="@string/ascending"
+                android:titleCondensed="Options">
+            </item>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/item_settings"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/settings"
+        android:visible="true"
+        app:showAsAction="never"/>
+
+</menu>

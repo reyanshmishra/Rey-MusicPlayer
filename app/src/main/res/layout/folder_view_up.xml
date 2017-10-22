@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/listViewParent"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="?android:attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/listViewLeftIcon"
+        android:layout_width="@dimen/list_view_left_icon_size"
+        android:layout_height="@dimen/list_view_left_icon_size"
+        android:layout_centerVertical="true"
+        android:paddingLeft="8dp"
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        tools:src="@drawable/drawable_up_folder"/>
+
+
+    <TextView
+        android:id="@+id/listViewTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/listViewLeftIcon"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:text="..Artist Name"/>
+</RelativeLayout>

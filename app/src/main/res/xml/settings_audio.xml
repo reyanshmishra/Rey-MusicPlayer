@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:summary="@string/audio_settings"
+        android:title="@string/audio_settings">
+
+        <Preference
+            android:key="preference_key_pause_on_disconnect"
+            android:summary="@string/a_b_repeat"
+            android:title="@string/a_b_repeat"/>
+        <!--
+                <Preference
+                    android:icon="@drawable/crossfade_tracks"
+                    android:key="preference_key_crossfade_tracks"
+                    android:title="@string/crossfade_tracks"/>
+
+                <Preference
+                    android:icon="@drawable/crossfade_tracks"
+                    android:key="preference_key_crossfade_tracks_duration"
+                    android:title="@string/crossfade_duration"/>
+
+                <Preference
+                    android:icon="@drawable/equalizer"
+                    android:key="preference_key_equalizer_toggle"
+                    android:title="@string/equalizer"/>-->
+
+    </PreferenceCategory>
+</PreferenceScreen>

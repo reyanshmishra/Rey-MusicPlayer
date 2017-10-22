@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="preference_key_artist_art"
+        android:summary="@string/artist_art_description"
+        android:title="@string/artist_art"/>
+
+    <Preference
+        android:key="preference_key_download_album_art"
+        android:summary="@string/download_album_art_description"
+        android:title="@string/scan_and_download_album_art"/>
+
+</PreferenceScreen>

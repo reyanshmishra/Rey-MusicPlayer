@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "491104636886",
+    "firebase_url": "https://boom-2a5a8.firebaseio.com",
+    "project_id": "boom-2a5a8",
+    "storage_bucket": "boom-2a5a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491104636886:android:26e2f6fe7ea594c0",
+        "android_client_info": {
+          "package_name": "com.boom.music.player"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491104636886-vthu0uuc2vek665qvfcl43ei8321btsg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.boom.music.player",
+            "certificate_hash": "201b91f0857a228aa1c04b14bf442506b3fc77bc"
+          }
+        },
+        {
+          "client_id": "491104636886-hakogk42eg5bktdib3bsrdu06084rm1o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6Fks5g-KioHr_Doqw2YBC8Monwhg2y8c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491104636886-hakogk42eg5bktdib3bsrdu06084rm1o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
