@@ -1,4 +1,0 @@
-Application name:	reyansh mishra
-API key:		c20a698e716e0c68a4463bd1c66c8109
-Shared secret:		b4a5b820f11be7e65695e49bfa6ebf72
-Registered to:		reym9430
