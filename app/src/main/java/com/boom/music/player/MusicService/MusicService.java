@@ -526,6 +526,7 @@ public class MusicService extends Service {
          *Init the leader of the app "MediaPlayer"
          */
 
+
         initPlayer();
 
         /**
