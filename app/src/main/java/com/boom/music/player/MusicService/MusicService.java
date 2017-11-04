@@ -51,12 +51,14 @@ import java.util.Random;
 public class MusicService extends Service {
 
 
+    /**
+     * Notification Id
+     */
     public static final int NOTIFICATION_ID = 1056;
 
 
     private boolean mMediaPlayerPrepared = false;
     private Uri mSongUri;
-
 
     /**
      * On ServicePrepared listener.
@@ -64,19 +66,27 @@ public class MusicService extends Service {
     private PrepareServiceListener mPrepareServiceListener;
 
 
+    /**
+     * Song position.
+     */
     private int mSongPos = 0;
     private Bundle mBundle;
 
-
-    /*Let the system know we are playing music BIAAATCH*/
 
     private Intent mMediaIntent;
     private Intent mPlayPauseIntent;
 
 
+    //Current context.
     private Context mContext;
+
+
     private MediaPlayer mMediaPlayer;
+
+
     private PowerManager.WakeLock mWakeLock;
+
+    //Equalizer to manage the equalizer.
     private EqualizerHelper mEqualizerHelper;
 
 
@@ -100,9 +110,10 @@ public class MusicService extends Service {
     private boolean mPlayingForFirstTime = true;
 
 
+    //Broadcast receiver to catch the headphone buttons clicks.
     private HeadsetNotificationBroadcast mHeadsetNotificationBroadcast;
 
-    //Headset plug receiver.
+    //Broadcast receiver to catch the plugin and out of the headset.
     private HeadsetPlugBroadcastReceiver mHeadsetPlugReceiver;
     private Service mService;
 
@@ -128,8 +139,11 @@ public class MusicService extends Service {
     private ArrayList<Song> mOriginalSongList;
     private MediaSessionCompat mMediaSession;
 
+    //Song data helper class which hands the data related to the song.
     private SongDataHelper mSongDataHelper;
 
+
+    //When audio can be ducked eg. a notification comes the volume will go down  a lil bit and come to original volume.
     private Runnable duckUpVolumeRunnable = new Runnable() {
 
         @Override
@@ -144,6 +158,8 @@ public class MusicService extends Service {
         }
 
     };
+
+
     private Runnable duckDownVolumeRunnable = new Runnable() {
 
         @Override
@@ -156,6 +172,7 @@ public class MusicService extends Service {
         }
     };
 
+    //Broadcast to for other apps like MusixMatch of the current position and data of the song.
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
             sendMediaIntentData();
@@ -165,7 +182,8 @@ public class MusicService extends Service {
 
 
     /**
-     * When MediaPlayer is done playing music.
+     * Logic to when one song is done with playing what to do next when shuffle mode is on when repeat is on
+     * different states.
      */
 
     MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
@@ -192,6 +210,8 @@ public class MusicService extends Service {
         }
     };
 
+
+    //Audio focus gain and loss when call or messages comes up.
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -232,7 +252,7 @@ public class MusicService extends Service {
 
     };
 
-
+    //Runnable to check if the media player is prepared and it then play.
     private Runnable startMediaPlayerIfPrepared = new Runnable() {
         @Override
         public void run() {
@@ -443,6 +463,11 @@ public class MusicService extends Service {
 
     };
 
+
+    /**
+     * Pretty obvious overriden method.
+     */
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -458,9 +483,11 @@ public class MusicService extends Service {
         mShuffledSongList = new ArrayList<>(mListSongs.size());
         mOriginalSongList = new ArrayList<>(mListSongs.size());
 
-
+        //Set the previously played position of the song.
         mSongPos = PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
-        //Collections.copy(mShuffledSongList, mListSongs);
+
+        //Create two clones of the list on for normal play other for shuffle.
+
         for (Song song : mListSongs) {
             try {
                 mOriginalSongList.add((Song) song.clone());
@@ -470,7 +497,7 @@ public class MusicService extends Service {
                 Logger.log(e.getMessage());
             }
         }
-
+        //Check if shuffle is on add shuffle version of the current queue.
         if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF) == Constants.SHUFFLE_ON) {
             setShuffledOne();
         }
@@ -496,13 +523,13 @@ public class MusicService extends Service {
         registerHeadsetPlugReceiver();
 
         /**
-         *Init the king
+         *Init the leader of the app "MediaPlayer"
          */
 
         initPlayer();
 
         /**
-         *This is equalizer its pain in ass to manage.
+         *This is equalizer its pain in a** to manage.
          */
 
         initAudioFX();
@@ -525,15 +552,17 @@ public class MusicService extends Service {
         mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         mAudioManagerHelper = new AudioManagerHelper();
 
+        //MediaSession it took a lot of time to figure out how to use it and still not so clear.
         mMediaSession = new MediaSessionCompat(getApplicationContext(), "AudioPlayer", new ComponentName(this, HeadsetNotificationBroadcast.class), null);
         mMediaSession.setActive(true);
-//      mMediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
+
 
         mMediaSession.setPlaybackState(new PlaybackStateCompat.Builder()
                 .setState(PlaybackStateCompat.STATE_PLAYING, 2, 1)
                 .build());
     }
 
+    //Here you will receive some of the button strokes and broadcasts.
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         setPrepareServiceListener(mApp.getPlayBackStarter());
@@ -541,10 +570,20 @@ public class MusicService extends Service {
         return START_NOT_STICKY;
     }
 
+    /**
+     * Get the current media player.
+     *
+     * @return {@link MediaPlayer}
+     */
+
     public MediaPlayer getMediaPlayer() {
         return mMediaPlayer;
     }
 
+
+    /**
+     * Get the audio focus before playing the song.
+     */
     private boolean requestAudioFocus() {
         int result = mAudioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
         if (result != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
@@ -659,6 +698,10 @@ public class MusicService extends Service {
         }.execute();
     }
 
+    /**
+     * Notification updater.
+     */
+
     public void updateNotification() {
         if (notification) {
             startForeground(NOTIFICATION_ID, buildNotification());
@@ -679,6 +722,9 @@ public class MusicService extends Service {
     }
 
 
+    /**
+     * Widgets updater.
+     */
     public void updateWidgets() {
         Intent smallWidgetIntent = new Intent(mContext, SmallWidgetProvider.class);
         smallWidgetIntent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
@@ -713,6 +759,7 @@ public class MusicService extends Service {
         updateNotification();
     }
 
+
     public void stopPlaying() {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
@@ -731,6 +778,9 @@ public class MusicService extends Service {
         }
     }
 
+    /**
+     * Save the current queue while stopping the service.
+     */
     private void saveQueue() {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -749,7 +799,6 @@ public class MusicService extends Service {
                 return null;
             }
         }.execute();
-
     }
 
 
@@ -780,6 +829,7 @@ public class MusicService extends Service {
         sendBroadcast(mMediaIntent);
     }
 
+    //Go to next song.
     public void nextSong() {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -799,6 +849,7 @@ public class MusicService extends Service {
 
     }
 
+    //Go to previous song.
     public void previousSong() {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -822,7 +873,7 @@ public class MusicService extends Service {
 
     }
 
-
+    //Register the headset plug receiver.
     public void registerHeadsetPlugReceiver() {
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         mHeadsetPlugReceiver = new HeadsetPlugBroadcastReceiver();
@@ -832,6 +883,7 @@ public class MusicService extends Service {
     public ArrayList<Song> getSongList() {
         return mListSongs;
     }
+
 
     public void setSongList(ArrayList<Song> listSong) {
         mListSongs.clear();
@@ -865,6 +917,8 @@ public class MusicService extends Service {
         mSongPos = currentSongIndex;
     }
 
+
+    //Clear things up.
     @Override
     public void onDestroy() {
         saveQueue();

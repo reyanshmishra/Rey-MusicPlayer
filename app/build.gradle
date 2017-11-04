@@ -10,7 +10,7 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.boom.music.player"
         minSdkVersion 19
@@ -29,14 +29,6 @@ android {
         targetCompatibility 1.8
     }
 
-    productFlavors {
-        dev {
-            minSdkVersion 19
-        }
-        prod {
-            minSdkVersion 19
-        }
-    }
 
     buildTypes {
         release {
@@ -63,6 +55,7 @@ repositories {
     maven {
         url "https://jitpack.io"
     }
+    google()
 }
 
 dependencies {

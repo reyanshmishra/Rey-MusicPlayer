@@ -71,11 +71,7 @@
         <activity
             android:name=".LauncherActivity.MainActivity"
             android:theme="@style/AppThemeSubActivity"/>
-        <activity
-            android:name=".PlayList.CreatePlaylist"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Dialog"/>
+
         <activity
             android:name=".Search.SearchActivity"
             android:theme="@style/AppThemeSubActivity"/>

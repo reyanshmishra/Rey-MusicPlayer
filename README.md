@@ -46,6 +46,7 @@ RangeSlider:-https://github.com/channguyen/range-slider-view<br>
 YoYo Animations-https://github.com/daimajia/AndroidViewAnimations<br>
 VerticalSeekbar:-https://github.com/h6ah4i/android-verticalseekbar<br>
 SeekArc:-https://github.com/neild001/SeekArc<br>
+JAudioTagger:- https://bitbucket.org/ijabz/jaudiotagger
 and other android libraries and android support libraries.
 
 
