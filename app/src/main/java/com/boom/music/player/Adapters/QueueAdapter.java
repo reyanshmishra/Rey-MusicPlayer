@@ -62,7 +62,7 @@ public class QueueAdapter extends RecyclerView.Adapter<QueueAdapter.ItemHolder> 
                 holder.mMusicVisualizer.setVisibility(View.INVISIBLE);
             }
         } else {
-            int pos = PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
+            int pos = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
 
             if (mData.get(pos)._title.equalsIgnoreCase(mSongName)) {
                 holder.mMusicVisualizer.setVisibility(View.VISIBLE);

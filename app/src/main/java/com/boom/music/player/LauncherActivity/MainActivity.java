@@ -99,13 +99,13 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
             case 0:
                 getMenuInflater().inflate(R.menu.menu_album, menu);
 
-                if (PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+                if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
                     menu.findItem(R.id.album_sort_type).setChecked(true);
                 } else {
                     menu.findItem(R.id.album_sort_type).setChecked(false);
                 }
 
-                String albumSortOrder = PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT);
+                String albumSortOrder = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT);
 
                 if (albumSortOrder.equalsIgnoreCase(SortOrder.AlbumSortOrder.ALBUM_DEFAULT)) {
                     menu.findItem(R.id.album_sort_default).setChecked(true);
@@ -123,13 +123,13 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
             case 1:
                 getMenuInflater().inflate(R.menu.menu_artist, menu);
 
-                if (PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+                if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
                     menu.findItem(R.id.artist_sort_type).setChecked(true);
                 } else {
                     menu.findItem(R.id.artist_sort_type).setChecked(false);
                 }
 
-                String artistSortOrder = PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NAME);
+                String artistSortOrder = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NAME);
 
                 if (artistSortOrder.equalsIgnoreCase(SortOrder.ArtistSortOrder.ARTIST_NAME)) {
                     menu.findItem(R.id.artist_sort_name).setChecked(true);
@@ -146,13 +146,13 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
             case 3:
                 getMenuInflater().inflate(R.menu.menu_genre, menu);
 
-                if (PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+                if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
                     menu.findItem(R.id.genre_sort_type).setChecked(true);
                 } else {
                     menu.findItem(R.id.genre_sort_type).setChecked(false);
                 }
 
-                String genreSortOrder = PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_NAME);
+                String genreSortOrder = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_NAME);
 
                 if (genreSortOrder.equalsIgnoreCase(SortOrder.GenreSortOrder.GENRE_NAME)) {
                     menu.findItem(R.id.genre_sort_name).setChecked(true);
@@ -176,35 +176,35 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
                 startActivity(intent);
                 return true;
             case R.id.album_sort_default:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT);
                 (mAdapter.getFragment(0)).onResume();
                 invalidateOptionsMenu();
                 break;
             case R.id.album_sort_name:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_NAME);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_NAME);
                 (mAdapter.getFragment(0)).onResume();
                 invalidateOptionsMenu();
                 break;
             case R.id.album_sort_year:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_YEAR);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_YEAR);
                 (mAdapter.getFragment(0)).onResume();
                 invalidateOptionsMenu();
                 break;
             case R.id.album_sort_artist_name:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_ARTIST);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_ARTIST);
                 (mAdapter.getFragment(0)).onResume();
                 invalidateOptionsMenu();
                 break;
             case R.id.album_sort_no_of_songs:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_NUMBER_OF_SONGS);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_NUMBER_OF_SONGS);
                 (mAdapter.getFragment(0)).onResume();
                 invalidateOptionsMenu();
                 break;
             case R.id.album_sort_type:
-                if (PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
-                    PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.DESCENDING);
+                if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.DESCENDING);
                 } else {
-                    PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING);
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING);
                 }
 
                 (mAdapter.getFragment(0)).onResume();
@@ -212,51 +212,51 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
                 break;
 
             case R.id.artist_sort_name:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NAME);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NAME);
                 (mAdapter.getFragment(1)).onResume();
                 invalidateOptionsMenu();
                 break;
 
             case R.id.artist_sort_no_of_albums:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NUMBER_OF_ALBUMS);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NUMBER_OF_ALBUMS);
                 (mAdapter.getFragment(1)).onResume();
                 invalidateOptionsMenu();
                 break;
 
             case R.id.artist_sort_no_of_songs:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NUMBER_OF_SONGS);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NUMBER_OF_SONGS);
                 (mAdapter.getFragment(1)).onResume();
                 invalidateOptionsMenu();
                 break;
 
             case R.id.artist_sort_type:
-                if (PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
-                    PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.DESCENDING);
+                if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.DESCENDING);
                 } else {
-                    PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING);
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING);
                 }
                 (mAdapter.getFragment(1)).onResume();
                 invalidateOptionsMenu();
                 break;
 
             case R.id.genre_sort_name:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_NAME);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_NAME);
                 (mAdapter.getFragment(3)).onResume();
                 invalidateOptionsMenu();
                 break;
 
             case R.id.genre_sort_no_of_albums:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_NUMBER_OF_ALBUMS);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_NUMBER_OF_ALBUMS);
                 (mAdapter.getFragment(3)).onResume();
                 invalidateOptionsMenu();
                 break;
 
 
             case R.id.genre_sort_type:
-                if (PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
-                    PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.DESCENDING);
+                if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.DESCENDING);
                 } else {
-                    PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING);
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING);
                 }
                 (mAdapter.getFragment(3)).onResume();
                 invalidateOptionsMenu();

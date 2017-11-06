@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/licenses_about">
+
+        <Preference
+            android:key="preference_key_licenses"
+            android:title="@string/licenses"/>
+
+
+        <Preference
+            android:key="preference_key_contact_use"
+            android:title="@string/contact_us"/>
+        <!--
+
+                <CheckBoxPreference
+                    android:icon="@drawable/drawable_about"
+                    android:key="preference_key_crossfade_tracks"
+                    android:summary="@string/crossfade_tracks_txt"
+                    android:title="@string/crossfade_tracks"/>
+
+                <EditTextPreference
+                    android:icon="@drawable/drawable_about"
+                    android:key="preference_key_crossfade_tracks_duration"
+                    android:summary="@string/crossfade_duration_message"
+                    android:title="@string/crossfade_duration"/>
+        -->
+
+    </PreferenceCategory>
+</PreferenceScreen>

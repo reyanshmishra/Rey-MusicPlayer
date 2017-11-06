@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/music_library">
+        <!--    <Preference
+                android:key="preference_key_select_music_folders"
+                android:summary="@string/select_music_folder"
+                android:title="@string/select_music_folders"/>-->
+
+        <Preference
+            android:key="preference_key_rebuild_music_library"
+            android:summary="@string/rebuild_music_library_des"
+            android:title="@string/rebuild_music_library"/>
+
+        <ListPreference
+            android:entries="@array/scan_frequency_entries"
+            android:entryValues="@array/scan_frequency_values"
+            android:key="preference_key_scan_frequency"
+            android:defaultValue="5"
+            android:summary="@string/scan_frequency_desc"
+            android:title="@string/scan_frequency"/>
+    </PreferenceCategory>
+</PreferenceScreen>

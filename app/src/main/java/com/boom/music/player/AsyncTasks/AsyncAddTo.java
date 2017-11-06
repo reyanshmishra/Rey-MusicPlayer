@@ -56,7 +56,7 @@ public class AsyncAddTo extends AsyncTask<Void, Void, Boolean> {
             }
         } else {
             ArrayList<Song> songs = mApp.getDBAccessHelper().getQueue();
-            int pos = PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
+            int pos = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
             if (songs.size() == 0) {
                 return false;
             }

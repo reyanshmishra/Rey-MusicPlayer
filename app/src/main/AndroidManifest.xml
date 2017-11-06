@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".MusicService.MusicService">
+        <service android:name=".Services.MusicService">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON"/>
             </intent-filter>
@@ -76,6 +76,17 @@
             android:name=".Search.SearchActivity"
             android:theme="@style/AppThemeSubActivity"/>
 
+
+        <activity
+            android:name=".Setting.SettingActivity"
+            android:parentActivityName=".LauncherActivity.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LauncherActivity.MainActivity"/>
+        </activity>
+
+
         <receiver android:name=".BroadcastReceivers.NotificationBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.boom.music.player.action.PAUSE"/>
@@ -112,14 +123,6 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent"/>
-        <activity
-            android:name=".Setting.SettingActivity"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".LauncherActivity.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LauncherActivity.MainActivity"/>
-        </activity>
 
         <activity
             android:name=".TagEditor.Id3TagEditorActivity"

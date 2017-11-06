@@ -92,7 +92,7 @@ public class FolderFragment extends Fragment implements View.OnClickListener, Mu
         mRecyclerView.setAdapter(mFolderAdapter);
 
         mFolderStateMap = new HashMap<>();
-        rootDir = PreferencesHelper.getInstance(Common.getInstance()).getString(PreferencesHelper.Key.PREVIOUS_ROOT_DIR, Environment.getExternalStorageDirectory().getPath());
+        rootDir = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.PREVIOUS_ROOT_DIR, Environment.getExternalStorageDirectory().getPath());
         currentDir = rootDir;
         getDir(currentDir, null);
         mRecyclerView.addOnScrollListener(new HidingScrollListener() {
@@ -202,7 +202,7 @@ public class FolderFragment extends Fragment implements View.OnClickListener, Mu
         } else if (mFolderStateMap.containsKey(dirPath)) {
             mLayoutManager.onRestoreInstanceState(mFolderStateMap.get(dirPath));
         }
-        PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.PREVIOUS_ROOT_DIR, dirPath);
+        PreferencesHelper.getInstance().put(PreferencesHelper.Key.PREVIOUS_ROOT_DIR, dirPath);
     }
 
     public void onClick(View view, int index) {

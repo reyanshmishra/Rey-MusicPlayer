@@ -112,14 +112,14 @@ public class NowPlayingBottomBarFragment extends Fragment {
                     if (mApp.isServiceRunning()) {
                         oldPosition = mApp.getService().getCurrentSongIndex();
                     } else {
-                        oldPosition = PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION);
+                        oldPosition = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION);
                     }
                     if (newPosition != -1)
                         if (mApp.isServiceRunning() && newPosition != oldPosition) {
-                            PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
+                            PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
                             mApp.getService().setSelectedSong(newPosition);
                         } else if (oldPosition != newPosition) {
-                            PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
+                            PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
                             mApp.getPlayBackStarter().playSongs(songs, newPosition);
                         }
                 }
@@ -193,7 +193,7 @@ public class NowPlayingBottomBarFragment extends Fragment {
                 mApp.getService().getMediaPlayer().seekTo(seekBarPosition);
                 mHandler.post(seekbarUpdateRunnable);
             } else {
-                PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, seekBarPosition);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, seekBarPosition);
                 mDurationTextView.setText(Common.convertMillisToMinsSecs(mSeekBar.getProgress()));
             }
         }
@@ -225,7 +225,7 @@ public class NowPlayingBottomBarFragment extends Fragment {
                 protected Void doInBackground(Void... params) {
                     songs = mApp.getDBAccessHelper().getQueue();
                     position = MusicUtils.getSongPosition();
-                    seekPosition = PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
+                    seekPosition = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
                     return null;
                 }
 
@@ -234,7 +234,7 @@ public class NowPlayingBottomBarFragment extends Fragment {
                     super.onPostExecute(aVoid);
                     if (songs.size() > 0) {
                         mNowPlayingBottomBarAdapter.updateData(songs);
-                        mSeekBar.setMax(PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.SONG_TOTAL_SEEK_DURATION, 0));
+                        mSeekBar.setMax(PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.SONG_TOTAL_SEEK_DURATION, 0));
                         mSeekBar.setProgress(seekPosition);
                         mRecyclerView.scrollToPosition(position);
                         mDurationTextView.setText(Common.convertMillisToMinsSecs(mSeekBar.getProgress()));

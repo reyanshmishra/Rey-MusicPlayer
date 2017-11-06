@@ -94,13 +94,11 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-safeguard" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-resources" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/prebuild" />
@@ -158,8 +156,8 @@
     <orderEntry type="library" name="commons-io:commons-io:2.4@jar" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-gcm-11.0.1" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-dynamic-links-11.0.1" level="project" />
-    <orderEntry type="library" name="com.android.support:animated-vector-drawable-25.3.1" level="project" />
     <orderEntry type="library" name="io.reactivex.rxjava2:rxandroid-2.0.1" level="project" />
+    <orderEntry type="library" name="com.android.support:animated-vector-drawable-25.3.1" level="project" />
     <orderEntry type="library" name="com.squareup.okhttp3:okhttp:3.6.0@jar" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-instantapps-11.0.1" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-25.3.1" level="project" />
@@ -196,11 +194,12 @@
     <orderEntry type="library" name="__local_aars__:/Users/reyansh/Library/Android/sdk/build-tools/26.0.2/renderscript/lib/renderscript-v8.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-11.0.1" level="project" />
     <orderEntry type="library" name="io.reactivex.rxjava2:rxjava:2.0.7@jar" level="project" />
+    <orderEntry type="library" name="com.google.code.findbugs:jsr305:3.0.1@jar" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-database-11.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="junit:junit:4.12@jar" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-analytics-11.0.1" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-clearcut-11.0.1" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-config-11.0.1" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-clearcut-11.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-nearby-11.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-cast-11.0.1" level="project" />
     <orderEntry type="library" name="com.github.Triggertrap:SeekArc-v1.1" level="project" />
@@ -212,6 +211,7 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-auth-base-11.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-safetynet-11.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-maps-11.0.1" level="project" />
+    <orderEntry type="library" name="de.psdev.licensesdialog:licensesdialog-1.8.3" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-tagmanager-api-11.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-location-11.0.1" level="project" />
     <orderEntry type="library" name="com.squareup.okhttp:okhttp:2.3.0@jar" level="project" />

@@ -80,6 +80,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String REVERB = "eq_reverb";
     public static final String VOLUME = "eq_volume";
 
+    public static final String FILE_DIRECTORY_TABLE = "FileDirectoryTable";
 
     /**
      * Genre table and columns.
@@ -708,8 +709,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ArrayList<Genre> genres = new ArrayList<>();
 
         String query = "SELECT * FROM " + GENRES_TABLE + " ORDER BY " +
-                PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.GENRE_SORT_ORDER, GENRE_NAME)
-                + PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING);
+                PreferencesHelper.getInstance().getString(PreferencesHelper.Key.GENRE_SORT_ORDER, GENRE_NAME)
+                + PreferencesHelper.getInstance().getString(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING);
 
         Cursor cursor = getDatabase().rawQuery(query, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -746,8 +747,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public ArrayList<Artist> getAllArtist() {
         ArrayList<Artist> artists = new ArrayList<>();
         String query = "SELECT * FROM " + ARTIST_TABLE + " ORDER BY " +
-                PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NAME)
-                + PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING);
+                PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NAME)
+                + PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING);
         Cursor cursor = getDatabase().rawQuery(query, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -770,8 +771,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ArrayList<Artist> artists = new ArrayList<>();
         String query = "SELECT * FROM " + ARTIST_TABLE + " WHERE " + ARTIST_NAME + " LIKE '%" + name + "%'"
                 + " ORDER BY " +
-                PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NAME)
-                + PreferencesHelper.getInstance(mContext).getString(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING);
+                PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NAME)
+                + PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING);
         Cursor cursor = getDatabase().rawQuery(query, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -790,10 +791,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void updateArtistAlbumArt(String artistId, String artistArtUrl) {
+    public void updateArtistAlbumArt(long artistId, String artistArtUrl) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ARTIST_ALBUM_ART, artistArtUrl);
-        getDatabase().update(ARTIST_TABLE, contentValues, ARTIST_ID + "= ?", new String[]{artistId});
+        getDatabase().update(ARTIST_TABLE, contentValues, ARTIST_ID + "= ?", new String[]{"" + artistId});
     }
 
     public void updateGenreTable(String genreId) {

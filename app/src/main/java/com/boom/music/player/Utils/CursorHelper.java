@@ -2,16 +2,20 @@ package com.boom.music.player.Utils;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
 import com.boom.music.player.Common;
 import com.boom.music.player.Database.DataBaseHelper;
+import com.boom.music.player.Interfaces.OnProgressUpdate;
 import com.boom.music.player.Models.Album;
 import com.boom.music.player.Models.Song;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -77,7 +81,7 @@ public class CursorHelper {
             sortBy = MediaStore.Audio.Media.DEFAULT_SORT_ORDER;
         } else if (from.equalsIgnoreCase("PLAYLISTS")) {
             if (selectionCondition.equalsIgnoreCase("-1")) {
-                int x = PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1) * (3600 * 24 * 7);
+                int x = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1) * (3600 * 24 * 7);
                 selection = MediaStore.MediaColumns.DATE_ADDED + ">" + (System.currentTimeMillis() / 1000 - x) + " AND is_music=1";
                 sortBy = MediaStore.Audio.Media.DATE_ADDED + " DESC";
                 uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -94,8 +98,8 @@ public class CursorHelper {
         } else if (from.equalsIgnoreCase("SONGS")) {
             selection = "is_music=1 AND title != ''";
             uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-            sortBy = PreferencesHelper.getInstance(Common.getInstance()).getString(PreferencesHelper.Key.SONG_SORT_ORDER, MediaStore.Audio.Media.DEFAULT_SORT_ORDER) +
-                    PreferencesHelper.getInstance(mApp).getString(PreferencesHelper.Key.SONG_SORT_TYPE, " ASC");
+            sortBy = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.SONG_SORT_ORDER, MediaStore.Audio.Media.DEFAULT_SORT_ORDER) +
+                    PreferencesHelper.getInstance().getString(PreferencesHelper.Key.SONG_SORT_TYPE, " ASC");
         }
 
 
@@ -154,8 +158,8 @@ public class CursorHelper {
 
     public static ArrayList<Album> getAlbumsList() {
 
-        String sort = PreferencesHelper.getInstance(Common.getInstance()).getString(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT)
-                + PreferencesHelper.getInstance(Common.getInstance()).getString(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING);
+        String sort = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT)
+                + PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING);
 
         String[] columns = {
                 MediaStore.Audio.Albums._ID,
@@ -207,49 +211,25 @@ public class CursorHelper {
     }
 
     public static Cursor makeAlbumCursor(Context context, String selection, String[] paramArrayOfString) {
-        String sort = PreferencesHelper.getInstance(context).getString(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT)
-                + PreferencesHelper.getInstance(context).getString(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING);
+        String sort = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT)
+                + PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING);
         Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, new String[]{
                 "_id", "album", "artist", "album_art"}, selection, paramArrayOfString, sort);
         return cursor;
     }
 
-    private static void saveEQPresets(Common mApp) {
-        Cursor eqPresetsCursor = mApp.getDBAccessHelper().getAllEQPresets();
 
-        //Check if this is the first startup (eqPresetsCursor.getCount() will be 0).
-        if (eqPresetsCursor != null && eqPresetsCursor.getCount() == 0) {
-            mApp.getDBAccessHelper().addNewEQPreset("Flat", 16, 16, 16, 16, 16, 16, 16, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Bass Only", 31, 31, 31, 0, 0, 0, 31, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Treble Only", 0, 0, 0, 31, 31, 31, 0, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Rock", 16, 18, 16, 17, 19, 20, 22, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Grunge", 13, 16, 18, 19, 20, 17, 13, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Metal", 12, 16, 16, 16, 20, 24, 16, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Dance", 14, 18, 20, 17, 16, 20, 23, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Country", 16, 16, 18, 20, 17, 19, 20, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Jazz", 16, 16, 18, 18, 18, 16, 20, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Speech", 14, 16, 17, 14, 13, 15, 16, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Classical", 16, 18, 18, 16, 16, 17, 18, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Blues", 16, 18, 19, 20, 17, 18, 16, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Opera", 16, 17, 19, 20, 16, 24, 18, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Swing", 15, 16, 18, 20, 18, 17, 16, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("Acoustic", 17, 18, 16, 19, 17, 17, 14, (short) 0, (short) 0, (short) 0);
-            mApp.getDBAccessHelper().addNewEQPreset("New Age", 16, 19, 15, 18, 16, 16, 18, (short) 0, (short) 0, (short) 0);
-        }
-        //Close the cursor.
-        if (eqPresetsCursor != null)
-            eqPresetsCursor.close();
-    }
-
-
-    public static Boolean buildMusicLibrary() {
+    public static Boolean buildMusicLibrary(OnProgressUpdate onProgressUpdate) {
+        int progress = 0;
         Common mApp = (Common) Common.getInstance().getApplicationContext();
-        if (!PreferencesHelper.getInstance(Common.getInstance()).getBoolean(PreferencesHelper.Key.REBUILD_LIBRARY, true))
+        if (shouldBeScanned()) {
+        } else {
             return false;
+        }
 
         try {
             //Query to filter out the genre with no songs in them.
-            CursorHelper.saveEQPresets(mApp);
+            saveEQPresets(mApp);
             String query = "_id in (select genre_id from audio_genres_map where audio_id in (select _id from audio_meta where is_music != 0))";
 
             //Initialize the database transaction manually (improves performance).
@@ -274,6 +254,8 @@ public class CursorHelper {
 
             try {
                 mApp.getDBAccessHelper().getWritableDatabase().delete(DataBaseHelper.GENRES_TABLE, null, null);
+                mApp.getDBAccessHelper().getWritableDatabase().delete(DataBaseHelper.FILE_DIRECTORY_TABLE, null, null);
+
                 if (cursor != null && cursor.moveToFirst()) {
                     do {
                         ContentValues genre = new ContentValues();
@@ -308,6 +290,9 @@ public class CursorHelper {
                 mApp.getDBAccessHelper().getWritableDatabase().delete(DataBaseHelper.ARTIST_TABLE, null, null);
 
                 if (artistCursor != null && artistCursor.moveToFirst()) {
+                    if (onProgressUpdate != null)
+                        onProgressUpdate.maxProgress(artistCursor.getCount());
+                    String path = new File(Common.getInstance().getCacheDir(), "artistThumbnails").getAbsolutePath() + "/";
                     do {
                         ContentValues artist = new ContentValues();
 
@@ -316,24 +301,29 @@ public class CursorHelper {
                         artist.put(DataBaseHelper.NO_OF_TRACKS_BY_ARTIST, artistCursor.getString(artistCursor.getColumnIndex(MediaStore.Audio.Artists.NUMBER_OF_TRACKS)));
                         artist.put(DataBaseHelper.NO_OF_ALBUMS_BY_ARTIST, artistCursor.getString(artistCursor.getColumnIndex(MediaStore.Audio.Artists.NUMBER_OF_ALBUMS)));
 
-                        ArrayList<Album> albums = CursorHelper.getAlbumsForSelection("ARTIST", artistCursor.getString(artistCursor.getColumnIndex(MediaStore.Audio.Artists._ID)));
+                        ArrayList<Album> albums = getAlbumsForSelection("ARTIST", artistCursor.getString(artistCursor.getColumnIndex(MediaStore.Audio.Artists._ID)));
 
                         if (albums != null && albums.size() > 0) {
-                            artist.put(DataBaseHelper.ARTIST_ALBUM_ART, MusicUtils.getAlbumArtUri(albums.get(0)._Id).toString());
+                            File cacheFile = new File(path + artistCursor.getString(artistCursor.getColumnIndex(MediaStore.Audio.Artists._ID)));
+                            if (cacheFile.exists()) {
+                                artist.put(DataBaseHelper.ARTIST_ALBUM_ART, "file://" + cacheFile.getAbsolutePath());
+                            } else {
+                                artist.put(DataBaseHelper.ARTIST_ALBUM_ART, MusicUtils.getAlbumArtUri(albums.get(0)._Id).toString());
+                            }
                         }
 
                         mApp.getDBAccessHelper().getWritableDatabase().insert(DataBaseHelper.ARTIST_TABLE, null, artist);
-
+                        if (onProgressUpdate != null)
+                            onProgressUpdate.onProgressed(progress++);
                     } while (artistCursor.moveToNext());
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
                 Logger.log("CAUSE " + e.getCause());
             } finally {
                 mApp.getDBAccessHelper().getWritableDatabase().setTransactionSuccessful();
                 mApp.getDBAccessHelper().getWritableDatabase().endTransaction();
-                PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.REBUILD_LIBRARY, false);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.FIRST_LAUNCH, false);
             }
 
             if (cursor != null) {
@@ -347,9 +337,57 @@ public class CursorHelper {
         }
     }
 
+    private static void saveEQPresets(Common mApp) {
+        Cursor eqPresetsCursor = mApp.getDBAccessHelper().getAllEQPresets();
+
+        //Check if this is the first startup (eqPresetsCursor.getCount() will be 0).
+        if (eqPresetsCursor != null && eqPresetsCursor.getCount() == 0) {
+            mApp.getDBAccessHelper().addNewEQPreset("Flat", 16, 16, 16, 16, 16, 16, 16, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Bass Only", 31, 31, 31, 0, 0, 0, 31, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Treble Only", 0, 0, 0, 31, 31, 31, 0, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Rock", 16, 18, 16, 17, 19, 20, 22, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Grunge", 13, 16, 18, 19, 20, 17, 13, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Metal", 12, 16, 16, 16, 20, 24, 16, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Dance", 14, 18, 20, 17, 16, 20, 23, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Country", 16, 16, 18, 20, 17, 19, 20, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Jazz", 16, 16, 18, 18, 18, 16, 20, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Speech", 14, 16, 17, 14, 13, 15, 16, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Classical", 16, 18, 18, 16, 16, 17, 18, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Blues", 16, 18, 19, 20, 17, 18, 16, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Opera", 16, 17, 19, 20, 16, 24, 18, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Swing", 15, 16, 18, 20, 18, 17, 16, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("Acoustic", 17, 18, 16, 19, 17, 17, 14, (short) 0, (short) 0, (short) 0);
+            mApp.getDBAccessHelper().addNewEQPreset("New Age", 16, 19, 15, 18, 16, 16, 18, (short) 0, (short) 0, (short) 0);
+
+
+        }
+        //Close the cursor.
+        if (eqPresetsCursor != null)
+            eqPresetsCursor.close();
+    }
+
+    private static boolean shouldBeScanned() {
+        if (PreferencesHelper.getInstance().getBoolean(PreferencesHelper.Key.FIRST_LAUNCH, true)) {
+            return true;
+        } else {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Common.getInstance());
+            int scanAt = Integer.parseInt(sharedPreferences.getString("preference_key_scan_frequency", "5"));
+            int launchCount = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.LAUNCH_COUNT, 0);
+            if (scanAt == 5) {
+                return false;
+            } else if (scanAt == 0) {
+                return true;
+            } else if (scanAt == launchCount) {
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.LAUNCH_COUNT, 0);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 
     public static Cursor makeArtistCursor(Context context, String selection, String[] paramArrayOfString) {
-        final String artistSortOrder = PreferencesHelper.getInstance(context).getString(PreferencesHelper.Key.ARTIST_SORT_ORDER);
+        final String artistSortOrder = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_ORDER);
         Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, new String[]{
                 "_id",
                 "artist",

@@ -1,7 +1,6 @@
-package com.boom.music.player.MusicService;
+package com.boom.music.player.Services;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
@@ -10,6 +9,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.audiofx.PresetReverb;
@@ -19,14 +19,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.view.View;
-import android.widget.RemoteViews;
+import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
 import com.boom.music.player.AppWidget.SmallWidgetProvider;
@@ -51,14 +50,12 @@ import java.util.Random;
 public class MusicService extends Service {
 
 
-    /**
-     * Notification Id
-     */
     public static final int NOTIFICATION_ID = 1056;
 
 
     private boolean mMediaPlayerPrepared = false;
     private Uri mSongUri;
+
 
     /**
      * On ServicePrepared listener.
@@ -66,27 +63,22 @@ public class MusicService extends Service {
     private PrepareServiceListener mPrepareServiceListener;
 
 
-    /**
-     * Song position.
-     */
     private int mSongPos = 0;
     private Bundle mBundle;
 
+
+    /*Let the system know we are playing music BIAAATCH*/
 
     private Intent mMediaIntent;
     private Intent mPlayPauseIntent;
 
 
-    //Current context.
     private Context mContext;
-
-
     private MediaPlayer mMediaPlayer;
+    private MediaPlayer mMediaPlayer1;
 
 
     private PowerManager.WakeLock mWakeLock;
-
-    //Equalizer to manage the equalizer.
     private EqualizerHelper mEqualizerHelper;
 
 
@@ -99,9 +91,6 @@ public class MusicService extends Service {
 
     private Handler mHandler;
     private Common mApp;
-    private boolean notification = true;
-    private NotificationCompat.Builder mNotificationBuilder;
-
 
     /**
      * First time playing flag
@@ -110,10 +99,9 @@ public class MusicService extends Service {
     private boolean mPlayingForFirstTime = true;
 
 
-    //Broadcast receiver to catch the headphone buttons clicks.
     private HeadsetNotificationBroadcast mHeadsetNotificationBroadcast;
 
-    //Broadcast receiver to catch the plugin and out of the headset.
+    //Headset plug receiver.
     private HeadsetPlugBroadcastReceiver mHeadsetPlugReceiver;
     private Service mService;
 
@@ -139,11 +127,8 @@ public class MusicService extends Service {
     private ArrayList<Song> mOriginalSongList;
     private MediaSessionCompat mMediaSession;
 
-    //Song data helper class which hands the data related to the song.
     private SongDataHelper mSongDataHelper;
 
-
-    //When audio can be ducked eg. a notification comes the volume will go down  a lil bit and come to original volume.
     private Runnable duckUpVolumeRunnable = new Runnable() {
 
         @Override
@@ -158,8 +143,6 @@ public class MusicService extends Service {
         }
 
     };
-
-
     private Runnable duckDownVolumeRunnable = new Runnable() {
 
         @Override
@@ -172,7 +155,6 @@ public class MusicService extends Service {
         }
     };
 
-    //Broadcast to for other apps like MusixMatch of the current position and data of the song.
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
             sendMediaIntentData();
@@ -182,22 +164,22 @@ public class MusicService extends Service {
 
 
     /**
-     * Logic to when one song is done with playing what to do next when shuffle mode is on when repeat is on
-     * different states.
+     * When MediaPlayer is done playing music.
      */
 
     MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
 
-        PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
 
-        if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
             if (mSongPos < mListSongs.size() - 1) {
                 mSongPos++;
                 startSong();
             } else {
+                mSongPos = 0;
+                startSong();
                 stopSelf();
             }
-        } else if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
             if (mSongPos < mListSongs.size() - 1) {
                 mSongPos++;
                 startSong();
@@ -205,13 +187,11 @@ public class MusicService extends Service {
                 mSongPos = 0;
                 startSong();
             }
-        } else if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
             startSong();
         }
     };
 
-
-    //Audio focus gain and loss when call or messages comes up.
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -252,7 +232,7 @@ public class MusicService extends Service {
 
     };
 
-    //Runnable to check if the media player is prepared and it then play.
+
     private Runnable startMediaPlayerIfPrepared = new Runnable() {
         @Override
         public void run() {
@@ -274,7 +254,7 @@ public class MusicService extends Service {
         public void onPrepared(MediaPlayer mp) {
             mMediaPlayerPrepared = true;
             mMediaPlayer.setOnCompletionListener(mOnCompletionListener);
-            mMediaPlayer.seekTo(PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION));
+            mMediaPlayer.seekTo(PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION));
             if (mPlayingForFirstTime) {
                 mPlayingForFirstTime = false;
             }
@@ -455,7 +435,7 @@ public class MusicService extends Service {
                 e.printStackTrace();
             }
 
-            if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.A_B_REPEAT) == Constants.A_B_REPEAT) {
+            if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.A_B_REPEAT) == Constants.A_B_REPEAT) {
                 mHandler.postDelayed(checkABRepeatRange, 100);
             }
 
@@ -463,16 +443,12 @@ public class MusicService extends Service {
 
     };
 
-
-    /**
-     * Pretty obvious overriden method.
-     */
-
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = this;
         mService = this;
+
 
         mApp = (Common) getApplicationContext();
         mApp.setIsServiceRunning(true);
@@ -483,11 +459,9 @@ public class MusicService extends Service {
         mShuffledSongList = new ArrayList<>(mListSongs.size());
         mOriginalSongList = new ArrayList<>(mListSongs.size());
 
-        //Set the previously played position of the song.
-        mSongPos = PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
 
-        //Create two clones of the list on for normal play other for shuffle.
-
+        mSongPos = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
+        //Collections.copy(mShuffledSongList, mListSongs);
         for (Song song : mListSongs) {
             try {
                 mOriginalSongList.add((Song) song.clone());
@@ -497,13 +471,14 @@ public class MusicService extends Service {
                 Logger.log(e.getMessage());
             }
         }
-        //Check if shuffle is on add shuffle version of the current queue.
-        if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF) == Constants.SHUFFLE_ON) {
+
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF) == Constants.SHUFFLE_ON) {
             setShuffledOne();
         }
 
 
         mHandler = new Handler();
+
 
         /**
          *Play pause intent to display the correct UI throughout the entire app.
@@ -523,14 +498,13 @@ public class MusicService extends Service {
         registerHeadsetPlugReceiver();
 
         /**
-         *Init the leader of the app "MediaPlayer"
+         *Init the king
          */
-
 
         initPlayer();
 
         /**
-         *This is equalizer its pain in a** to manage.
+         *This is equalizer its pain in ass to manage.
          */
 
         initAudioFX();
@@ -553,38 +527,79 @@ public class MusicService extends Service {
         mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
         mAudioManagerHelper = new AudioManagerHelper();
 
-        //MediaSession it took a lot of time to figure out how to use it and still not so clear.
         mMediaSession = new MediaSessionCompat(getApplicationContext(), "AudioPlayer", new ComponentName(this, HeadsetNotificationBroadcast.class), null);
         mMediaSession.setActive(true);
+        mMediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
 
+        Intent intent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        PendingIntent playPauseTrackPendingIntent = PendingIntent.getBroadcast(mContext, 56, intent, 0);
+        mMediaSession.setMediaButtonReceiver(playPauseTrackPendingIntent);
+        mMediaSession.setCallback(new MediaSessionCompat.Callback() {
+            @Override
+            public void onPlay() {
+                super.onPlay();
+                playPauseSong();
+            }
+
+            @Override
+            public void onPause() {
+                super.onPause();
+                playPauseSong();
+            }
+
+            @Override
+            public void onSkipToNext() {
+                super.onSkipToNext();
+            }
+
+            @Override
+            public void onSkipToPrevious() {
+                super.onSkipToPrevious();
+            }
+        });
 
         mMediaSession.setPlaybackState(new PlaybackStateCompat.Builder()
                 .setState(PlaybackStateCompat.STATE_PLAYING, 2, 1)
+                .setActions(PlaybackStateCompat.ACTION_FAST_FORWARD |
+                        PlaybackStateCompat.ACTION_PAUSE |
+                        PlaybackStateCompat.ACTION_PLAY |
+                        PlaybackStateCompat.ACTION_PLAY_PAUSE |
+                        PlaybackStateCompat.ACTION_SKIP_TO_NEXT |
+                        PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS |
+                        PlaybackStateCompat.ACTION_STOP)
                 .build());
     }
 
-    //Here you will receive some of the button strokes and broadcasts.
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        setPrepareServiceListener(mApp.getPlayBackStarter());
-        getPrepareServiceListener().onServiceRunning(this);
+        if (intent != null && intent.getAction() != null) {
+            handleIntent(intent);
+        } else {
+            setPrepareServiceListener(mApp.getPlayBackStarter());
+            getPrepareServiceListener().onServiceRunning(this);
+        }
+
         return START_NOT_STICKY;
     }
 
-    /**
-     * Get the current media player.
-     *
-     * @return {@link MediaPlayer}
-     */
+    private void handleIntent(Intent intent) {
+        if (intent.getAction().equalsIgnoreCase(Constants.ACTION_PAUSE)) {
+            playPauseSong();
+            mHandler.postDelayed(mStopServiceRunnable, 300000);
+        } else if (intent.getAction().equalsIgnoreCase(Constants.ACTION_NEXT)) {
+            nextSong();
+        } else if (intent.getAction().equalsIgnoreCase(Constants.ACTION_PREVIOUS)) {
+            previousSong();
+        }
+    }
+
+    Runnable mStopServiceRunnable = () -> stopSelf();
+
 
     public MediaPlayer getMediaPlayer() {
         return mMediaPlayer;
     }
 
-
-    /**
-     * Get the audio focus before playing the song.
-     */
     private boolean requestAudioFocus() {
         int result = mAudioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
         if (result != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
@@ -621,21 +636,23 @@ public class MusicService extends Service {
     }
 
     public void headsetDisconnected() {
-        if (mMediaPlayer.isPlaying()) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean pauseOnUnplug = sharedPreferences.getBoolean("preference_key_pause_on_unplug", true);
+        if (pauseOnUnplug && mMediaPlayer.isPlaying()) {
             stopPlaying();
         }
     }
 
     public void headsetIsConnected() {
         if (!mMediaPlayer.isPlaying() && !mPlayingForFirstTime) {
-            startPlaying();
+//            startPlaying();
         }
     }
 
 
     private void initAudioFX() {
         try {
-            mEqualizerHelper = new EqualizerHelper(mMediaPlayer.getAudioSessionId(), PreferencesHelper.getInstance(mContext).getBoolean(PreferencesHelper.Key.IS_EQUALIZER_ACTIVE, false));
+            mEqualizerHelper = new EqualizerHelper(mMediaPlayer.getAudioSessionId(), PreferencesHelper.getInstance().getBoolean(PreferencesHelper.Key.IS_EQUALIZER_ACTIVE, false));
         } catch (UnsupportedOperationException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -648,6 +665,8 @@ public class MusicService extends Service {
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer1 = new MediaPlayer();
+
         if (mListSongs.size() == 0) return;
         startSong();
     }
@@ -662,56 +681,37 @@ public class MusicService extends Service {
         } catch (Exception e) {
             return;
         }
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(final Void... unused) throws NullPointerException {
 
+        if (mMediaPlayer == null) return;
 
-                if (mMediaPlayer == null) return null;
-                mMediaPlayer.reset();
+        mMediaPlayer.reset();
 
-                if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG)
-                    mMediaPlayer.setLooping(true);
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG)
+            mMediaPlayer.setLooping(true);
 
-                try {
-                    SongDataHelper songDataHelper = new SongDataHelper();
-                    setSongDataHelper(songDataHelper);
-                    songDataHelper.populateSongData(mContext, null, mSongPos);
-                    mApp.getDBAccessHelper().insertSongCount(mListSongs.get(mSongPos));
-                    mApp.getDBAccessHelper().addToRecentlyPlayed(mListSongs.get(mSongPos));
+        try {
+            SongDataHelper songDataHelper = new SongDataHelper();
+            setSongDataHelper(songDataHelper);
+            songDataHelper.populateSongData(mContext, null, mSongPos);
+            mApp.getDBAccessHelper().insertSongCount(mListSongs.get(mSongPos));
+            mApp.getDBAccessHelper().addToRecentlyPlayed(mListSongs.get(mSongPos));
 
-
-                    mMediaPlayer.setDataSource(mContext, mSongUri);
-                    mMediaPlayer.setOnPreparedListener(onPreparedListener);
-                    mMediaPlayer.setOnErrorListener(onErrorListener);
-                    mMediaPlayer.prepareAsync();
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                } catch (IllegalStateException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        }.execute();
+            mMediaPlayer.setDataSource(mContext, mSongUri);
+            mMediaPlayer.setOnPreparedListener(onPreparedListener);
+            mMediaPlayer.setOnErrorListener(onErrorListener);
+            mMediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
-    /**
-     * Notification updater.
-     */
-
     public void updateNotification() {
-        if (notification) {
-            startForeground(NOTIFICATION_ID, buildNotification());
-            notification = false;
-        } else {
-            Notification notification = buildNotification();
-            NotificationManager notificationManager = (NotificationManager) mApp.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(NOTIFICATION_ID, notification);
-        }
+        startForeground(NOTIFICATION_ID, mediaStyleNotification());
+        mHandler.removeCallbacks(mStopServiceRunnable);
 
         updateWidgets();
         mMediaSession.setMetadata(new MediaMetadataCompat.Builder()
@@ -723,9 +723,6 @@ public class MusicService extends Service {
     }
 
 
-    /**
-     * Widgets updater.
-     */
     public void updateWidgets() {
         Intent smallWidgetIntent = new Intent(mContext, SmallWidgetProvider.class);
         smallWidgetIntent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
@@ -734,11 +731,6 @@ public class MusicService extends Service {
         sendBroadcast(smallWidgetIntent);
     }
 
-    public void stopNotify() {
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(NOTIFICATION_ID);
-        stopSelf();
-    }
 
     /**
      * Every time you start playing ask for the AudioFocus or else it would start playing with and you would be furious.
@@ -760,7 +752,6 @@ public class MusicService extends Service {
         updateNotification();
     }
 
-
     public void stopPlaying() {
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
@@ -769,6 +760,7 @@ public class MusicService extends Service {
         }
         sendBroadcast(mPlayPauseIntent);
         updateNotification();
+        stopForeground(false);
     }
 
     public void playPauseSong() {
@@ -776,20 +768,18 @@ public class MusicService extends Service {
             startPlaying();
         } else {
             stopPlaying();
+            stopForeground(false);
         }
     }
 
-    /**
-     * Save the current queue while stopping the service.
-     */
     private void saveQueue() {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 mApp.getDBAccessHelper().saveQueue(mListSongs);
-                PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.CURRENT_SONG_POSITION, mSongPos);
-                PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, mMediaPlayer.getCurrentPosition());
-                PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.SONG_TOTAL_SEEK_DURATION, mMediaPlayer.getDuration());
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.CURRENT_SONG_POSITION, mSongPos);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, mMediaPlayer.getCurrentPosition());
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_TOTAL_SEEK_DURATION, mMediaPlayer.getDuration());
 
                 mMediaPlayer.pause();
                 if (mMediaPlayer != null) {
@@ -800,6 +790,7 @@ public class MusicService extends Service {
                 return null;
             }
         }.execute();
+
     }
 
 
@@ -830,7 +821,6 @@ public class MusicService extends Service {
         sendBroadcast(mMediaIntent);
     }
 
-    //Go to next song.
     public void nextSong() {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -850,7 +840,6 @@ public class MusicService extends Service {
 
     }
 
-    //Go to previous song.
     public void previousSong() {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -874,7 +863,7 @@ public class MusicService extends Service {
 
     }
 
-    //Register the headset plug receiver.
+
     public void registerHeadsetPlugReceiver() {
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         mHeadsetPlugReceiver = new HeadsetPlugBroadcastReceiver();
@@ -884,7 +873,6 @@ public class MusicService extends Service {
     public ArrayList<Song> getSongList() {
         return mListSongs;
     }
-
 
     public void setSongList(ArrayList<Song> listSong) {
         mListSongs.clear();
@@ -918,13 +906,12 @@ public class MusicService extends Service {
         mSongPos = currentSongIndex;
     }
 
-
-    //Clear things up.
     @Override
     public void onDestroy() {
+
         saveQueue();
         mApp.setIsServiceRunning(false);
-        mApp.getService().clearABRepeatRange();
+        clearABRepeatRange();
         updateWidgets();
 
         sendBroadcast(mPlayPauseIntent);
@@ -948,8 +935,7 @@ public class MusicService extends Service {
         mAudioManagerHelper.setHasAudioFocus(false);
         mAudioManager.abandonAudioFocus(audioFocusChangeListener);
 
-        stopNotify();
-
+        //stopNotify();
         mApp.setService(null);
     }
 
@@ -972,93 +958,41 @@ public class MusicService extends Service {
         mListSongs.addAll(mOriginalSongList);
     }
 
-    private Notification buildNotification() {
+    private Notification mediaStyleNotification() {
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext());
-        Intent intent;
-        PendingIntent pendingIntent;
-        mNotificationBuilder = new NotificationCompat.Builder(mContext);
-        mNotificationBuilder.setOngoing(true);
-        mNotificationBuilder.setAutoCancel(false);
-        mNotificationBuilder.setSmallIcon(R.mipmap.small_launcher);
-        intent = new Intent();
-
-        pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-        notificationBuilder.setContentIntent(pendingIntent);
-
-        final RemoteViews notificationView = new RemoteViews(mContext.getPackageName(), R.layout.notification_custom_layout);
-        final RemoteViews expNotificationView = new RemoteViews(mContext.getPackageName(), R.layout.notification_custom_expanded_layout);
-
-
-        PendingIntent previousTrackPendingIntent = PendingIntent.getBroadcast(mContext, 0, new Intent(Constants.ACTION_PREVIOUS), 0);
-
-        notificationView.setOnClickPendingIntent(R.id.notification_base_previous, previousTrackPendingIntent);
-        expNotificationView.setOnClickPendingIntent(R.id.notification_base_previous, previousTrackPendingIntent);
-
-
-        PendingIntent playPauseTrackPendingIntent = PendingIntent.getBroadcast(mContext, 0, new Intent(Constants.ACTION_PAUSE), 0);
-        notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
-        expNotificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
-
-
-        PendingIntent nextTrackPendingIntent = PendingIntent.getBroadcast(mContext, 0, new Intent(Constants.ACTION_NEXT), 0);
-        notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
-        expNotificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
-
-
-        PendingIntent stopServicePendingIntent = PendingIntent.getBroadcast(mContext, 0, new Intent(Constants.ACTION_STOP), 0);
-        notificationView.setOnClickPendingIntent(R.id.notification_base_collapse, pendingIntent);
-        expNotificationView.setOnClickPendingIntent(R.id.notification_base_collapse, pendingIntent);
-
-
-        intent = new Intent(mContext, NowPlayingActivity.class);
+        Intent intent = new Intent(getApplicationContext(), NowPlayingActivity.class);
         intent.putExtra("LAUNCHED_FROM_NOTIFICATION", true);
-        pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-
-        expNotificationView.setOnClickPendingIntent(R.id.notification_base_image, pendingIntent);
-        notificationView.setOnClickPendingIntent(R.id.notification_base_image, pendingIntent);
-        mNotificationBuilder.setContentIntent(pendingIntent);
-
-        expNotificationView.setTextViewText(R.id.notification_expanded_base_line_one, getSongDataHelper().getTitle());
-        expNotificationView.setTextViewText(R.id.notification_expanded_base_line_two, getSongDataHelper().getArtist());
-        expNotificationView.setTextViewText(R.id.notification_expanded_base_line_three, getSongDataHelper().getAlbum());
-
-        if (mMediaPlayer.isPlaying()) {
-            notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_pause_light);
-            expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_pause_light);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+        int color = getSongDataHelper().getColor();
+        NotificationCompat.Action action;
+        if (!isPlayingMusic()) {
+            action = generateAction(R.drawable.btn_playback_play_light, "Play", Constants.ACTION_PAUSE);
         } else {
-            notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_play_light);
-            expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_play_light);
+            action = generateAction(R.drawable.btn_playback_pause_light, "Pase", Constants.ACTION_PAUSE);
         }
-        expNotificationView.setImageViewBitmap(R.id.notification_expanded_base_image, getSongDataHelper().getAlbumArt());
-        notificationView.setImageViewBitmap(R.id.notification_base_image, getSongDataHelper().getAlbumArt());
 
+        return new NotificationCompat.Builder(this)
 
-        notificationView.setTextViewText(R.id.notification_base_line_one, getSongDataHelper().getTitle());
-        notificationView.setTextViewText(R.id.notification_base_line_two, getSongDataHelper().getAlbum());
+                .addAction(generateAction(R.drawable.btn_playback_previous_light, "Previous", Constants.ACTION_PREVIOUS))
+                .addAction(action)
+                .addAction(generateAction(R.drawable.btn_playback_next_light, "Previous", Constants.ACTION_NEXT))
+                .setSmallIcon(R.mipmap.ic_music_file)
+                .setContentTitle(getSongDataHelper().getTitle())
+                .setContentIntent(pendingIntent)
+                .setContentText(getSongDataHelper().getAlbum())
+                .setLargeIcon(getSongDataHelper().getAlbumArt())
+                .setColor(color)
+                .setStyle(new NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(0, 1, 2)
+                        .setMediaSession(mMediaSession.getSessionToken()))
+                .build();
+    }
 
-        expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_collapse, stopServicePendingIntent);
-        notificationView.setOnClickPendingIntent(R.id.notification_base_collapse, stopServicePendingIntent);
-
-        expNotificationView.setViewVisibility(R.id.notification_expanded_base_previous, View.VISIBLE);
-        expNotificationView.setViewVisibility(R.id.notification_expanded_base_next, View.VISIBLE);
-
-        expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_play, playPauseTrackPendingIntent);
-        expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_next, nextTrackPendingIntent);
-        expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_previous, previousTrackPendingIntent);
-
-        notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
-        notificationView.setViewVisibility(R.id.notification_base_next, View.VISIBLE);
-
-        notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
-        notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
-        notificationView.setOnClickPendingIntent(R.id.notification_base_previous, previousTrackPendingIntent);
-
-        mNotificationBuilder.setContent(notificationView);
-        Notification notification = mNotificationBuilder.build();
-        notification.bigContentView = expNotificationView;
-        notification.flags = Notification.FLAG_FOREGROUND_SERVICE | Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
-        return notification;
+    private NotificationCompat.Action generateAction(int icon, String title, String intentAction) {
+        Intent intent = new Intent(getApplicationContext(), MusicService.class);
+        intent.setAction(intentAction);
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 1, intent, 0);
+        return new NotificationCompat.Action.Builder(icon, title, pendingIntent).build();
     }
 
 

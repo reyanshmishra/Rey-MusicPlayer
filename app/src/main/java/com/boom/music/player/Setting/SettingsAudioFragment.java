@@ -27,6 +27,7 @@ public class SettingsAudioFragment extends PreferenceFragment {
     public void onCreate(Bundle onSavedInstanceState) {
         super.onCreate(onSavedInstanceState);
         addPreferencesFromResource(R.xml.settings_audio);
+        ((SettingActivity) getActivity()).setToolbarTitle(getString(R.string.audio_settings));
     }
 
     @Override

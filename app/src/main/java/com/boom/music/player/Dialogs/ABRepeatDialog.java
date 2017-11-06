@@ -75,7 +75,7 @@ public class ABRepeatDialog extends DialogFragment {
         builder.setView(view);
 
         builder.setPositiveButton(R.string.repeat, (arg0, arg1) -> {
-            PreferencesHelper.getInstance(getActivity().getApplicationContext()).put(PreferencesHelper.Key.REPEAT_MODE, Constants.A_B_REPEAT);
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.A_B_REPEAT);
             mApp.getService().setRepeatSongRange(repeatPointA, repeatPointB);
             ((NowPlayingActivity) getActivity()).applyRepeatButton();
             dismiss();
@@ -92,7 +92,7 @@ public class ABRepeatDialog extends DialogFragment {
         currentSongDurationSecs = currentSongDurationMillis / 1000;
 
 
-        if (PreferencesHelper.getInstance(getActivity()).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.A_B_REPEAT) {
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.A_B_REPEAT) {
 
             repeatSongATime.setText(MusicUtils.convertMillisToMinsSecs(mApp.getService().getRepeatSongRangePointA()));
             repeatSongBTime.setText(MusicUtils.convertMillisToMinsSecs(mApp.getService().getRepeatSongRangePointB()));

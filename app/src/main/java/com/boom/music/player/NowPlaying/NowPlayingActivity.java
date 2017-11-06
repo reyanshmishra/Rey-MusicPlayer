@@ -244,25 +244,25 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
     View.OnClickListener onShuffleListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF) == Constants.SHUFFLE_OFF) {
+            if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF) == Constants.SHUFFLE_OFF) {
                 if (mApp.isServiceRunning()) {
                     mApp.getService().setShuffledOne();
                 } else {
                 }
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_ON);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_ON);
             } else {
                 if (mApp.isServiceRunning()) {
                     mApp.getService().setOriginalOne();
                 } else {
                 }
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF);
             }
             applyShuffleIcon();
         }
     };
 
     private void applyShuffleIcon() {
-        if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF) == Constants.SHUFFLE_OFF) {
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF) == Constants.SHUFFLE_OFF) {
             mShuffleButton.setImageResource(R.drawable.shuffle);
         } else {
             mShuffleButton.setImageResource(R.drawable.shuffle_on);
@@ -274,15 +274,15 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
         /**
          *Set repeat logic
          */
-        if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
-            PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_PLAYLIST);
-        } else if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
-            PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_SONG);
-        } else if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
-            PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF);
-        } else if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.A_B_REPEAT) {
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_PLAYLIST);
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_SONG);
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF);
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.A_B_REPEAT) {
             mApp.getService().clearABRepeatRange();
-            PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF);
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF);
         }
         applyRepeatButton();
     };
@@ -704,13 +704,13 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
      */
     public void applyRepeatButton() {
 
-        if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
             mRepeatButton.setImageResource(R.drawable.repeat_off);
-        } else if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
             mRepeatButton.setImageResource(R.drawable.repeat_once);
-        } else if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
             mRepeatButton.setImageResource(R.drawable.repeat);
-        } else if (PreferencesHelper.getInstance(mContext).getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.A_B_REPEAT) {
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.A_B_REPEAT) {
             mRepeatButton.setImageResource(R.drawable.repeat_a_b);
         }
     }
@@ -756,7 +756,7 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
             if (mApp.isServiceRunning())
                 mVelocityViewPager.setCurrentItem(mApp.getService().getCurrentSongIndex(), false);
             else {
-                int pos = PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
+                int pos = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
                 mVelocityViewPager.setCurrentItem(pos, false);
             }
 

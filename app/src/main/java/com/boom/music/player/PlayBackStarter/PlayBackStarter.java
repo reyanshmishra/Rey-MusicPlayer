@@ -6,7 +6,7 @@ import android.content.Intent;
 import com.boom.music.player.Common;
 import com.boom.music.player.Equalizer.EqualizerActivity;
 import com.boom.music.player.Models.Song;
-import com.boom.music.player.MusicService.MusicService;
+import com.boom.music.player.Services.MusicService;
 import com.boom.music.player.NowPlaying.NowPlayingActivity;
 import com.boom.music.player.Utils.Constants;
 import com.boom.music.player.Utils.PreferencesHelper;
@@ -57,17 +57,17 @@ public class PlayBackStarter implements MusicService.PrepareServiceListener {
                 mApp.getService().addSongsToQueue(mSongs);
                 break;
             case Constants.SHUFFLE_UP:
-                PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_ON);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_ON);
                 mApp.getService().setSongList(mSongs);
                 mApp.getService().setShuffledOne();
                 mApp.getService().setSelectedSong(0);
                 break;
             case Constants.PLAY_PAUSE_SONG:
-                PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
-                mApp.getService().setSelectedSong(PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0));
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
+                mApp.getService().setSelectedSong(PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0));
                 break;
             case Constants.PLAY_PAUSE_SONG_FROM_BOTTOM_BAR:
-                mApp.getService().setSelectedSong(PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0));
+                mApp.getService().setSelectedSong(PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0));
                 break;
             case Constants.PLAY_SONGS:
                 mApp.getService().setSongList(mSongs);
@@ -105,7 +105,7 @@ public class PlayBackStarter implements MusicService.PrepareServiceListener {
     public void playSongs(ArrayList<Song> songs, int position) {
         mSongs = songs;
         mPos = position;
-        PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
+        PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
         WHICH_CASE = Constants.PLAY_SONGS;
         if (!mApp.isServiceRunning()) {
             startService();
@@ -142,7 +142,7 @@ public class PlayBackStarter implements MusicService.PrepareServiceListener {
             mApp.getService().setSongList(mSongs);
             mApp.getService().setShuffledOne();
             mApp.getService().setSelectedSong(0);
-            PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_ON);
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_ON);
         }
     }
 

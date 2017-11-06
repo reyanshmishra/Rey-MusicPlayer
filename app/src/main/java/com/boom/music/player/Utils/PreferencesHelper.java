@@ -3,6 +3,8 @@ package com.boom.music.player.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.boom.music.player.Common;
+
 /*
  * A Singleton for managing your SharedPreferences.
  *
@@ -10,37 +12,41 @@ import android.content.SharedPreferences;
  * and choose the operating made that suits your needs, the default is
  * MODE_PRIVATE.
  *
- * IMPORTANT: The class is not thread safe. It should work fine in most 
+ * IMPORTANT: The class is not thread safe. It should work fine in most
  * circumstances since the write and read operations are fast. However
  * if you call edit for bulk updates and do not commit your changes
  * there is a possibility of data loss if a background thread has modified
  * preferences at the same time.
- * 
+ *
  * Usage:
- * 
- * int sampleInt = PreferencesHelper.getInstance(context).getInt(Key.SAMPLE_INT);
- * PreferencesHelper.getInstance(context).set(Key.SAMPLE_INT, sampleInt);
- * 
- * If PreferencesHelper.getInstance(Context) has been called once, you can
+ *
+ * int sampleInt = PreferencesHelper.getInstance().getInt(Key.SAMPLE_INT);
+ * PreferencesHelper.getInstance().set(Key.SAMPLE_INT, sampleInt);
+ *
+ * If PreferencesHelper.getInstance() has been called once, you can
  * simple use PreferencesHelper.getInstance() to save some precious line space.
  */
 public class PreferencesHelper {
 
     private static final String MUSIC_PLAYER_PREFERENCE = "MUSIC_PLAYER_PREFERENCES";
     private static PreferencesHelper sSharedPrefs;
+
+    public SharedPreferences getPref() {
+        return mPref;
+    }
+
     private SharedPreferences mPref;
     private SharedPreferences.Editor mEditor;
     private boolean mBulkUpdate = false;
-    private Object mRepeatMode;
 
 
     private PreferencesHelper(Context context) {
         mPref = context.getSharedPreferences(MUSIC_PLAYER_PREFERENCE, Context.MODE_PRIVATE);
     }
 
-    public static PreferencesHelper getInstance(Context context) {
+    public static PreferencesHelper getInstance() {
         if (sSharedPrefs == null) {
-            sSharedPrefs = new PreferencesHelper(context.getApplicationContext());
+            sSharedPrefs = new PreferencesHelper(Common.getInstance().getApplicationContext());
         }
         return sSharedPrefs;
     }
@@ -255,6 +261,11 @@ public class PreferencesHelper {
         PREVIOUS_ROOT_DIR,
         LAST_PRESET_NAME,
         SONG_TOTAL_SEEK_DURATION,
-        RECENTLY_ADDED_WEEKS, REBUILD_LIBRARY, GENRE_SORT_ORDER, GENRE_SORT_TYPE, IS_EQUALIZER_ACTIVE
+        RECENTLY_ADDED_WEEKS,
+        FIRST_LAUNCH,
+        GENRE_SORT_ORDER,
+        GENRE_SORT_TYPE,
+        COLORS,
+        TABS, LAUNCH_COUNT, IS_EQUALIZER_ACTIVE
     }
 }

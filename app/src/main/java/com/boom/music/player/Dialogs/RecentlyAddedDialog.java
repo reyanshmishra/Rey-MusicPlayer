@@ -41,16 +41,16 @@ public class RecentlyAddedDialog extends DialogFragment {
         mApp = (Common) getActivity().getApplicationContext();
         builder.setTitle(R.string.recently_added_desc);
 
-        if (PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1) != 0) {
-            mSmallSlider.setInitialIndex(PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1) - 1);
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1) != 0) {
+            mSmallSlider.setInitialIndex(PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1) - 1);
         } else {
-            mSmallSlider.setInitialIndex(PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1));
+            mSmallSlider.setInitialIndex(PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1));
         }
 
         if (mNoOfWeeks == 1) {
-            builder.setMessage(PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1) + " " + "Week");
+            builder.setMessage(PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1) + " " + "Week");
         } else {
-            builder.setMessage(PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1) + " " + "Weeks");
+            builder.setMessage(PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, 1) + " " + "Weeks");
 
         }
 
@@ -59,7 +59,7 @@ public class RecentlyAddedDialog extends DialogFragment {
 
 
         builder.setPositiveButton(R.string.ok, (dialog, which) -> {
-            PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, mNoOfWeeks);
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.RECENTLY_ADDED_WEEKS, mNoOfWeeks);
             dismiss();
         });
 

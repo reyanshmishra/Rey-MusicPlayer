@@ -66,9 +66,9 @@ public class QueueFragment extends Fragment implements OnStartDragListener {
                     mApp.getService().getSongList().clear();
                     mApp.getService().setSongPos(0);
                     mApp.getService().stopSelf();
-                    PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
-                    PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
-                    PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.SONG_TOTAL_SEEK_DURATION, 0);
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_TOTAL_SEEK_DURATION, 0);
                     getActivity().finish();
                 } else if (item.getItemId() == R.id.menu_save) {
                     PlaylistDialog playlistDialog = new PlaylistDialog();
@@ -94,7 +94,7 @@ public class QueueFragment extends Fragment implements OnStartDragListener {
         if (mApp.isServiceRunning()) {
             mRecyclerView.getLayoutManager().scrollToPosition(mApp.getService().getCurrentSongIndex());
         } else {
-            int pos = PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
+            int pos = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
             mRecyclerView.getLayoutManager().scrollToPosition(pos);
         }
 

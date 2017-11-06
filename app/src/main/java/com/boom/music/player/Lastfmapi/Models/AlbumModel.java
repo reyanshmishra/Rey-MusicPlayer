@@ -15,7 +15,7 @@ public class AlbumModel {
 
     public static class Image {
         @SerializedName("#text")
-        public String text;
+        public String url;
         @SerializedName("size")
         public String size;
     }

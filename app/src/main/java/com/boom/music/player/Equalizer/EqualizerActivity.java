@@ -259,7 +259,7 @@ public class EqualizerActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.myswitch);
         View view = MenuItemCompat.getActionView(menuItem);
         mToggleEqualizerButton = (SwitchCompat) view.findViewById(R.id.switchButton);
-        mToggleEqualizerButton.setChecked(PreferencesHelper.getInstance(Common.getInstance()).getBoolean(PreferencesHelper.Key.IS_EQUALIZER_ACTIVE, false));
+        mToggleEqualizerButton.setChecked(PreferencesHelper.getInstance().getBoolean(PreferencesHelper.Key.IS_EQUALIZER_ACTIVE, false));
         mToggleEqualizerButton.setOnCheckedChangeListener(equalizerActive);
         return true;
     }
@@ -283,14 +283,14 @@ public class EqualizerActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (mToggleEqualizerButton.isChecked()) {
-                PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.IS_EQUALIZER_ACTIVE, true);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.IS_EQUALIZER_ACTIVE, true);
                 if (mApp.isServiceRunning()) {
                     mApp.getService().getEqualizerHelper().getBassBoost().setEnabled(true);
                     mApp.getService().getEqualizerHelper().getVirtualizer().setEnabled(true);
                     mApp.getService().getEqualizerHelper().getEqualizer().setEnabled(true);
                 }
             } else {
-                PreferencesHelper.getInstance(Common.getInstance()).put(PreferencesHelper.Key.IS_EQUALIZER_ACTIVE, false);
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.IS_EQUALIZER_ACTIVE, false);
                 if (mApp.isServiceRunning()) {
                     mApp.getService().getEqualizerHelper().getBassBoost().setEnabled(false);
                     mApp.getService().getEqualizerHelper().getVirtualizer().setEnabled(false);
@@ -679,7 +679,7 @@ public class EqualizerActivity extends AppCompatActivity {
 
         @Override
         public void onItemSelected(AdapterView<?> arg0, View arg1, int index, long arg3) {
-            PreferencesHelper.getInstance(mContext).put(PreferencesHelper.Key.LAST_PRESET_NAME, mReverbSpinner.getSelectedItem().toString());
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.LAST_PRESET_NAME, mReverbSpinner.getSelectedItem().toString());
             reverbSetting = index;
 
             if (mApp.isServiceRunning())

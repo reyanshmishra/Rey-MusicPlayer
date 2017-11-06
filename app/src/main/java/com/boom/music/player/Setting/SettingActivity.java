@@ -1,12 +1,16 @@
 package com.boom.music.player.Setting;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -15,7 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.boom.music.player.LauncherActivity.MainActivity;
 import com.boom.music.player.R;
+import com.boom.music.player.Services.AlbumsArtDownloadService;
+import com.boom.music.player.Services.ArtistArtDownloadService;
+import com.boom.music.player.Utils.Constants;
+import com.boom.music.player.Utils.Logger;
 
 import java.util.List;
 
@@ -30,19 +39,44 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
+
 public class SettingActivity extends PreferenceActivity {
 
     private AppCompatDelegate mDelegate;
     private Context mContext;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+
+        if (getIntent() != null && getIntent().getBooleanExtra(Constants.FROM_NOTIFICATION, false)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.downloading_artist_arts);
+            builder.setMessage(R.string.artist_art_dialog_desc);
+            builder.setPositiveButton(R.string.stop, (dialogInterface, i) -> {
+                stopService(new Intent(getApplicationContext(), ArtistArtDownloadService.class));
+                dialogInterface.dismiss();
+            });
+            builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
+            builder.create().show();
+        } else if (getIntent() != null && getIntent().getBooleanExtra(Constants.FROM_ALBUMS_NOTIFICATION, false)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.downloading_album_arts);
+            builder.setMessage(R.string.album_art_dialog_desc);
+            builder.setPositiveButton(R.string.stop, (dialogInterface, i) -> {
+                stopService(new Intent(getApplicationContext(), AlbumsArtDownloadService.class));
+                dialogInterface.dismiss();
+            });
+            builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
+            builder.create().show();
+        }
+
     }
 
     @Override
-    public void onBuildHeaders(List<PreferenceActivity.Header> target) {
+    public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.pref_settings, target);
     }
 
@@ -51,18 +85,23 @@ public class SettingActivity extends PreferenceActivity {
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         getDelegate().onPostCreate(savedInstanceState);
         LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
-        Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.toolbar, root, false);
+        mToolbar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.toolbar, root, false);
         View view = LayoutInflater.from(this).inflate(R.layout.view, root, false);
-        root.addView(bar, 0);
+        root.addView(mToolbar, 0);
         root.addView(view, 1);
-        bar.setNavigationOnClickListener(v -> onBackPressed());
+        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     /**
      * This is being used to add toolbar options into the activity which is not available
@@ -114,6 +153,7 @@ public class SettingActivity extends PreferenceActivity {
         getDelegate().setTitle(title);
     }
 
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -130,5 +170,26 @@ public class SettingActivity extends PreferenceActivity {
     protected void onDestroy() {
         super.onDestroy();
         getDelegate().onDestroy();
+    }
+
+    public void setToolbarTitle(String toolbarTitle) {
+        if (getDelegate().getSupportActionBar() != null) {
+            getDelegate().getSupportActionBar().setTitle(toolbarTitle);
+            Logger.log(toolbarTitle);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if (getIntent() != null && getIntent().getBooleanExtra(Constants.FROM_NOTIFICATION, false)) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+            finish();
+        } else {
+            finish();
+        }
     }
 }

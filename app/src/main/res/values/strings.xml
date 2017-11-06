@@ -1,5 +1,9 @@
 <resources xmlns:xliff="http://schemas.android.com/apk/res/android">
 
+    <plurals name="NNNtrackstoplaylist">
+        <item quantity="one">1 song added to playlist.</item>
+        <item quantity="other"><xliff:g example="27" id="number">%d</xliff:g> songs added to playlist.</item>
+    </plurals>
 
     <string-array name="fragments_titles">
         <item>ALBUMS</item>
@@ -10,19 +14,33 @@
         <item>DIRECTORY</item>
     </string-array>
 
-
-    //////////////////////////////////////////////////////////////Needs to be deleted
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
+    <string-array name="fragments_titles_number">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
+    <string-array name="scan_frequency_entries">
+        <item>Scan at every startup</item>
+        <item>Scan at every 3 startups</item>
+        <item>Scan at every 5 startups</item>
+        <item>Scan at every 10 startups</item>
+        <item>Scan at every 20 startups</item>
+        <item>Scan manually</item>
+    </string-array>
 
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
+    <string-array name="scan_frequency_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 
-    <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
         <item>15 minutes</item>
         <item>30 minutes</item>
@@ -52,100 +70,65 @@
         <item>3</item>
     </string-array>
 
-
     <string name="app_name">Boom</string>
-
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
-
     <string name="ok_caps">OK</string>
     <string name="cancel_caps">CANCEL</string>
-
     <string name="overwrite">Overwrite</string>
     <string name="new_playlist">New Playlist</string>
     <string name="add_to_playlist">Add To Playlist</string>
     <string name="ringtone_menu">Use As Ringtone</string>
-
     <string name="ringtone_set"> has been set as your ringtone.</string>
     <string name="delete_song_desc">Permanently delete </string>
     <string name="delete_song_desc_nosdcard">Permanently delete</string>
-
     <string name="add_to_queue">Add To Queue</string>
     <string name="play_next">Play Next</string>
     <string name="remove">Remove</string>
-
     <string name="delete_playlist">Delete Playlist?</string>
     <string name="rename_playlist">Rename Playlist</string>
-
     <string name="combine_two_strings" translatable="false">%1$s | %2$s</string>
     <string name="duration_format" translatable="false"><xliff:g id="hours">%1$s</xliff:g> <xliff:g id="minutes">%2$s</xliff:g></string>
-
     <string name="durationformatshort" translatable="false"><xliff:g id="format">%2$d:%3$02d</xliff:g></string>
     <string name="durationformatlong" translatable="false"><xliff:g id="format">%1$d:%2$02d:%3$02d</xliff:g></string>
-
     <string name="search_library">Search Library</string>
     <string name="search">Search</string>
-
-    <string name="playlist_renamed">Playlist Renamed</string>
     <string name="enabled">Enabled</string>
-
     <string name="settings">Settings</string>
-
     <string name="playlist_deleted">Playlist deleted.</string>
-
     <string name="default_time">00:00</string>
-
     <string name="sleep_timer_set">Sleep timer set.</string>
-
     <string name="song_paused_by_sleep_timer">Song paused by sleep timer.</string>
-
     <string name="about">About</string>
     <string name="legal">Legal</string>
     <string name="sort">Sort</string>
     <string name="shuffle">Shuffle</string>
-
     <string name="display_song_added_in_last">Display songs added in last</string>
-
-    <string name="setimer">Set timer</string>
-
-
     <string name="album">Album</string>
     <string name="artist">Artist</string>
-    <string name="genres">Gerne</string>
+    <string name="genres">Genre</string>
     <string name="a_b_repeat_message">Drag the scrubbers to select the part of \n song you would like to repeat.</string>
-
-
     <string name="song_failed_to_load">Song failed to load.</string>
     <string name="unable_to_get_audio_focus">Unable to get audio focus.</string>
-
     <string name="song_title">Song Title</string>
     <string name="duration">Duration</string>
     <string name="date_added">Date Added</string>
     <string name="year">Year</string>
     <string name="done">Done</string>
     <string name="name">name</string>
-
     <string name="ascending">ASCENDING</string>
     <string name="descending">DESCENDING</string>
-
     <string name="enter_name">Enter Name</string>
     <string name="later">Later</string>
-
     <string name="reset">Reset</string>
-
     <string name="dismiss">Dismiss</string>
     <string name="stop">Stop</string>
     <string name="position">position</string>
     <string name="sorry_cant_play_this_audio">Sorry cant play this audio!</string>
-
     <string name="file_deleted">Files Deleted!</string>
-
-
     <string name="folder_could_not_be_deleted">Folder can not be deleted!!</string>
     <string name="file_could_not_be_deleted">File cant not be deleted!</string>
-
     <string name="enter_preset_name">Please enter preset name!</string>
-
     <string name="sd_access">You need to grant SD card access to Boom to modify contents on external SD card.\n</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -155,18 +138,15 @@
     <string name="favorites">Favorites</string>
     <string name="top_played">Top Played</string>
     <string name="recently_played">Recently Played</string>
-
     <string name="count_song"><xliff:g id="count">%d</xliff:g> song</string>
     <string name="count_songs"><xliff:g id="count">%d</xliff:g> songs</string>
     <string name="count_album"><xliff:g id="count">%d</xliff:g> album</string>
     <string name="count_albums"><xliff:g id="count">%d</xliff:g> albums</string>
     <string name="count_artist"><xliff:g id="count">%d</xliff:g> artist</string>
     <string name="count_artists"><xliff:g id="count">%d</xliff:g> artists</string>
-
     <string name="play">Play</string>
     <string name="pause_on_disconnect">Pause on Disconnect</string>
     <string name="pause_desc">Pauses playback when headset is disconnected</string>
-
     <string name="resume_on_disconnect">Resume on Connect</string>
     <string name="play_desc">Resumes playback when headset is connected</string>
     <string name="action_search">Search</string>
@@ -174,26 +154,15 @@
     <string name="empty_playlist">Empty playlist</string>
     <string name="clear_recently_played">Clear recently played list?</string>
     <string name="clear_recently_played_long">All songs from the recently played list will be cleared.</string>
-
     <string name="clear_favorites">Clear favorites</string>
     <string name="clear_top_played">Clear top played</string>
     <string name="edit_weeks">Edit weeks</string>
     <string name="sorry_your_phone_does_not_support_equalizer">Sorry your phone does not support equalizer</string>
-    <string name="view">View</string>
     <string name="set_ringtone">Set Ringtone</string>
     <string name="write_settings_desc">Music player requires permission to \'Write Settings\' in order to set your ringtone.\n\n After granting permission, try setting your ringtone again.</string>
     <string name="songs_added_to_queue">songs added to queue.</string>
-
     <string name="shuffle_all">Shuffle all</string>
     <string name="title_activity_setting">Settings</string>
-
-
-    <plurals name="NNNtrackstoplaylist">
-        <item quantity="one">1 song added to playlist.</item>
-        <item quantity="other"><xliff:g example="27" id="number">%d</xliff:g> songs added to playlist.</item>
-    </plurals>
-
-
     <string name="use_as_phone_ringtone">Use As Ringtone</string>
     <string name="share">Share</string>
     <string name="no_thanks">No, Thanks</string>
@@ -242,52 +211,26 @@
     <string name="no_songs_to_skip_to">No songs to skip to.</string>
     <string name="grant_permission">Grant Permission!</string>
     <string name="to_grant_access">To grant access : \n</string>
-
-
-    <string name="pref_header_general">General</string>
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact based on your message history</string>
-    <string name="pref_send_report">Send crash reports</string>
-    <string name="pref_send_report_summary">Helps to fix bugs</string>
-    <string name="pref_sync_frequency">Change Font</string>
-    <string name="pref_sync_frequency_summary">Change the font of the app</string>
-    <string name="pref_user_name">Set username</string>
-    <string name="pref_user_name_summary">Set your username</string>
-    <string name="pref_user_profile">User Profile</string>
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-    <string name="pref_header_notifications">Notifications</string>
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-    <string name="pref_title_vibrate">Vibrate</string>
     <string name="playlist_cant_be_renamed">Playlist can\'t be renamed.</string>
     <string name="set_timer">Set Timer</string>
-
-
     <string name="go_to_this_artist">Go to this artist</string>
     <string name="go_to_this_album">Go to this album</string>
     <string name="go_to_this_genre">Go to this genre</string>
     <string name="go_to_this_album_artist">Go to this album artist</string>
-
     <string name="permission_line_one">- Click the 3-dots menu icon on the  following dialog and select \'Show SD card\'</string>
     <string name="permission_line_two">- Tap the navigation icon on the left then  select desired storage device you want to   grant access to , typically \'SD Card\'.</string>
     <string name="permission_line_three">- Tap \'Select\' button at the bottom.</string>
     <string name="permission_line_four">(Make sure you choose Root directory of   the storage)</string>
     <string name="permission_line_five">Do you want to grant SD card access to Boom Player ?</string>
-
     <string name="hide_lyrics">Hide lyrics</string>
     <string name="virtualizer">Virtualizer</string>
     <string name="bass_boost">Bass Boost</string>
     <string name="save_preset">Save Preset</string>
     <string name="add_to_favorites">Add To Favorites</string>
-
-
     <string name="folder_list_item_type">folder_list_item_type</string>
     <string name="folder_path">folder_path</string>
     <string name="open_settings">Open Settings</string>
     <string name="grant_permission_message">You will have to grant permission from settings.\nOpen Settings?</string>
-
     <string name="album_small">album</string>
     <string name="song_small">song</string>
     <string name="albums_small">albums</string>
@@ -304,9 +247,7 @@
     <string name="play_all">Play All</string>
     <string name="hey_i_am_empty">Opps You are here!! \n I am empty.</string>
     <string name="can_not_open_this_file">Sorry can\'t open this file!!</string>
-
     <string name="update">Update</string>
-
     <string name="tag_title">Title</string>
     <string name="tag_artist">Artist</string>
     <string name="tag_album">Album</string>
@@ -340,7 +281,6 @@
     <string name="share_tracks_using">Share Track Using</string>
     <string name="operation_cancelled">Operation cancelled.</string>
     <string name="moving_file">Moving file.</string>
-
     <string name="done_copy">Done copying file(s).</string>
     <string name="done_move">Done moving file(s).</string>
     <string name="copying_file">Copying file.</string>
@@ -380,14 +320,14 @@
     <string name="keep_editing">Keep Editing</string>
     <string name="network_error">Check your network connection.</string>
     <string name="appearance">Appearance</string>
-    <string name="appearance_description">Change the app\'s theme, colors and more.</string>
-    <string name="album_art_description">Modify album art sources and download album art from the internet.</string>
-    <string name="album_art">Album Art</string>
+    <string name="appearance_description">Change the app\'s settings, default tabs and more.</string>
+    <string name="album_art_description">Download, Modify albums art and artists art.</string>
+    <string name="album_and_artist_art">Album &amp; Artist Art</string>
     <string name="audio_settings_description">Configure crossfade, headphone plug actions and toggle equalizer.</string>
     <string name="audio_settings">Audio Settings</string>
     <string name="music_folders_description">Rebuild your music library and change selected music folders.</string>
     <string name="about_description">About the app, open source licenses, and contact information.</string>
-    <string name="licenses_and_about"><![CDATA[Licesnses & About]]></string>
+    <string name="licenses_and_about"><![CDATA[Licenses & About]]></string>
     <string name="scrobbling_description">Choose to scrobble.</string>
     <string name="scrobbling">Scrobble</string>
     <string name="application_theme">Application Theme</string>
@@ -398,7 +338,7 @@
     <string name="choose_tab_items">Rearrange tab item of the library.</string>
     <string name="artist_art_description">Download and display artist arts.</string>
     <string name="artist_art">Artist Art</string>
-    <string name="download_album_art_description">Scan and download the album arts for the music and embed them in the files.</string>
+    <string name="download_album_art_description">Scan and download the missing album arts for the music and embed them in the files.</string>
     <string name="scan_and_download_album_art">Download Album Art</string>
     <string name="download_art_work">Download Art</string>
     <string name="track">Track</string>
@@ -406,6 +346,37 @@
     <string name="you_have_reached_root_folder">You have reached root folder.</string>
     <string name="file_open_error">Sorry can\'t open this file!!</string>
     <string name="audio_files_not_found">Audio files not found.</string>
+    <string name="color_picker_default_title">Pick Color</string>
+    <string name="color_swatch_description">Color <xliff:g example="14" id="color_index">%1$d</xliff:g></string>
+    <string name="color_swatch_description_selected">Color <xliff:g example="14" id="color_index">%1$d</xliff:g> selected</string>
+    <string name="title">PickColor</string>
+    <string name="welcome">Welcome</string>
+    <string name="welcome_intro">Thanks for downloading Boom Music Player. To help you get started with the app, you\'ll be guided through few initial steps.\nSwipe left to continue.</string>
+    <string name="crossfade_tracks">Crossfade Tracks</string>
+    <string name="crossfade_duration">Crossfade Duration</string>
+    <string name="headphone_unplug_action">Headphones Unplug Action</string>
+    <string name="pause_music_playback">Pause music playback when unplugged.</string>
+    <string name="crossfade_tracks_txt">Enable crossfade tracks.</string>
+    <string name="crossfade_duration_message">Set crossfade duration.</string>
+    <string name="building_music_library">Building Music Library</string>
+    <string name="select_music_folder">Select folders from which you want to select songs.</string>
+    <string name="select_music_folders">Select Music Folders</string>
+    <string name="rebuild_music_library_des">Build the music library if you have added new songs in your phone.</string>
+    <string name="scan_frequency_desc">Scan and stay updated with the new music</string>
+    <string name="restart_app">Restart App</string>
+    <string name="restart_app_des">Restart the app to apply the settings.</string>
+    <string name="downloading_artist_arts">Downloading artists arts.</string>
+    <string name="downloading_art_for">Downloading art for</string>
+    <string name="download_complete">Download complete</string>
+    <string name="artist_art_downloaded">Artists arts downloaded.</string>
+    <string name="artist_art_dialog_desc">Downloading artist arts once we are done we will notify you. \n To check the progress open the notification tray.\n Till then feel free to roam around or close the app.</string>
+    <string name="album_art_dialog_desc">Downloading album arts once we are done we will notify you. \n To check the prgress open the notification tray.\n Till then feel free to roam around or close the app.</string>
+    <string name="album_art_downloaded">Albums arts downloaded.</string>
+    <string name="downloading_album_arts">Downloading album arts.</string>
+    <string name="licenses_about"><![CDATA[Licenses & about]]></string>
+    <string name="licenses">Licenses</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="album_art">Album Art</string>
 
 
 </resources>

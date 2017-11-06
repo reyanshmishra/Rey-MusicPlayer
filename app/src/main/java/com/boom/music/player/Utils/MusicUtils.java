@@ -136,7 +136,7 @@ public class MusicUtils {
 
     public static Cursor makeArtistSongCursor(Context context, long artistID) {
         ContentResolver contentResolver = context.getContentResolver();
-        final String artistSongSortOrder = PreferencesHelper.getInstance(context).getString(PreferencesHelper.Key.SONG_SORT_ORDER);
+        final String artistSongSortOrder = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.SONG_SORT_ORDER);
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         String string = "is_music=1 AND title != '' AND artist_id=" + artistID;
         return contentResolver.query(uri, new String[]{"_id",
@@ -370,7 +370,7 @@ public class MusicUtils {
 
     public static Cursor makeSongCursor(Context context, String selection, String[] paramArrayOfString) {
         String selectionStatement = "is_music=1 AND title != ''";
-        final String songSortOrder = PreferencesHelper.getInstance(context).getString(PreferencesHelper.Key.SONG_SORT_ORDER);
+        final String songSortOrder = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.SONG_SORT_ORDER);
 
         if (!TextUtils.isEmpty(selection)) {
             selectionStatement = selectionStatement + " AND " + selection;
@@ -904,7 +904,7 @@ public class MusicUtils {
 
 
     public static int getSongPosition() {
-        return PreferencesHelper.getInstance(Common.getInstance()).getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
+        return PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
     }
 
 }

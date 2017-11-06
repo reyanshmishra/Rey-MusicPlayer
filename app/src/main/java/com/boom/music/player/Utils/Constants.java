@@ -1,10 +1,19 @@
 package com.boom.music.player.Utils;
 
+import android.provider.MediaStore;
+
 /**
  * Created by REYANSH on 4/21/2017.
  */
 
 public class Constants {
+
+    /**
+     * Created by REYANSH on 4/21/2017.
+     */
+
+    public static String EXTERNAL_CONTENTENT_URI = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI.toString();
+
 
     public static final int EDIT_TAGS = 3565;
     public static final int REQUEST_PERMISSIONS = 33;
@@ -29,6 +38,11 @@ public class Constants {
     public static final String HEADER_SUB_TITLE = "HEADER_SUB_TITLE";
     public static final String FROM_WHERE = "FROM_WHERE";
     public static final String SELECTION_VALUE = "SELECTION_VALUE";
+
+
+    //NowPlaying launched from notification
+
+    public static String defaultArtUrl = "http://www.flat-e.com/flate5/wp-content/uploads/cover-960x857.jpg";
 
 
     /**
@@ -68,6 +82,9 @@ public class Constants {
 
     public static final String COVER_PATH = "COVER_PATH";
 
+    public static final String LAUNCHED_FROM_NOTIFICATION = "LAUNCHED_FROM_NOTIFICATION";
+
+    public static final String FROM_ALBUMS_NOTIFICATION = "LAUNCHED_FROM_ALBUMS_NOTIFICATION";
 
 }
 

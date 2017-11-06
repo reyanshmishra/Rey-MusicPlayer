@@ -13,8 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.boom.music.player.Common;
-import com.boom.music.player.Lastfmapi.ApiClient;
-import com.boom.music.player.Lastfmapi.LastFmInterface;
 import com.boom.music.player.LauncherActivity.MainActivity;
 import com.boom.music.player.Models.Artist;
 import com.boom.music.player.R;
@@ -31,24 +29,18 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-
 /**
  * Created by Reyansh on 31/07/2016.
  */
 public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ItemHolder> implements BubbleTextGetter {
+
     private ArrayList<Artist> mData;
     private FragmentArtist mFragmentArtist;
     private Common mApp;
-    private LastFmInterface mApiInterface;
 
     public ArtistsAdapter(FragmentArtist mFragmentArtist) {
         this.mFragmentArtist = mFragmentArtist;
         mApp = (Common) Common.getInstance().getApplicationContext();
-        mApiInterface = ApiClient.getClient().create(LastFmInterface.class);
     }
 
     @Override
@@ -86,9 +78,6 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ItemHold
             }
         });
 
-       /* if (mData.get(position)._artistAlbumArt.startsWith("content://media/")) {
-            updateArtistArt("" + mData.get(position)._artistId, mData.get(position)._artistName);
-        }*/
 
         String nooftracks = MusicUtils.makeLabel(mFragmentArtist.getActivity().getApplicationContext(), R.plurals.Nsongs, mData.get(position)._noOfTracksByArtist);
         String noofalbums = MusicUtils.makeLabel(mFragmentArtist.getActivity().getApplicationContext(), R.plurals.Nalbums, mData.get(position)._noOfAlbumsByArtist);
@@ -175,32 +164,4 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ItemHold
         }
     }
 
-
-    private void updateArtistArt(String artistId, String artistName) {
-        Observable.fromCallable(() -> updateArtistArtNow(artistId, artistName))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<String>() {
-                    @Override
-                    public void onNext(String cachedUrl) {
-                        Logger.log("" + cachedUrl);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Logger.log("" + e.getCause());
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
-
-    private String updateArtistArtNow(String artistId, String artistName) {
-        String cachedUrl = MusicUtils.putBitmapInDiskCache(artistId, artistName, mApiInterface);
-        mApp.getDBAccessHelper().updateArtistAlbumArt(artistId, cachedUrl);
-        return cachedUrl;
-    }
 }

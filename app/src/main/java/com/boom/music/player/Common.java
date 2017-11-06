@@ -10,7 +10,7 @@ import android.util.DisplayMetrics;
 
 import com.boom.music.player.Database.DataBaseHelper;
 import com.boom.music.player.GoogleAnalytics.AnalyticsTrackers;
-import com.boom.music.player.MusicService.MusicService;
+import com.boom.music.player.Services.MusicService;
 import com.boom.music.player.NowPlaying.NowPlayingActivity;
 import com.boom.music.player.PlayBackStarter.PlayBackStarter;
 import com.boom.music.player.Utils.PreferencesHelper;
@@ -311,7 +311,7 @@ public class Common extends MultiDexApplication {
      * Returns the sharedpreferences instance
      */
     public PreferencesHelper getSharedPreferencesHelper() {
-        return PreferencesHelper.getInstance(mContext);
+        return PreferencesHelper.getInstance();
     }
 
 
