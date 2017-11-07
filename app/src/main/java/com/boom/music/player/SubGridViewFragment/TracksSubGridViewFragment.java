@@ -1,4 +1,4 @@
-package com.boom.music.player.SubGridViewActivity;
+package com.boom.music.player.SubGridViewFragment;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -204,8 +204,9 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
 
         RelativeLayout relativeLayout = (RelativeLayout) mSearchButton.getParent();
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) relativeLayout.getLayoutParams();
-        params.topMargin = Common.getStatusBarHeight(getActivity());
-        relativeLayout.setLayoutParams(params);
+
+//        params.topMargin = Common.getStatusBarHeight(getActivity());
+//        relativeLayout.setLayoutParams(params);
 
         mSearchButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), SearchActivity.class)));
         mBackButton.setOnClickListener(v -> removeFragment());

@@ -85,11 +85,7 @@ public class NowPlayingBottomBarFragment extends Fragment {
         mFloatingActionButton.setOnClickListener(v -> {
             mApp.getPlayBackStarter().playPauseFromBottomBar();
             try {
-                if (mApp.getService().getMediaPlayer().isPlaying()) {
-                    mFloatingActionButton.setImageResource(R.drawable.pause);
-                } else {
-                    mFloatingActionButton.setImageResource(R.drawable.play);
-                }
+
                 setSeekbarDuration(mApp.getService().getMediaPlayer().getDuration());
             } catch (NullPointerException e) {
                 e.printStackTrace();
@@ -162,7 +158,15 @@ public class NowPlayingBottomBarFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.hasExtra(Constants.JUST_UPDATE_UI)) {
-                updateUI();
+                if (intent.hasExtra(Constants.ACTION_PLAY_PAUSE)){
+                    if (mApp.getService().getMediaPlayer().isPlaying()) {
+                        mFloatingActionButton.setImageResource(R.drawable.pause);
+                    } else {
+                        mFloatingActionButton.setImageResource(R.drawable.play);
+                    }
+                }else{
+                    updateUI();
+                }
             }
         }
     };
@@ -203,6 +207,7 @@ public class NowPlayingBottomBarFragment extends Fragment {
 
         if (mApp.isServiceRunning()) {
             mNowPlayingBottomBarAdapter.updateData(mApp.getService().getSongList());
+
             if (mApp.getService().getMediaPlayer().isPlaying()) {
                 mFloatingActionButton.setImageResource(R.drawable.pause);
             } else {

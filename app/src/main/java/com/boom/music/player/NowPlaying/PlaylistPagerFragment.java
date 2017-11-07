@@ -21,7 +21,7 @@ import com.boom.music.player.Activities.TracksSubFragment;
 import com.boom.music.player.Dialogs.ABRepeatDialog;
 import com.boom.music.player.Equalizer.EqualizerActivity;
 import com.boom.music.player.R;
-import com.boom.music.player.SubGridViewActivity.TracksSubGridViewFragment;
+import com.boom.music.player.SubGridViewFragment.TracksSubGridViewFragment;
 import com.boom.music.player.Utils.Constants;
 import com.boom.music.player.Utils.MusicUtils;
 import com.boom.music.player.Utils.SongDataHelper;

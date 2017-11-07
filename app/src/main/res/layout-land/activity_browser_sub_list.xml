@@ -1,11 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/browser_sub_drawer_parent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/browser_sub_drawer_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <LinearLayout
@@ -27,7 +25,7 @@
                 android:layout_height="340dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/drawable_black_to_transparent"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop" />
 
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/id_toolbar_container"
@@ -45,7 +43,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:elevation="0dp"
                     app:elevation="0dp"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
 
             </android.support.design.widget.AppBarLayout>
 
@@ -75,7 +73,7 @@
                     android:singleLine="true"
                     android:text="Header Text"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"/>
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/browser_sub_header_sub_text"
@@ -95,7 +93,7 @@
                     android:singleLine="true"
                     android:text="Subtext"
                     android:textColor="#FF999999"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/browser_sub_play_all"
@@ -104,14 +102,13 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="34dp"
-                    app:backgroundTint="#f63e62"
                     android:minHeight="0dp"
                     android:padding="13dp"
                     android:text="Play All"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp"
-                    />
+                    app:backgroundTint="#f63e62" />
 
                 <ImageButton
                     android:id="@+id/overflow"
@@ -123,7 +120,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:padding="4dp"
                     android:tint="@color/white"
-                    app:srcCompat="@drawable/drawable_overflow"/>
+                    app:srcCompat="@drawable/drawable_overflow" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -136,8 +133,7 @@
             android:drawSelectorOnTop="true"
             android:paddingTop="28dp"
             android:visibility="invisible"
-            tools:listitem="@layout/list_view_sub_browser_item"
-            />
+            tools:listitem="@layout/list_view_sub_browser_item" />
 
     </LinearLayout>
 

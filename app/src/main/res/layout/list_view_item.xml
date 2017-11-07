@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/listViewParent"
-                android:layout_width="match_parent"
-                android:layout_height="84dp"
-                android:background="?android:attr/selectableItemBackground">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/listViewParent"
+    android:layout_width="match_parent"
+    android:layout_height="84dp"
+    android:background="?android:attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/listViewRightSubText"
@@ -17,7 +17,7 @@
         android:paddingRight="48dp"
         android:text="0:00"
         android:textColor="@color/textColorSecondary"
-        android:textSize="14sp"/>
+        android:textSize="14sp" />
 
     <com.boom.music.player.Views.CircleImageView
         android:id="@+id/listViewLeftIcon"
@@ -26,7 +26,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:paddingLeft="8dp"
-        android:src="@drawable/drawable_empty_color_patch_circular"/>
+        android:src="@drawable/drawable_empty_color_patch_circular" />
 
     <LinearLayout
         android:id="@+id/listViewTextContainer"
@@ -56,8 +56,7 @@
                 android:gravity="bottom"
                 android:singleLine="true"
                 android:text="Song Name"
-                android:textColor="@color/white"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
         </RelativeLayout>
 
@@ -72,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_alignParentLeft="true"
+
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="10dp"
@@ -81,7 +81,7 @@
                 android:singleLine="true"
                 android:text="Artist Name"
                 android:textColor="@color/textColorSecondary"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </RelativeLayout>
 
@@ -97,7 +97,6 @@
         android:padding="12dp"
         android:scaleX="0.75"
         android:scaleY="0.75"
-        app:srcCompat="@drawable/drawable_overflow"
-        />
+        app:srcCompat="@drawable/drawable_overflow" />
 
 </RelativeLayout>

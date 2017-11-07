@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_background"
@@ -12,8 +11,7 @@
     <RelativeLayout
         android:id="@+id/simple_one"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:background="@color/colorPrimary">
+        android:layout_height="75dp">
 
         <ImageView
             android:id="@+id/album_art"
@@ -24,7 +22,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@color/indigo"
-            app:srcCompat="@drawable/ic_placeholder"/>
+            app:srcCompat="@drawable/ic_placeholder" />
 
         <RelativeLayout
             android:id="@+id/text_holder"
@@ -43,9 +41,8 @@
                 android:layout_toLeftOf="@+id/durationcard"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@color/white"
                 android:textStyle="bold"
-                tools:text="Rolling In The Deep"/>
+                tools:text="Rolling In The Deep" />
 
 
             <TextView
@@ -57,7 +54,7 @@
                 android:singleLine="true"
                 android:text="Adele"
                 android:textColor="@color/textColorSecondary"
-                tools:text="Adele"/>
+                tools:text="Adele" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

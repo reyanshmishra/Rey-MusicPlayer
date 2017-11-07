@@ -770,6 +770,8 @@ public class MusicService extends Service {
             stopPlaying();
             stopForeground(false);
         }
+        mPlayPauseIntent.putExtra(Constants.ACTION_PLAY_PAUSE,true);
+        sendBroadcast(mPlayPauseIntent);
     }
 
     private void saveQueue() {

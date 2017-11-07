@@ -16,7 +16,7 @@ import com.boom.music.player.Common;
 import com.boom.music.player.LauncherActivity.MainActivity;
 import com.boom.music.player.Models.Genre;
 import com.boom.music.player.R;
-import com.boom.music.player.SubGridViewActivity.TracksSubGridViewFragment;
+import com.boom.music.player.SubGridViewFragment.TracksSubGridViewFragment;
 import com.boom.music.player.Utils.BubbleTextGetter;
 import com.boom.music.player.Utils.Constants;
 import com.boom.music.player.Utils.CursorHelper;

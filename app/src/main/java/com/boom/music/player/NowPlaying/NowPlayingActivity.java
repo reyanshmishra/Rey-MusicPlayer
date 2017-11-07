@@ -43,7 +43,7 @@ import com.boom.music.player.Common;
 import com.boom.music.player.LauncherActivity.MainActivity;
 import com.boom.music.player.Models.Song;
 import com.boom.music.player.R;
-import com.boom.music.player.SubGridViewActivity.TracksSubGridViewFragment;
+import com.boom.music.player.SubGridViewFragment.TracksSubGridViewFragment;
 import com.boom.music.player.Utils.Constants;
 import com.boom.music.player.Utils.MusicUtils;
 import com.boom.music.player.Utils.PreferencesHelper;
@@ -203,10 +203,10 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
          */
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mAppBarLayout.getLayoutParams();
-        params.topMargin = Common.getStatusBarHeight(this);
+        /*params.topMargin = Common.getStatusBarHeight(this);
         params.bottomMargin = 0;
         mAppBarLayout.setLayoutParams(params);
-
+*/
 
         /**
          *All Buttons
@@ -473,6 +473,14 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
                 }
                 mHandler.post(seekbarUpdateRunnable);
                 mPlayPauseButton.setImageResource(R.drawable.pause);
+            } else if (intent.hasExtra(Constants.ACTION_PLAY_PAUSE)) {
+                if (mApp.getService().isPlayingMusic()) {
+                    animatePauseToPlay();
+                    mHandler.removeCallbacks(seekbarUpdateRunnable);
+                } else {
+                    animatePlayToPause();
+                    mHandler.post(seekbarUpdateRunnable);
+                }
             }
         }
     };

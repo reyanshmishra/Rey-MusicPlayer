@@ -1,17 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/browser_sub_drawer_parent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/browser_sub_drawer_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <View
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="340dp"
         android:background="@color/colorPrimary"
-        android:visibility="invisible"
-        />
+        android:visibility="invisible" />
 
     <RelativeLayout
         android:id="@+id/browser_sub_header_layout"
@@ -27,13 +26,13 @@
             android:background="@color/deep_purple"
             android:foreground="#10000000"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_placeholder"/>
+            app:srcCompat="@drawable/ic_placeholder" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_alignParentTop="true"
-            android:background="@drawable/toolbar_bg_gradient"/>
+            android:background="@drawable/toolbar_bg_gradient" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -45,7 +44,7 @@
                 android:layout_height="?actionBarSize"
                 android:layout_alignParentLeft="true"
                 android:background="?selectableItemBackground"
-                app:srcCompat="@drawable/drawable_arrow_back"/>
+                app:srcCompat="@drawable/drawable_arrow_back" />
 
             <ImageButton
                 android:id="@+id/search_button"
@@ -53,7 +52,7 @@
                 android:layout_height="?actionBarSize"
                 android:layout_alignParentRight="true"
                 android:background="?selectableItemBackground"
-                android:src="@drawable/ic_action_search"/>
+                android:src="@drawable/ic_action_search" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -62,8 +61,7 @@
             android:layout_height="70dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="60dp"
-            android:background="@drawable/drawable_black_to_transparent"
-            >
+            android:background="@drawable/drawable_black_to_transparent">
 
             <TextView
                 android:id="@+id/browser_sub_header_text"
@@ -84,7 +82,7 @@
                 android:singleLine="true"
                 android:text="Header Text"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp"/>
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/browser_sub_header_sub_text"
@@ -104,7 +102,7 @@
                 android:singleLine="true"
                 android:text="Subtext"
                 android:textColor="#FF999999"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/browser_sub_play_all"
@@ -113,13 +111,13 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="34dp"
+                android:backgroundTint="@color/pink"
                 android:minHeight="0dp"
                 android:padding="13dp"
                 android:text="Play All"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                app:backgroundTint="@color/pink"/>
+                android:textSize="12sp" />
 
             <ImageButton
                 android:id="@+id/overflow"
@@ -131,7 +129,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:padding="4dp"
                 android:tint="@color/white"
-                app:srcCompat="@drawable/drawable_overflow"/>
+                app:srcCompat="@drawable/drawable_overflow" />
 
         </RelativeLayout>
 
@@ -139,7 +137,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
-            android:background="#BB000000"/>
+            android:background="#BB000000" />
 
     </RelativeLayout>
 

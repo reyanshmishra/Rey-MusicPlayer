@@ -19,14 +19,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 
 import com.boom.music.player.Activities.TracksSubFragment;
-import com.boom.music.player.Common;
 import com.boom.music.player.FileDirectory.FolderFragment;
 import com.boom.music.player.Interfaces.OnScrolledListener;
 import com.boom.music.player.R;
 import com.boom.music.player.Search.SearchActivity;
 import com.boom.music.player.Setting.SettingActivity;
 import com.boom.music.player.Songs.SongsFragment;
-import com.boom.music.player.SubGridViewActivity.TracksSubGridViewFragment;
+import com.boom.music.player.SubGridViewFragment.TracksSubGridViewFragment;
 import com.boom.music.player.Utils.Constants;
 import com.boom.music.player.Utils.MusicUtils;
 import com.boom.music.player.Utils.PreferencesHelper;
@@ -69,8 +68,8 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
         mAppBarLayout = (AppBarLayout) findViewById(R.id.id_toolbar_container);
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mAppBarLayout.getLayoutParams();
-        params.topMargin = Common.getStatusBarHeight(this);
-        mAppBarLayout.setLayoutParams(params);
+//        params.topMargin = Common.getStatusBarHeight(this);
+//        mAppBarLayout.setLayoutParams(params);
 
 
         setSupportActionBar(mToolbar);

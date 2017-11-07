@@ -40,6 +40,23 @@ Reyansh mishra - reyanshmishra@outlook.com
 Website - www.reyanshmishra.com
 
 
+
+<H1>UpComing Features</H1>
+1.Last Fm Scrobbling.
+
+2.Auto Fetching album art.
+
+3.Custom Themes.
+
+4.Smooth Animations and Transitions.
+
+5.Crossfade music.
+
+6.More NowPlaying screens.
+
+7.(Suggested features if any and many more)
+
+
 <H1>Credits</H1>
 Jams:-https://github.com/psaravan/JamsMusicPlayer<br>
 RangeSlider:-https://github.com/channguyen/range-slider-view<br>
@@ -48,6 +65,11 @@ VerticalSeekbar:-https://github.com/h6ah4i/android-verticalseekbar<br>
 SeekArc:-https://github.com/neild001/SeekArc<br>
 JAudioTagger:- https://bitbucket.org/ijabz/jaudiotagger
 and other android libraries and android support libraries.
+
+
+
+
+
 
 
 

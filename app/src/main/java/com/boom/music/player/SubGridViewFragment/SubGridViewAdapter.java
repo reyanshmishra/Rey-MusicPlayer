@@ -1,4 +1,4 @@
-package com.boom.music.player.SubGridViewActivity;
+package com.boom.music.player.SubGridViewFragment;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

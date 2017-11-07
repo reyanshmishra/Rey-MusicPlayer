@@ -1,12 +1,8 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    >
-
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/main_parent"
@@ -29,7 +25,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
                 app:elevation="0dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -59,7 +55,7 @@
                         app:tabIndicatorColor="@color/pink"
                         app:tabMode="scrollable"
                         app:tabSelectedTextColor="@color/_light_gray"
-                        app:tabTextColor="@color/white"/>
+                        app:tabTextColor="@color/white" />
                 </android.support.design.widget.CollapsingToolbarLayout>
 
             </android.support.design.widget.AppBarLayout>
@@ -68,7 +64,7 @@
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </android.support.design.widget.CoordinatorLayout>
 
@@ -81,6 +77,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_weight="2"
-        tools:layout="@layout/fragment_bottom_bar"/>
+        tools:layout="@layout/fragment_bottom_bar" />
 
 </RelativeLayout>

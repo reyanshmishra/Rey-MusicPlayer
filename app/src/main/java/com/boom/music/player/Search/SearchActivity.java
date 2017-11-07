@@ -32,7 +32,7 @@ import com.boom.music.player.Models.Song;
 import com.boom.music.player.R;
 import com.boom.music.player.TagEditor.Id3TagEditorActivity;
 import com.boom.music.player.Activities.TracksSubFragment;
-import com.boom.music.player.SubGridViewActivity.TracksSubGridViewFragment;
+import com.boom.music.player.SubGridViewFragment.TracksSubGridViewFragment;
 import com.boom.music.player.Utils.Constants;
 import com.boom.music.player.Utils.CursorHelper;
 import com.boom.music.player.Utils.Logger;
