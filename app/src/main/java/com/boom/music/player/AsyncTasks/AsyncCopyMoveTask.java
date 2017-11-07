@@ -28,6 +28,9 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 
+/**
+*This is work in progress class.
+*/
 public class AsyncCopyMoveTask extends AsyncTask<String, Void, Boolean> {
 
     private Context mContext;

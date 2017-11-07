@@ -51,12 +51,12 @@ public class PermissionToEditSdCardDialog extends DialogFragment {
         TextView textView7 = (TextView) view.findViewById(R.id.text_line_number_7);
 
         textView1.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Condensed-Font"));
-        textView2.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Bold-Font"));
+        textView2.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), TypefaceHelper.FUTURA_BOLD));
         textView3.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Condensed-Font"));
         textView4.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Condensed-Font"));
         textView5.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Condensed-Font"));
 
-        textView6.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Bold-Font"));
+        textView6.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), TypefaceHelper.FUTURA_BOLD));
         textView7.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Condensed-Font"));
 
         builder.setView(view);

@@ -110,9 +110,9 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
         mSearchButton = (ImageButton) mView.findViewById(R.id.search_button);
         mBackButton = (ImageButton) mView.findViewById(R.id.back_button);
 
-        mHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Book-Font"));
-        mSubHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Book-Font"));
-        mPlayAllButton.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Bold-Font"));
+        mHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
+        mSubHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
+        mPlayAllButton.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
 
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.browser_sub_grid_view);
 

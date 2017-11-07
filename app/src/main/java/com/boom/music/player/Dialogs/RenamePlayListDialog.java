@@ -40,7 +40,7 @@ public class RenamePlayListDialog extends DialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.create_playlist, null);
         mEditText = (EditText) view.findViewById(R.id.edit_text_playlist);
         mEditText.requestFocus();
-        mEditText.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Book-Font"));
+        mEditText.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
         mPlayListId = getArguments().getLong("PLAYLIST_ID");
         mPlayListName = nameForId(mPlayListId);
         mEditText.setText(mPlayListName);

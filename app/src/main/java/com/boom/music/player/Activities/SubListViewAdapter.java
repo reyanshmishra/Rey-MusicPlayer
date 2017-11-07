@@ -31,6 +31,8 @@ public class SubListViewAdapter extends RecyclerView.Adapter<SubListViewAdapter.
     private Common mApp;
     private ArrayList<Song> mData;
 
+    //Constructor.
+
     public SubListViewAdapter(Context context,
                               ArrayList<Song> data,
                               OnAdapterItemClicked listener) {
@@ -39,6 +41,7 @@ public class SubListViewAdapter extends RecyclerView.Adapter<SubListViewAdapter.
         this.mData = data;
         mAdapterClickListener = listener;
     }
+
 
     @Override
     public SubListViewAdapter.SongHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -76,6 +79,10 @@ public class SubListViewAdapter extends RecyclerView.Adapter<SubListViewAdapter.
         }
     }
 
+    /**
+    *Create the {@link RecyclerView.ViewHolder } class under the adapter to avoid
+     * unnecessary confusion.
+    */
 
     class SongHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -91,9 +98,14 @@ public class SubListViewAdapter extends RecyclerView.Adapter<SubListViewAdapter.
             artist = (TextView) itemView.findViewById(R.id.listViewSubText);
             duration = (TextView) itemView.findViewById(R.id.listViewRightSubText);
             mTrackNo = (TextView) itemView.findViewById(R.id.listViewTrackNumber);
-            title.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Book-Font"));
-            artist.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Book-Font"));
-            duration.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Book-Font"));
+
+            /**
+            *Never ever set type face in {@link #onBindViewHolder(ViewHolder, int, List)}
+             * it will mess up the performance.
+            */
+            title.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
+            artist.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
+            duration.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
 
             mOverFlow = (ImageView) itemView.findViewById(R.id.listViewOverflow);
             mOverFlow.setVisibility(View.VISIBLE);
@@ -113,4 +125,6 @@ public class SubListViewAdapter extends RecyclerView.Adapter<SubListViewAdapter.
             mContext.startActivity(new Intent(mContext, NowPlayingActivity.class));
         }
     }
+
+
 }

@@ -14,6 +14,13 @@ import java.util.ArrayList;
  * Created by REYANSH on 8/2/2017.
  */
 
+
+/**
+*Class to add songs into queue or to play next.
+ * This could have been on the main the thread but its safe to to on background thread,
+ * just to stay away from any kind of lag into the animation and stuff.
+*/
+
 public class AsyncAddTo extends AsyncTask<Void, Void, Boolean> {
 
     private boolean mAddToQueue = false;

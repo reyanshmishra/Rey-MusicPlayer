@@ -753,7 +753,7 @@ public class MusicUtils {
             for (int i = 0; i < tabChildsCount; i++) {
                 View tabViewChild = vgTab.getChildAt(i);
                 if (tabViewChild instanceof TextView) {
-                    ((TextView) tabViewChild).setTypeface(TypefaceHelper.getTypeface(context, "Futura-Bold-Font"));
+                    ((TextView) tabViewChild).setTypeface(TypefaceHelper.getTypeface(context, TypefaceHelper.FUTURA_BOLD));
                 }
             }
         }
@@ -799,7 +799,7 @@ public class MusicUtils {
                 TextView tv = (TextView) view;
 
                 if (tv.getText().equals(toolbar.getTitle())) {
-                    tv.setTypeface(TypefaceHelper.getTypeface(context, "Futura-Bold-Font"));
+                    tv.setTypeface(TypefaceHelper.getTypeface(context, TypefaceHelper.FUTURA_BOLD));
                     break;
                 }
             }

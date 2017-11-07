@@ -202,39 +202,39 @@ public class Id3TagEditorActivity extends AppCompatActivity {
         });
 
         mTitleEditText = (EditText) findViewById(R.id.edit_title_field);
-        mTitleEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mTitleEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mArtistEditText = (EditText) findViewById(R.id.edit_artist_field);
-        mArtistEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mArtistEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
 
         mAlbumEditText = (EditText) findViewById(R.id.edit_album_field);
-        mAlbumEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mAlbumEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mAlbumArtistEditText = (EditText) findViewById(R.id.edit_album_artist_field);
-        mAlbumArtistEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mAlbumArtistEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mGenreEditText = (EditText) findViewById(R.id.edit_genre_field);
-        mGenreEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mGenreEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mProducerEditText = (EditText) findViewById(R.id.edit_producer_field);
-        mProducerEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mProducerEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mYearEditText = (EditText) findViewById(R.id.edit_year_field);
-        mYearEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mYearEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mTrackEditText = (EditText) findViewById(R.id.edit_track_field);
-        mTrackEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mTrackEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
 
         mCommentsEditText = (EditText) findViewById(R.id.edit_comment_field);
-        mCommentsEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mCommentsEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mTextOf = (TextView) findViewById(R.id.of);
-        mTextOf.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mTextOf.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mTotalTrackEditText = (EditText) findViewById(R.id.edit_track_total_field);
-        mTotalTrackEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Book-Font"));
+        mTotalTrackEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mUpdateButton = (Button) findViewById(R.id.fetch_best_match);
         mUpdateButton.setOnClickListener(v -> {

@@ -115,9 +115,9 @@ public class TracksSubFragment extends Fragment implements MusicUtils.Defs, OnAd
         mSearchButton = (ImageButton) mView.findViewById(R.id.search_button);
         mBackButton = (ImageButton) mView.findViewById(R.id.back_button);
 
-        mHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Bold-Font"));
-        mSubHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Book-Font"));
-        mPlayAllButton.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Bold-Font"));
+        mHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
+        mSubHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
+        mPlayAllButton.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
 
         HEADER_TITLE = bundle.getString(Constants.HEADER_TITLE);
         HEADER_SUB_TITLE = bundle.getString(Constants.HEADER_SUB_TITLE);

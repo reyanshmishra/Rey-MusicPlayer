@@ -65,7 +65,7 @@ public class NowPlayingBottomBarFragment extends Fragment {
         SnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(mRecyclerView);
         mDurationTextView = (TextView) mView.findViewById(R.id.duration_text);
-        mDurationTextView.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), "Futura-Bold-Font"));
+        mDurationTextView.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), TypefaceHelper.FUTURA_BOLD));
 
 
         mSeekBar = (SeekBar) mView.findViewById(R.id.seek_bar);

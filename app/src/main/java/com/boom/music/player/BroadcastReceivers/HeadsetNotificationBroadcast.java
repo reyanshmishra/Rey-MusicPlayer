@@ -7,6 +7,11 @@ import android.view.KeyEvent;
 
 import com.boom.music.player.Common;
 
+
+/**
+*Broadcast Receiver of headphone button clicks.
+*/
+
 public class HeadsetNotificationBroadcast extends BroadcastReceiver {
     private Common mApp;
 

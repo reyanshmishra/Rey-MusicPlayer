@@ -19,6 +19,10 @@ import com.boom.music.player.Utils.MusicUtils;
 import java.io.File;
 import java.util.ArrayList;
 
+
+/**
+ * This is use to delete the files or songs from the system permanently I repeat permanently.
+ */
 public class AsyncTaskDelete extends AsyncTask<ArrayList<Song>, String, Boolean> implements MusicUtils.Defs {
 
     private ProgressDialog mProgressUpdateDialog;

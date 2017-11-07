@@ -486,7 +486,7 @@ public class MusicService extends Service {
         mPlayPauseIntent = new Intent(Constants.ACTION_PLAY_PAUSE);
 
         /**
-         *Take the wakeup lock to stop CPU from sleeping cause we are DJing here.
+         *Take the wakeup lock to stop CPU from sleeping cause we are dancing on the beats.
          */
 
         mWakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE)).newWakeLock(1, getClass().getName());

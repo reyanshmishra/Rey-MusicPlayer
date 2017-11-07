@@ -67,7 +67,7 @@ public class RenameDialog extends DialogFragment {
         mEditText = (EditText) mView.findViewById(R.id.edit_text);
         mEditText.setText(mFileName);
         mEditText.setSelection(mFileName.length());
-        mEditText.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), "Futura-Book-Font"));
+        mEditText.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), TypefaceHelper.FUTURA_BOOK));
 
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override

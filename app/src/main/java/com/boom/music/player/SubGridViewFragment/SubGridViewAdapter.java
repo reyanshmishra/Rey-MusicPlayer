@@ -121,8 +121,8 @@ public class SubGridViewAdapter extends RecyclerView.Adapter<SubGridViewAdapter.
             albumart = (ImageView) itemView.findViewById(R.id.gridViewImage);
 
 
-            albumName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext(), "Futura-Book-Font"));
-            artistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext(), "Futura-Book-Font"));
+            albumName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext(), TypefaceHelper.FUTURA_BOOK));
+            artistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext(), TypefaceHelper.FUTURA_BOOK));
 
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) albumart.getLayoutParams();
             params.width = mWidth;

@@ -88,8 +88,8 @@ public class PlaylistPagerFragment extends Fragment {
 
         mAlbumArtImageView = (ImageView) mView.findViewById(R.id.coverArt);
 
-        mSongNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Bold-Font"));
-        mAlbumOrArtistNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Book-Font"));
+        mSongNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
+        mAlbumOrArtistNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
 
 
         mPopUpMenuButton = (ImageButton) mView.findViewById(R.id.now_playing_overflow_icon);

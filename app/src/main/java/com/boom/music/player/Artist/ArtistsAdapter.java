@@ -126,8 +126,8 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ItemHold
             mDetails = (TextView) itemView.findViewById(R.id.gridViewSubText);
             mArtistImage = (ImageView) itemView.findViewById(R.id.gridViewImage);
 
-            mArtistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
-            mDetails.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
+            mArtistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            mDetails.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mArtistImage.getLayoutParams();
             params.width = mWidth;

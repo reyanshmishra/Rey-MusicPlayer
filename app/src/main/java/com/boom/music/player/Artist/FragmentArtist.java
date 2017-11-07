@@ -40,6 +40,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+*The fragment class to display the list of artist in grid view.
+*/
 public class FragmentArtist extends Fragment implements MusicUtils.Defs, OnTaskCompleted {
 
 

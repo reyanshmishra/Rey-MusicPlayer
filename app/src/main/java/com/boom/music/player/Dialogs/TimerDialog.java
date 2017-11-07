@@ -30,7 +30,7 @@ public class TimerDialog extends DialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_timer, null);
         mTimerTextView = (TextView) view.findViewById(R.id.text_view_timer_dialog);
 
-        mTimerTextView.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Book-Font"));
+        mTimerTextView.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
         builder.setView(view);
 
         builder.setPositiveButton(R.string.stop, (dialog, which) -> {

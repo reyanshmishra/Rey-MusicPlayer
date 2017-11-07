@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.boom.music.player">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.boom.music.player">
 
-    <permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
+    <permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
-        android:required="true"/>
+        android:required="true" />
 
     <application
         android:name=".Common"
@@ -28,53 +28,53 @@
             android:name=".Activities.SplashActivity"
             android:theme="@style/AppThemeSubActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service android:name=".Services.MusicService">
             <intent-filter>
-                <action android:name="android.intent.action.MEDIA_BUTTON"/>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </service>
 
         <receiver android:name=".BroadcastReceivers.HeadsetNotificationBroadcast">
             <intent-filter android:priority="1000000000">
-                <action android:name="android.intent.action.MEDIA_BUTTON"/>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
         <receiver android:name=".AppWidget.SmallWidgetProvider">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/simple_widget_info"/>
+                android:resource="@xml/simple_widget_info" />
         </receiver>
         <receiver android:name="android.support.v4.media.session.MediaButtonReceiver">
             <intent-filter>
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
-                <action android:name="android.intent.action.MEDIA_BUTTON"/>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
 
         <activity
             android:name=".NowPlaying.NowPlayingActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppThemeSubActivity"/>
+            android:theme="@style/AppThemeSubActivity" />
         <activity
             android:name=".Equalizer.EqualizerActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".LauncherActivity.MainActivity"
-            android:theme="@style/AppThemeSubActivity"/>
+            android:theme="@style/AppThemeSubActivity" />
 
         <activity
             android:name=".Search.SearchActivity"
-            android:theme="@style/AppThemeSubActivity"/>
+            android:theme="@style/AppThemeSubActivity" />
 
 
         <activity
@@ -83,29 +83,29 @@
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LauncherActivity.MainActivity"/>
+                android:value=".LauncherActivity.MainActivity" />
         </activity>
 
 
-        <receiver android:name=".BroadcastReceivers.NotificationBroadcastReceiver">
-            <intent-filter>
-                <action android:name="com.boom.music.player.action.PAUSE"/>
-                <action android:name="com.boom.music.player.action.NEXT"/>
-                <action android:name="com.boom.music.player.action.PREVIOUS"/>
-                <action android:name="com.boom.music.player.action.STOP"/>
-            </intent-filter>
-        </receiver>
+        <!--<receiver android:name=".BroadcastReceivers.NotificationBroadcastReceiver">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.boom.music.player.action.PAUSE"/>-->
+        <!--<action android:name="com.boom.music.player.action.NEXT"/>-->
+        <!--<action android:name="com.boom.music.player.action.PREVIOUS"/>-->
+        <!--<action android:name="com.boom.music.player.action.STOP"/>-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
 
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
         <receiver
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
             </intent-filter>
         </receiver>
 
@@ -113,22 +113,21 @@
             android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.google.android.gms.analytics.CampaignTrackingService"/>
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
         <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:theme="@android:style/Theme.Translucent"/>
+            android:theme="@android:style/Theme.Translucent" />
 
         <activity
             android:name=".TagEditor.Id3TagEditorActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/AppThemeSubActivity">
-        </activity>
+            android:theme="@style/AppThemeSubActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
 
     </application>
 

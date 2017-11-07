@@ -122,8 +122,8 @@ public class FolderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             duration = (TextView) itemView.findViewById(R.id.listViewRightSubText);
             duration.setVisibility(View.INVISIBLE);
 
-            mTitle.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
-            mSubTitle.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
+            mTitle.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            mSubTitle.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
             mOverFlow = (ImageView) itemView.findViewById(R.id.listViewOverflow);
 

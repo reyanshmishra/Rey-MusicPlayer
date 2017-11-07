@@ -40,6 +40,10 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 
+/**
+*This is {@link Fragment} class to display the list of fragments available in the phone.
+*/
+
 public class AlbumFragment extends Fragment implements MusicUtils.Defs, OnTaskCompleted {
 
     private Context mContext;

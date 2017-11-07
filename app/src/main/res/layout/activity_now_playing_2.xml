@@ -1,5 +1,4 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/now_playing_drawer_frame_root"
@@ -16,7 +15,7 @@
             android:id="@+id/nowPlayingPlaylistPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/seekbarIndicatorParent"
@@ -46,7 +45,7 @@
                     android:singleLine="true"
                     android:text="00:00:00"
                     android:textColor="#000000"
-                    android:textSize="36sp"/>
+                    android:textSize="36sp" />
 
             </RelativeLayout>
 
@@ -61,7 +60,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-
+            android:visibility="invisible"
             app:cardBackgroundColor="@color/white">
 
 
@@ -85,7 +84,7 @@
                     android:progress="0"
                     android:thumb="@drawable/transparent_drawable"
                     android:thumbOffset="100000dp"
-                    android:thumbTint="@null"/>
+                    android:thumbTint="@null" />
 
 
                 <LinearLayout
@@ -105,7 +104,7 @@
                         android:paddingBottom="4dp"
                         android:paddingTop="4dp"
                         android:scaleType="centerInside"
-                        app:srcCompat="@drawable/shuffle"/>
+                        app:srcCompat="@drawable/shuffle" />
 
                     <ImageButton
                         android:id="@+id/previousButton"
@@ -118,7 +117,7 @@
                         android:paddingBottom="4dp"
                         android:paddingTop="4dp"
                         android:scaleX="1.5"
-                        app:srcCompat="@drawable/skip_backward"/>
+                        app:srcCompat="@drawable/skip_backward" />
 
 
                     <RelativeLayout
@@ -141,7 +140,7 @@
                             android:scaleX="1.2"
                             android:scaleY="1.2"
                             android:visibility="visible"
-                            app:srcCompat="@drawable/pause"/>
+                            app:srcCompat="@drawable/pause" />
 
                     </RelativeLayout>
 
@@ -156,7 +155,7 @@
                         android:paddingBottom="4dp"
                         android:paddingTop="4dp"
                         android:scaleX="1.5"
-                        app:srcCompat="@drawable/skip_forward"/>
+                        app:srcCompat="@drawable/skip_forward" />
 
                     <ImageButton
                         android:id="@+id/repeatButton"
@@ -168,7 +167,7 @@
                         android:paddingBottom="4dp"
                         android:paddingTop="4dp"
                         android:scaleType="centerInside"
-                        app:srcCompat="@drawable/repeat"/>
+                        app:srcCompat="@drawable/repeat" />
                 </LinearLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -190,7 +189,7 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="0dp"
             app:elevation="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout

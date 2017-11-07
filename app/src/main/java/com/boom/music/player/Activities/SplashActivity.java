@@ -41,7 +41,6 @@ import io.reactivex.schedulers.Schedulers;
 public class SplashActivity extends AppCompatActivity implements OnProgressUpdate {
 
     private CompositeDisposable mCompositeDisposable;
-    private Common mApp;
     private ProgressBar mProgressBar;
     private RelativeLayout mProgressBarHolder;
     private TextView mTitle;
@@ -50,15 +49,17 @@ public class SplashActivity extends AppCompatActivity implements OnProgressUpdat
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        mApp = (Common) Common.getInstance().getApplicationContext();
 
         mTitle = (TextView) findViewById(R.id.title);
-        mTitle.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Bold-Font"));
-        ((TextView) findViewById(R.id.building_library_task)).setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), "Futura-Condensed-Font"));
+        mTitle.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOLD));
+        ((TextView) findViewById(R.id.building_library_task)).setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_CONDENSED));
 
         mProgressBar = (ProgressBar) findViewById(R.id.building_library_progress);
         mProgressBarHolder = (RelativeLayout) findViewById(R.id.progress_elements_container);
         mCompositeDisposable = new CompositeDisposable();
+
+        //Keeping the track of the launchcount to scan the library.
+
         int launchCount = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.LAUNCH_COUNT, 0);
         launchCount++;
         PreferencesHelper.getInstance().put(PreferencesHelper.Key.LAUNCH_COUNT, launchCount);
@@ -89,13 +90,16 @@ public class SplashActivity extends AppCompatActivity implements OnProgressUpdat
         return true;
     }
 
+
+    /**
+     * Permission check if version is >= 6 (Marshmallow.)
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (Constants.REQUEST_PERMISSIONS == requestCode) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 buildLibrary();
             } else {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.grant_permission);
                 builder.setMessage(R.string.grant_permission_message);
@@ -124,6 +128,10 @@ public class SplashActivity extends AppCompatActivity implements OnProgressUpdat
         mCompositeDisposable.dispose();
     }
 
+    /**
+     * Fade the title and show the building library text,
+     * have just started with RxJava so might not be that good for background tasks.
+     */
     private void buildLibrary() {
         fadeInFadeOut();
         mCompositeDisposable.add(Observable.fromCallable(() -> CursorHelper.buildMusicLibrary(this))
@@ -150,6 +158,9 @@ public class SplashActivity extends AppCompatActivity implements OnProgressUpdat
         );
     }
 
+    /**
+     * Fade in and out animations.
+     */
     private void fadeInFadeOut() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);

@@ -121,8 +121,8 @@ public class AdapterGenres extends RecyclerView.Adapter<AdapterGenres.ItemHolder
             subTitle = (TextView) itemView.findViewById(R.id.gridViewSubText);
             albumart = (ImageView) itemView.findViewById(R.id.gridViewImage);
 
-            title.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
-            subTitle.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
+            title.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            subTitle.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
 
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) albumart.getLayoutParams();

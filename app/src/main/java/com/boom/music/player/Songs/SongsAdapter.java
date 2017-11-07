@@ -104,9 +104,9 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ItemHolder> 
             mAlbumArt = (ImageView) itemView.findViewById(R.id.listViewLeftIcon);
             duration = (TextView) itemView.findViewById(R.id.listViewRightSubText);
 
-            title.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
-            artist.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
-            duration.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
+            title.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            artist.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            duration.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
 
             mOverFlow = (ImageView) itemView.findViewById(R.id.listViewOverflow);

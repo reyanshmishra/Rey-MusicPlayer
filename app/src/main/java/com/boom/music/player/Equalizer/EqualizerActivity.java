@@ -42,7 +42,11 @@ import java.util.ArrayList;
 
 /**
  * Created by Reyansh on 23/04/2016.
+ * <p>
+ * Equalizer doesn't work some of the HTC devices I think.
  */
+
+
 public class EqualizerActivity extends AppCompatActivity {
 
     /**
@@ -118,7 +122,6 @@ public class EqualizerActivity extends AppCompatActivity {
     private int twelvePointFiveKilohertzLevel = 16;
     private int volumeLevel = 100;
 
-
     // Temp variables that hold audio fx settings.
     private int virtualizerLevel;
     private int bassBoostLevel;
@@ -155,46 +158,46 @@ public class EqualizerActivity extends AppCompatActivity {
         e50HzSeekBar = (com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar) findViewById(R.id.slider_1);
         e50HzTextView = (TextView) findViewById(R.id.e50hztxt);
         e50HzSeekBar.setOnSeekBarChangeListener(equalizer50HzListener);
-        e50HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Condensed-Font"));
+        e50HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
         e130HzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_2);
         e130HzSeekBar.setOnSeekBarChangeListener(equalizer130HzListener);
         e130HzTextView = (TextView) findViewById(R.id.e130hztxt);
-        e130HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Condensed-Font"));
+        e130HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
         e320HzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_3);
         e320HzSeekBar.setOnSeekBarChangeListener(equalizer320HzListener);
         e320HzTextView = (TextView) findViewById(R.id.e320hztxt);
-        e320HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Condensed-Font"));
+        e320HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
         e800HzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_4);
         e800HzSeekBar.setOnSeekBarChangeListener(equalizer800HzListener);
         e800HzTextView = (TextView) findViewById(R.id.e800hztxt);
-        e800HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Condensed-Font"));
+        e800HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
         e2kHzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_5);
         e2kHzSeekBar.setOnSeekBarChangeListener(equalizer2kHzListener);
         e2kHzTextView = (TextView) findViewById(R.id.e2khztxt);
-        e2kHzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Condensed-Font"));
+        e2kHzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
         e5kHzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_6);
         e5kHzSeekBar.setOnSeekBarChangeListener(equalizer5kHzListener);
         e5kHzTextView = (TextView) findViewById(R.id.e5khztxt);
-        e5kHzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Condensed-Font"));
+        e5kHzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
         e12_5kHzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_7);
         e12_5kHzSeekBar.setOnSeekBarChangeListener(equalizer12_5kHzListener);
         e12_5HzTextView = (TextView) findViewById(R.id.e12_5khztxt);
-        e12_5HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Condensed-Font"));
+        e12_5HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
         mVirtualizerSeekArc = (SeekArc) findViewById(R.id.seek_arc_virtualizer);
         mVirtualizerSeekArc.setOnSeekArcChangeListener(virtualizerListener);
 
         TextView virtualizerText = (TextView) findViewById(R.id.virtualizer);
-        virtualizerText.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Bold-Font"));
+        virtualizerText.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
 
         TextView bassboostText = (TextView) findViewById(R.id.bass_boost);
-        bassboostText.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Bold-Font"));
+        bassboostText.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
 
         mBassBoostSeekArc = (SeekArc) findViewById(R.id.seek_arc_bass_boost);
         mBassBoostSeekArc.setOnSeekArcChangeListener(bassBoostListener);
@@ -236,12 +239,12 @@ public class EqualizerActivity extends AppCompatActivity {
         mReverbSpinner.setOnItemSelectedListener(reverbListener);
 
         mLoadPresetButton = (Button) findViewById(R.id.load_preset_button);
-        mLoadPresetButton.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Bold-Font"));
+        mLoadPresetButton.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
 
         mLoadPresetButton.setOnClickListener(v -> buildLoadPresetDialog().show());
 
         mSavePreset = (Button) findViewById(R.id.savePreset);
-        mSavePreset.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Bold-Font"));
+        mSavePreset.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
 
         mSavePreset.setOnClickListener(v -> {
             AlertDialog dialog = buildSavePresetDialog();
@@ -821,7 +824,10 @@ public class EqualizerActivity extends AppCompatActivity {
             bassBoostLevel = eqValues[8];
             reverbSetting = eqValues[9];
             volumeLevel = eqValues[10];
+
             //Move the sliders to the equalizer settings.
+
+
             e50HzSeekBar.setProgress(fiftyHertzLevel);
             e130HzSeekBar.setProgress(oneThirtyHertzLevel);
             e320HzSeekBar.setProgress(threeTwentyHertzLevel);
@@ -833,6 +839,8 @@ public class EqualizerActivity extends AppCompatActivity {
             mBassBoostSeekArc.setProgress(bassBoostLevel);
             mVolumeSeekBar.setProgress(volumeLevel);
             mReverbSpinner.setSelection(reverbSetting, false);
+
+
             Logger.log("REVERB " + reverbSetting);
 
             //50Hz Band.
@@ -954,7 +962,7 @@ public class EqualizerActivity extends AppCompatActivity {
         View dialogView = getLayoutInflater().inflate(R.layout.add_new_equalizer_preset_dialog_layout, null);
 
         final EditText newPresetNameField = (EditText) dialogView.findViewById(R.id.new_preset_name_text_field);
-        newPresetNameField.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Book-Font"));
+        newPresetNameField.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
         newPresetNameField.setPaintFlags(newPresetNameField.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
 
 

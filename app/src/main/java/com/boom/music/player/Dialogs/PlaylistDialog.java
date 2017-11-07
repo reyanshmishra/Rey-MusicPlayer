@@ -49,7 +49,7 @@ public class PlaylistDialog extends DialogFragment {
         mEditText = (EditText) view.findViewById(R.id.edit_text_playlist);
         mEditText.addTextChangedListener(mTextWatcher);
         mEditText.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.black));
-        mEditText.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Book-Font"));
+        mEditText.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
         mEditText.setHint(R.string.new_playlist_name);
         mBuilder.setView(view);
 
@@ -108,7 +108,7 @@ public class PlaylistDialog extends DialogFragment {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             String newText = mEditText.getText().toString();
-            mEditText.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Book-Font"));
+            mEditText.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
             if (newText.trim().length() == 0) {
                 mPositiveButton.setEnabled(false);
             } else {

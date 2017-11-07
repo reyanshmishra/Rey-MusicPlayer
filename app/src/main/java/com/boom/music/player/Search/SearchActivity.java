@@ -89,7 +89,7 @@ public class SearchActivity extends AppCompatActivity implements MusicUtils.Defs
         mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         mSearchEditText = (EditText) findViewById(R.id.edit_text_search);
-        mSearchEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext().getApplicationContext(), "Futura-Book-Font"));
+        mSearchEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mImageButtonClear.setOnClickListener(v -> mSearchEditText.setText(""));
 

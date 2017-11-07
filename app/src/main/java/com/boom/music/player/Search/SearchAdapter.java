@@ -162,8 +162,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.listViewTitleText);
             artist = (TextView) itemView.findViewById(R.id.listViewSubText);
-            title.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), "Futura-Book-Font"));
-            artist.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), "Futura-Book-Font"));
+            title.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            artist.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
             mAlbumArt = (ImageView) itemView.findViewById(R.id.listViewLeftIcon);
             duration = (TextView) itemView.findViewById(R.id.listViewRightSubText);
@@ -189,7 +189,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         public HeaderHolder(View itemView) {
             super(itemView);
             mHeader = (TextView) itemView.findViewById(R.id.section_header);
-            mHeader.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), "Futura-Bold-Font"));
+            mHeader.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), TypefaceHelper.FUTURA_BOLD));
         }
     }
 
@@ -203,8 +203,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             super(itemView);
             albumName = (TextView) itemView.findViewById(R.id.gridViewTitleText);
             artistName = (TextView) itemView.findViewById(R.id.gridViewSubText);
-            albumName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), "Futura-Book-Font"));
-            artistName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), "Futura-Book-Font"));
+            albumName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            artistName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
             albumart = (ImageView) itemView.findViewById(R.id.gridViewImage);
             mOverFlow = (ImageView) itemView.findViewById(R.id.overflow);
@@ -241,8 +241,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             super(itemView);
             albumName = (TextView) itemView.findViewById(R.id.gridViewTitleText);
             artistName = (TextView) itemView.findViewById(R.id.gridViewSubText);
-            albumName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), "Futura-Book-Font"));
-            artistName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), "Futura-Book-Font"));
+            albumName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            artistName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
             albumart = (ImageView) itemView.findViewById(R.id.gridViewImage);
             mOverFlow = (ImageView) itemView.findViewById(R.id.overflow);
@@ -279,8 +279,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             super(itemView);
             albumName = (TextView) itemView.findViewById(R.id.gridViewTitleText);
             artistName = (TextView) itemView.findViewById(R.id.gridViewSubText);
-            albumName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), "Futura-Book-Font"));
-            artistName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), "Futura-Book-Font"));
+            albumName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            artistName.setTypeface(TypefaceHelper.getTypeface(mSearchActivity.getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
             albumart = (ImageView) itemView.findViewById(R.id.gridViewImage);
             mOverFlow = (ImageView) itemView.findViewById(R.id.overflow);

@@ -120,8 +120,8 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.ItemHolder
             artistName = (TextView) itemView.findViewById(R.id.gridViewSubText);
             albumart = (ImageView) itemView.findViewById(R.id.gridViewImage);
 
-            albumName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
-            artistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
+            albumName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            artistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) albumart.getLayoutParams();
             params.width = mWidth;

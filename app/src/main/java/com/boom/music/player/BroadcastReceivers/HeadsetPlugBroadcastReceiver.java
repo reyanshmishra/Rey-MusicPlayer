@@ -7,6 +7,10 @@ import android.util.Log;
 
 import com.boom.music.player.Common;
 
+/**
+*Broadcast receiver to handle the plug in and plug out of the headphone.
+*/
+
 public class HeadsetPlugBroadcastReceiver extends BroadcastReceiver {
     private Common mApp;
     @Override

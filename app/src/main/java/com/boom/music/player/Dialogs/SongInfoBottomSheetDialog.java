@@ -1,5 +1,6 @@
 package com.boom.music.player.Dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Handler;
 import android.support.design.widget.BottomSheetBehavior;
@@ -37,6 +38,9 @@ import retrofit2.Response;
 
 /**
  * Created by REYANSH on 7/29/2017.
+ *
+ * This class gets the album art cover and the details of the song and show them in RecyclerView.
+ *
  */
 
 public class SongInfoBottomSheetDialog extends BottomSheetDialogFragment {
@@ -55,6 +59,7 @@ public class SongInfoBottomSheetDialog extends BottomSheetDialogFragment {
     private Handler mHandler;
 
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
@@ -62,7 +67,7 @@ public class SongInfoBottomSheetDialog extends BottomSheetDialogFragment {
 
         mBestMatchesEdiText = (EditText) mView.findViewById(R.id.edit_text_search);
         mNoMatchesFoundTextView = (TextView) mView.findViewById(R.id.text_view_no_matches_found);
-        mNoMatchesFoundTextView.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), "Futura-Bold-Font"));
+        mNoMatchesFoundTextView.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), TypefaceHelper.FUTURA_BOLD));
         mHandler = new Handler();
 
         mCrossImageViewButton = (ImageButton) mView.findViewById(R.id.image_button_cross);
@@ -82,7 +87,7 @@ public class SongInfoBottomSheetDialog extends BottomSheetDialogFragment {
             mCrossImageViewButton.setVisibility(View.VISIBLE);
         }
 
-        mBestMatchesEdiText.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), "Futura-Bold-Font"));
+        mBestMatchesEdiText.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), TypefaceHelper.FUTURA_BOLD));
         mBestMatchesEdiText.setText(SONG_NAME);
         mBestMatchesEdiText.setSelection(SONG_NAME.length());
         mBestMatchesEdiText.addTextChangedListener(mTextWatcher);

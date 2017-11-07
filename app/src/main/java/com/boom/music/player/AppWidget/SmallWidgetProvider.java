@@ -13,7 +13,9 @@ import com.boom.music.player.R;
 import com.boom.music.player.Utils.Constants;
 
 /**
- * Created by Reyanshs on 22/05/2016.
+ * Created by Reyansh on 22/05/2016.
+ *
+ * This is the just the small widget which can be put on the main screen and the songs can be played.
  */
 public class SmallWidgetProvider extends AppWidgetProvider {
 

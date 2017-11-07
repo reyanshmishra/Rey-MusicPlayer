@@ -1,6 +1,7 @@
 package com.boom.music.player.NowPlaying;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -138,6 +139,7 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
 
     private ArrayList<Fragment> mFragments;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -194,8 +196,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
             RelativeLayout.LayoutParams paramss = (RelativeLayout.LayoutParams) mNowPlayingContainer.getLayoutParams();
             paramss.width = width;
             mNowPlayingContainer.setLayoutParams(paramss);
-
-
         }
 
         /**

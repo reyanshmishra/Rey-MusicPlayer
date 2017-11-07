@@ -75,8 +75,8 @@ public class PlaylistFragment extends Fragment implements MusicUtils.Defs {
         mEmptyStateLayout = (RelativeLayout) view.findViewById(R.id.empty_state);
 
 
-        mCreatePlaylistButton.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Bold-Font"));
-        emptyText.setTypeface(TypefaceHelper.getTypeface(mContext, "Futura-Bold-Font"));
+        mCreatePlaylistButton.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
+        emptyText.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
 
         mCreatePlaylistButton.setOnClickListener(v -> {
             PlaylistDialog playlistDialog = new PlaylistDialog();

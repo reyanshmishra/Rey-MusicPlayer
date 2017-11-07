@@ -67,7 +67,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ItemHo
         public ItemHolder(View itemView) {
             super(itemView);
             mPlaylistName = (TextView) itemView.findViewById(R.id.gridViewTitleText);
-            mPlaylistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
+            mPlaylistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
             mOverFlow = (ImageView) itemView.findViewById(R.id.overflow);
             mOverFlow.setOnClickListener(this);

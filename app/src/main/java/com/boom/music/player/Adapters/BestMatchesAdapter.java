@@ -29,6 +29,8 @@ public class BestMatchesAdapter extends RecyclerView.Adapter<BestMatchesAdapter.
     private Id3TagEditorActivity mId3TagEditorActivity;
     private List<BestMatchesModel.Results> mBestMatchesModels;
 
+
+
     public BestMatchesAdapter(Id3TagEditorActivity id3TagEditorActivity, List<BestMatchesModel.Results> bestMatchesModels) {
         mId3TagEditorActivity = id3TagEditorActivity;
         mBestMatchesModels = bestMatchesModels;
@@ -99,8 +101,8 @@ public class BestMatchesAdapter extends RecyclerView.Adapter<BestMatchesAdapter.
             albumart = (ImageView) itemView.findViewById(R.id.gridViewImage);
             itemView.findViewById(R.id.overflow).setVisibility(View.INVISIBLE);
 
-            albumName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
-            artistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), "Futura-Book-Font"));
+            albumName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
+            artistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
             mFooter = (RelativeLayout) itemView.findViewById(R.id.linear_layout_footer);
             mFooter.setVisibility(View.GONE);
 

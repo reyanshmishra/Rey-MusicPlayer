@@ -163,8 +163,8 @@ public class QueueAdapter extends RecyclerView.Adapter<QueueAdapter.ItemHolder> 
             super(itemView);
             mTitleTextView = (TextView) itemView.findViewById(R.id.queue_song_title);
             mArtistTextView = (TextView) itemView.findViewById(R.id.song_artist);
-            mTitleTextView.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), "Futura-Book-Font"));
-            mArtistTextView.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), "Futura-Book-Font"));
+            mTitleTextView.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), TypefaceHelper.FUTURA_BOOK));
+            mArtistTextView.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), TypefaceHelper.FUTURA_BOOK));
 
 
             mDraggerImageView = (ImageView) itemView.findViewById(R.id.drag_handle);

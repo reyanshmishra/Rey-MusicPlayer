@@ -57,7 +57,7 @@ public class FastScroller extends LinearLayout {
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.recyclerview_fastscroller, this, true);
         bubble = (TextView) findViewById(R.id.fastscroller_bubble);
-        bubble.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), "Futura-Bold-Font"));
+        bubble.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), TypefaceHelper.FUTURA_BOLD));
         handle = findViewById(R.id.fastscroller_handle);
         mLineView = findViewById(R.id.view_line);
         hideViews();
