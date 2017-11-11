@@ -41,21 +41,8 @@ Website - www.reyanshmishra.com
 
 
 
-<H1>UpComing Features</H1>
-1.Last Fm Scrobbling.
-
-2.Auto Fetching album art.
-
-3.Custom Themes.
-
-4.Smooth Animations and Transitions.
-
-5.Crossfade music.
-
-6.More NowPlaying screens.
-
-7.(Suggested features if any and many more)
-
+<H1>No longer maintained.</H1>
+This projects is no longer maintained due to lack of time.
 
 <H1>Credits</H1>
 Jams:-https://github.com/psaravan/JamsMusicPlayer<br>
