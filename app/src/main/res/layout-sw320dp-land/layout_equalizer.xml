@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-                android:orientation="horizontal">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgcolor"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/id_toolbar_container"
@@ -23,13 +23,14 @@
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </android.support.design.widget.AppBarLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:background="@drawable/drawable_drop_shadow"/>
+            android:background="@drawable/drawable_drop_shadow" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -61,9 +62,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <com.boom.music.player.Views.VerticalSeekBar
                     android:id="@+id/slider_1"
@@ -76,7 +75,7 @@
                     android:progress="16"
                     android:progressBackgroundTint="@color/textColorSecondary"
                     android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:thumbOffset="8dp" />
 
                 <TextView
                     android:id="@+id/e50hztxtHeader"
@@ -86,9 +85,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="50 Hz"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </RelativeLayout>
 
@@ -107,9 +104,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <com.boom.music.player.Views.VerticalSeekBar
                     android:id="@+id/slider_2"
@@ -122,7 +117,7 @@
                     android:progress="16"
                     android:progressBackgroundTint="@color/textColorSecondary"
                     android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:thumbOffset="8dp" />
 
                 <TextView
                     android:id="@+id/e130hztxtHeader"
@@ -133,8 +128,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="130 Hz"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -152,8 +146,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <com.boom.music.player.Views.VerticalSeekBar
                     android:id="@+id/slider_3"
@@ -166,7 +159,7 @@
                     android:progress="16"
                     android:progressBackgroundTint="@color/textColorSecondary"
                     android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:thumbOffset="8dp" />
 
                 <TextView
                     android:id="@+id/e320hztxtHeader"
@@ -177,8 +170,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="320 Hz"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -197,7 +189,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
+
 
                     />
 
@@ -212,7 +204,7 @@
                     android:progress="16"
                     android:progressBackgroundTint="@color/textColorSecondary"
                     android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:thumbOffset="8dp" />
 
                 <TextView
                     android:id="@+id/e800hztxtHeader"
@@ -223,9 +215,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="800 Hz"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -243,9 +233,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <com.boom.music.player.Views.VerticalSeekBar
                     android:id="@+id/slider_5"
@@ -258,7 +246,7 @@
                     android:progress="16"
                     android:progressBackgroundTint="@color/textColorSecondary"
                     android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:thumbOffset="8dp" />
 
                 <TextView
                     android:id="@+id/e2khztxtHeader"
@@ -269,9 +257,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="2 kHz"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -290,8 +276,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <com.boom.music.player.Views.VerticalSeekBar
                     android:id="@+id/slider_6"
@@ -304,7 +289,7 @@
                     android:progress="16"
                     android:progressBackgroundTint="@color/textColorSecondary"
                     android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:thumbOffset="8dp" />
 
                 <TextView
                     android:id="@+id/e5khztxtHeader"
@@ -316,9 +301,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="5 kHz"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -335,8 +318,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <com.boom.music.player.Views.VerticalSeekBar
                     android:id="@+id/slider_7"
@@ -349,7 +331,7 @@
                     android:progress="16"
                     android:progressBackgroundTint="@color/textColorSecondary"
                     android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:thumbOffset="8dp" />
 
                 <TextView
                     android:id="@+id/e12_5khztxtHeader"
@@ -360,9 +342,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="12.5 Hz"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -385,7 +365,7 @@
                     android:layout_centerVertical="true"
                     android:background="?selectableItemBackground"
                     android:padding="4dp"
-                    app:srcCompat="@drawable/ic_volume_mute_black_24dp"/>
+                    app:srcCompat="@drawable/ic_volume_mute_black_24dp" />
 
                 <SeekBar
                     android:id="@+id/volume_seekbar"
@@ -396,7 +376,7 @@
                     android:layout_toRightOf="@+id/volume_mute"
                     android:progressBackgroundTint="@color/gray"
                     android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:thumbOffset="8dp" />
 
                 <ImageButton
                     android:id="@+id/volume_high"
@@ -406,7 +386,7 @@
                     android:layout_centerVertical="true"
                     android:layout_margin="8dp"
                     android:background="?selectableItemBackground"
-                    app:srcCompat="@drawable/ic_volume_up_black_24dp"/>
+                    app:srcCompat="@drawable/ic_volume_up_black_24dp" />
 
             </RelativeLayout>
 
@@ -439,7 +419,7 @@
                         app:startAngle="45"
                         app:sweepAngle="270"
                         app:thumb="@color/white"
-                        app:touchInside="true"/>
+                        app:touchInside="true" />
 
                     <ImageButton
                         android:id="@+id/image_button_virtualizer"
@@ -455,7 +435,7 @@
                         android:scaleType="fitCenter"
                         android:scaleX="@dimen/control_button_scale"
                         android:scaleY="@dimen/control_button_scale"
-                        android:src="@drawable/drawable_eq_circle_"/>
+                        android:src="@drawable/drawable_eq_circle_" />
 
                     <TextView
                         android:id="@+id/virtualizer"
@@ -467,7 +447,7 @@
                         android:text="@string/virtualizer"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/textColorSecondary"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
@@ -492,7 +472,7 @@
                         app:startAngle="45"
                         app:sweepAngle="270"
                         app:thumb="@color/white"
-                        app:touchInside="true"/>
+                        app:touchInside="true" />
 
                     <ImageButton
                         android:id="@+id/image_button_bass_boost"
@@ -508,7 +488,7 @@
                         android:scaleType="fitCenter"
                         android:scaleX="@dimen/control_button_scale"
                         android:scaleY="@dimen/control_button_scale"
-                        android:src="@drawable/drawable_eq_circle_"/>
+                        android:src="@drawable/drawable_eq_circle_" />
 
                     <TextView
                         android:id="@+id/bass_boost"
@@ -520,8 +500,7 @@
                         android:text="@string/bass_boost"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/textColorSecondary"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -551,7 +530,7 @@
                             android:id="@+id/reverb_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:padding="0dp"/>
+                            android:padding="0dp" />
 
                     </RelativeLayout>
                 </LinearLayout>
@@ -582,7 +561,7 @@
                             android:textAllCaps="false"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="@color/pink"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -607,7 +586,7 @@
                             android:textAllCaps="false"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="@color/pink"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

@@ -26,6 +26,8 @@
         tools:replace="android:icon">
         <activity
             android:name=".Activities.SplashActivity"
+
+            android:excludeFromRecents="true"
             android:theme="@style/AppThemeSubActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,6 +72,8 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".LauncherActivity.MainActivity"
+
+            android:excludeFromRecents="true"
             android:theme="@style/AppThemeSubActivity" />
 
         <activity
@@ -80,6 +84,7 @@
         <activity
             android:name=".Setting.SettingActivity"
             android:parentActivityName=".LauncherActivity.MainActivity"
+
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

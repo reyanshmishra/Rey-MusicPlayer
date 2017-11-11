@@ -14,9 +14,9 @@
     <color name="_light_gray">#abaaaa</color>
     <color name="transparent">#50000000</color>
     <color name="darkgray">#A9A9A9</color>
-
     <color name="kitkat_blue">#33b5e5</color>
     <color name="green">#006103</color>
+    <color name="bgcolor">#d6d6d6</color>
 
     <color name="transparentblack">#70000000</color>
     <color name="fulltransparent">#00000000</color>

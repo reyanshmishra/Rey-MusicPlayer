@@ -17,7 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.boom.music.player.Common;
 import com.boom.music.player.Interfaces.OnProgressUpdate;
 import com.boom.music.player.LauncherActivity.MainActivity;
 import com.boom.music.player.R;
@@ -132,6 +131,7 @@ public class SplashActivity extends AppCompatActivity implements OnProgressUpdat
      * Fade the title and show the building library text,
      * have just started with RxJava so might not be that good for background tasks.
      */
+
     private void buildLibrary() {
         fadeInFadeOut();
         mCompositeDisposable.add(Observable.fromCallable(() -> CursorHelper.buildMusicLibrary(this))

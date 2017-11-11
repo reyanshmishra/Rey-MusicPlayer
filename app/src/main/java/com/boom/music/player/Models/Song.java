@@ -2,6 +2,7 @@ package com.boom.music.player.Models;
 
 /**
  * Created by REYANSH on 8/10/2017.
+ * Song Model Class.
  */
 
 public class Song  implements Cloneable{

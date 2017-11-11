@@ -1,17 +1,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/fragmentholder"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"
-                android:textColor="@color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentholder"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/drawable_drop_shadow"/>
+        android:background="@drawable/drawable_drop_shadow" />
 
 
     <android.support.v7.widget.RecyclerView
@@ -23,14 +23,14 @@
         android:orientation="vertical"
         android:paddingBottom="65dp"
         android:visibility="visible"
-        tools:listitem="@layout/list_view_item"/>
+        tools:listitem="@layout/list_view_item" />
 
     <com.boom.music.player.Views.FastScroller
         android:id="@+id/fast_scroller"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:padding="5dp"/>
+        android:padding="5dp" />
 
     <RelativeLayout
         android:id="@+id/empty_state"
@@ -45,7 +45,7 @@
             android:layout_height="125dp"
             android:layout_centerInParent="true"
             android:tint="@color/textColorSecondary"
-            app:srcCompat="@drawable/drawable_emoticon_poop"/>
+            app:srcCompat="@drawable/drawable_emoticon_poop" />
 
         <TextView
             android:id="@+id/empty_text_view"
@@ -55,7 +55,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="@string/hey_i_am_empty"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Button
             android:id="@+id/create_playlist"
@@ -70,7 +70,7 @@
             android:text="@string/create_playlist"
             android:textAllCaps="false"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/pink"/>
+            android:textColor="@color/pink" />
 
     </RelativeLayout>
 

@@ -2,7 +2,9 @@ package com.boom.music.player.LauncherActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -19,6 +21,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 
 import com.boom.music.player.Activities.TracksSubFragment;
+import com.boom.music.player.Common;
 import com.boom.music.player.FileDirectory.FolderFragment;
 import com.boom.music.player.Interfaces.OnScrolledListener;
 import com.boom.music.player.R;
@@ -45,19 +48,27 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
     private AppBarLayout mAppBarLayout;
     private ArrayList<Fragment> mFragments;
 
+    private Common mApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
+        mApp = (Common) Common.getInstance();
+
         mFragments = new ArrayList<>();
         mTabLayout = (TabLayout) findViewById(R.id.id_tabs);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
-        mAdapter = new SwipeAdapter(getSupportFragmentManager(), mContext);
+
+
+        mAdapter = new SwipeAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setCurrentItem(2);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Common.getInstance());
+        int startup_screen = Integer.parseInt(sharedPreferences.getString("preference_key_startup_screen", "2"));
+
+        mViewPager.setCurrentItem(startup_screen);
         mViewPager.setOffscreenPageLimit(5);
 
         mTabLayout.setupWithViewPager(mViewPager);
@@ -67,9 +78,10 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mAppBarLayout = (AppBarLayout) findViewById(R.id.id_toolbar_container);
 
+
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mAppBarLayout.getLayoutParams();
-//        params.topMargin = Common.getStatusBarHeight(this);
-//        mAppBarLayout.setLayoutParams(params);
+//      params.topMargin = Common.getStatusBarHeight(this);
+//      mAppBarLayout.setLayoutParams(params);
 
 
         setSupportActionBar(mToolbar);
@@ -294,7 +306,7 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
             FolderFragment folderFragment = (FolderFragment) mAdapter.getFragment(5);
             if (folderFragment.getCurrentDir().equals("/")) {
                 goHomeScreen();
-            }else {
+            } else {
                 folderFragment.getParentDir();
             }
         } else {

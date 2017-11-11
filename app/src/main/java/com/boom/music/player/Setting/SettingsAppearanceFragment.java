@@ -22,7 +22,7 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
     private View mRootView;
     private Context mContext;
     private Common mApp;
-    private ListPreference mTabCheckPreference;
+    private ListPreference mStartUpScreenPreference;
     private PreferenceManager mPreferenceManager;
 
     @Override
@@ -30,8 +30,9 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
         super.onCreate(onSavedInstanceState);
         addPreferencesFromResource(R.xml.settings_appearance);
         mPreferenceManager = this.getPreferenceManager();
-        mTabCheckPreference = (ListPreference) mPreferenceManager.findPreference("preference_key_startup_screen");
-        mTabCheckPreference.setOnPreferenceChangeListener((preference, o) -> {
+
+        mStartUpScreenPreference = (ListPreference) mPreferenceManager.findPreference("preference_key_startup_screen");
+        mStartUpScreenPreference.setOnPreferenceChangeListener((preference, o) -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.restart_app);
             builder.setMessage(R.string.restart_app_des);
@@ -45,8 +46,10 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
             });
             builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> dialogInterface.dismiss());
             builder.create().show();
+
             return true;
         });
+
 
     }
 

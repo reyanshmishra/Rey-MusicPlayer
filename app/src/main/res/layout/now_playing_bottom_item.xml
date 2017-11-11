@@ -13,16 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="75dp">
 
-        <ImageView
-            android:id="@+id/album_art"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+        <android.support.v7.widget.CardView
+            android:id="@+id/album_art_holder"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_centerVertical="true"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="@color/indigo"
-            app:srcCompat="@drawable/ic_placeholder" />
+            android:elevation="8dp"
+            app:cardCornerRadius="5dp"
+            app:cardUseCompatPadding="true">
+
+            <ImageView
+                android:id="@+id/album_art"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/indigo"
+                app:srcCompat="@drawable/ic_placeholder" />
+        </android.support.v7.widget.CardView>
 
         <RelativeLayout
             android:id="@+id/text_holder"
@@ -30,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/fab"
-            android:layout_toRightOf="@+id/album_art"
+            android:layout_toRightOf="@+id/album_art_holder"
             android:orientation="vertical">
 
             <TextView

@@ -56,42 +56,128 @@ import java.util.ArrayList;
 
 public class TracksSubFragment extends Fragment implements MusicUtils.Defs, OnAdapterItemClicked, OnTaskCompleted {
 
-    private boolean mGoingBack = false;
-
-    private ArrayList<Song> mSongList;
-    private SubListViewAdapter mAdapter;
-
-    private RecyclerView mRecyclerView;
-    private Context mContext;
-
-    private TextView mHeaderTextView;
-    private TextView mSubHeaderTextView;
-    private ImageView mHeaderImage;
-    private ImageButton mHeaderPopUp;
-
-
-    private int mSelectedPosition;
-    private Common mApp;
-
-    private RelativeLayout mHeaderLayout;
-    private LinearLayoutManager mLinearLayoutManager;
-
-
     public String HEADER_TITLE;
     public String HEADER_SUB_TITLE;
     public String FROM_WHERE;
     public String SELECTION_VALUE;
+    private boolean mGoingBack = false;
+    private ArrayList<Song> mSongList;
+    private SubListViewAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    Animator.AnimatorListener mRecyclerAnimationListener = new Animator.AnimatorListener() {
+        @Override
+        public void onAnimationStart(Animator animation) {
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
 
+        @Override
+        public void onAnimationEnd(Animator animation) {
+
+        }
+
+        @Override
+        public void onAnimationCancel(Animator animation) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+
+        }
+    };
+    private Context mContext;
+    private TextView mHeaderTextView;
+    private TextView mSubHeaderTextView;
+    private ImageView mHeaderImage;
+    private ImageButton mHeaderPopUp;
+    private int mSelectedPosition;
+    private Common mApp;
+    private RelativeLayout mHeaderLayout;
+    private LinearLayoutManager mLinearLayoutManager;
     private Button mPlayAllButton;
     private View mView;
     private RelativeLayout mParent;
-    private Handler mHandler;
 //    private CardView mEmptyCardView;
 //    private TextView mEmptyTextView;
-
+private Handler mHandler;
     private OnScrolledListener mOnScrolledListener;
     private ImageButton mSearchButton;
     private ImageButton mBackButton;
+    private Runnable initGridView = new Runnable() {
+
+        @Override
+        public void run() {
+            android.view.animation.TranslateAnimation animation = new
+                    android.view.animation.TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 2.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f);
+
+            animation.setDuration(500);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+
+                @Override
+                public void onAnimationEnd(Animation arg0) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation arg0) {
+                    // TODO Auto-generated method stub
+
+                }
+
+                @Override
+                public void onAnimationStart(Animation arg0) {
+                    mRecyclerView.setVisibility(View.VISIBLE);
+                }
+
+            });
+
+            mRecyclerView.startAnimation(animation);
+        }
+
+    };
+    /**
+     * Animates the content views in.
+     */
+    private Runnable animateContent = new Runnable() {
+
+        @Override
+        public void run() {
+
+            //Slide down the header image.
+
+
+            TranslateAnimation slideDown = new TranslateAnimation(mHeaderLayout, 500, null,
+                    View.VISIBLE, Animation.RELATIVE_TO_SELF,
+                    0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, -2.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f);
+
+            slideDown.setAnimationListener(new Animation.AnimationListener() {
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    mHeaderLayout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+
+            });
+
+            slideDown.animate();
+        }
+
+    };
 
     @Nullable
     @Override
@@ -208,7 +294,6 @@ public class TracksSubFragment extends Fragment implements MusicUtils.Defs, OnAd
         return mView;
     }
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -223,116 +308,16 @@ public class TracksSubFragment extends Fragment implements MusicUtils.Defs, OnAd
         mOnScrolledListener = null;
     }
 
-    private Runnable initGridView = new Runnable() {
-
-        @Override
-        public void run() {
-            android.view.animation.TranslateAnimation animation = new
-                    android.view.animation.TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, 2.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f);
-
-            animation.setDuration(500);
-            animation.setAnimationListener(new Animation.AnimationListener() {
-
-                @Override
-                public void onAnimationEnd(Animation arg0) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation arg0) {
-                    // TODO Auto-generated method stub
-
-                }
-
-                @Override
-                public void onAnimationStart(Animation arg0) {
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                }
-
-            });
-
-            mRecyclerView.startAnimation(animation);
-        }
-
-    };
-
-    /**
-     * Animates the content views in.
-     */
-    private Runnable animateContent = new Runnable() {
-
-        @Override
-        public void run() {
-
-            //Slide down the header image.
-
-
-            TranslateAnimation slideDown = new TranslateAnimation(mHeaderLayout, 500, null,
-                    View.VISIBLE, Animation.RELATIVE_TO_SELF,
-                    0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, -2.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f);
-
-            slideDown.setAnimationListener(new Animation.AnimationListener() {
-
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    mHeaderLayout.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-
-            });
-
-            slideDown.animate();
-        }
-
-    };
-
-
-    Animator.AnimatorListener mRecyclerAnimationListener = new Animator.AnimatorListener() {
-        @Override
-        public void onAnimationStart(Animator animation) {
-            mRecyclerView.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void onAnimationEnd(Animator animation) {
-
-        }
-
-        @Override
-        public void onAnimationCancel(Animator animation) {
-
-        }
-
-        @Override
-        public void onAnimationRepeat(Animator animation) {
-
-        }
-    };
-
-
     private void setHeaderImage() {
         if (mSongList.size() > 0) {
             Bitmap artwork = ImageLoader.getInstance().loadImageSync(MusicUtils.getAlbumArtUri(mSongList.get(0)._albumId).toString());
-            if (artwork != null)
+            if (artwork != null) {
                 mHeaderImage.setImageBitmap(artwork);
-            else {
+            } else {
                 int padding = MusicUtils.getDPFromPixel(120);
                 mHeaderImage.setPadding(padding, padding, padding, padding);
             }
+
         } else {
             int padding = MusicUtils.getDPFromPixel(120);
             mHeaderImage.setPadding(padding, padding, padding, padding);

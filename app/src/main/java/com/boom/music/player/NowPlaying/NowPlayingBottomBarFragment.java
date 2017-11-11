@@ -42,14 +42,90 @@ public class NowPlayingBottomBarFragment extends Fragment {
 
     private View mView;
     private FloatingActionButton mFloatingActionButton;
-    private RelativeLayout mLinearLayout;
+    private RelativeLayout mRelativeLayout;
     private SeekBar mSeekBar;
     private TextView mDurationTextView;
     private Common mApp;
     private Handler mHandler;
+    SeekBar.OnSeekBarChangeListener mOnSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            if (mApp.isServiceRunning()) {
+                try {
+                    long currentSongDuration = mApp.getService().getMediaPlayer().getDuration();
+                    seekBar.setMax((int) currentSongDuration);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            mHandler.removeCallbacks(seekbarUpdateRunnable);
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            int seekBarPosition = seekBar.getProgress();
+            if (mApp.isServiceRunning()) {
+                mApp.getService().getMediaPlayer().seekTo(seekBarPosition);
+                mHandler.post(seekbarUpdateRunnable);
+            } else {
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, seekBarPosition);
+                mDurationTextView.setText(Common.convertMillisToMinsSecs(mSeekBar.getProgress()));
+            }
+        }
+    };
+    /**
+     * Create a new Runnable to update the seekbar and time every 100ms.
+     */
+    public Runnable seekbarUpdateRunnable = new Runnable() {
+
+        public void run() {
+            try {
+                long currentPosition = mApp.getService().getMediaPlayer().getCurrentPosition();
+                int currentPositionInSecs = (int) currentPosition;
+                mSeekBar.setProgress(currentPositionInSecs);
+                mDurationTextView.setText(Common.convertMillisToMinsSecs(mSeekBar.getProgress()));
+                if (mApp.isServiceRunning()) {
+                    if (mApp.getService().getMediaPlayer().isPlaying()) {
+                        mHandler.postDelayed(seekbarUpdateRunnable, 1000);
+                    } else {
+                        mHandler.removeCallbacks(seekbarUpdateRunnable);
+                    }
+                } else {
+                    mHandler.removeCallbacks(seekbarUpdateRunnable);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
     private RecyclerView mRecyclerView;
     private NowPlayingBottomBarAdapter mNowPlayingBottomBarAdapter;
     private ArrayList<Song> songs;
+    /**
+     * Update UI when track completes it self and goes to next one
+     */
+
+
+    BroadcastReceiver mUpdateUIReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.hasExtra(Constants.JUST_UPDATE_UI)) {
+                if (intent.hasExtra(Constants.ACTION_PLAY_PAUSE)) {
+                    if (mApp.getService().getMediaPlayer().isPlaying()) {
+                        mFloatingActionButton.setImageResource(R.drawable.pause);
+                    } else {
+                        mFloatingActionButton.setImageResource(R.drawable.play);
+                    }
+                } else {
+                    updateUI();
+                }
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -80,7 +156,7 @@ public class NowPlayingBottomBarFragment extends Fragment {
         mHandler = new Handler();
 
         mFloatingActionButton = (FloatingActionButton) mView.findViewById(R.id.fab);
-        mLinearLayout = (RelativeLayout) mView.findViewById(R.id.main_background);
+        mRelativeLayout = (RelativeLayout) mView.findViewById(R.id.main_background);
         updateUI();
         mFloatingActionButton.setOnClickListener(v -> {
             mApp.getPlayBackStarter().playPauseFromBottomBar();
@@ -93,7 +169,7 @@ public class NowPlayingBottomBarFragment extends Fragment {
             }
 
         });
-        mLinearLayout.setOnClickListener(v -> {
+        mRelativeLayout.setOnClickListener(v -> {
 
         });
 
@@ -149,60 +225,6 @@ public class NowPlayingBottomBarFragment extends Fragment {
         LocalBroadcastManager.getInstance(Common.getInstance()).unregisterReceiver((mUpdateUIReceiver));
     }
 
-    /**
-     * Update UI when track completes it self and goes to next one
-     */
-
-
-    BroadcastReceiver mUpdateUIReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.hasExtra(Constants.JUST_UPDATE_UI)) {
-                if (intent.hasExtra(Constants.ACTION_PLAY_PAUSE)){
-                    if (mApp.getService().getMediaPlayer().isPlaying()) {
-                        mFloatingActionButton.setImageResource(R.drawable.pause);
-                    } else {
-                        mFloatingActionButton.setImageResource(R.drawable.play);
-                    }
-                }else{
-                    updateUI();
-                }
-            }
-        }
-    };
-
-
-    SeekBar.OnSeekBarChangeListener mOnSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (mApp.isServiceRunning()) {
-                try {
-                    long currentSongDuration = mApp.getService().getMediaPlayer().getDuration();
-                    seekBar.setMax((int) currentSongDuration);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-            mHandler.removeCallbacks(seekbarUpdateRunnable);
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-            int seekBarPosition = seekBar.getProgress();
-            if (mApp.isServiceRunning()) {
-                mApp.getService().getMediaPlayer().seekTo(seekBarPosition);
-                mHandler.post(seekbarUpdateRunnable);
-            } else {
-                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, seekBarPosition);
-                mDurationTextView.setText(Common.convertMillisToMinsSecs(mSeekBar.getProgress()));
-            }
-        }
-    };
-
     private void updateUI() {
 
         if (mApp.isServiceRunning()) {
@@ -251,32 +273,6 @@ public class NowPlayingBottomBarFragment extends Fragment {
             }.execute();
         }
     }
-
-    /**
-     * Create a new Runnable to update the seekbar and time every 100ms.
-     */
-    public Runnable seekbarUpdateRunnable = new Runnable() {
-
-        public void run() {
-            try {
-                long currentPosition = mApp.getService().getMediaPlayer().getCurrentPosition();
-                int currentPositionInSecs = (int) currentPosition;
-                mSeekBar.setProgress(currentPositionInSecs);
-                mDurationTextView.setText(Common.convertMillisToMinsSecs(mSeekBar.getProgress()));
-                if (mApp.isServiceRunning()) {
-                    if (mApp.getService().getMediaPlayer().isPlaying()) {
-                        mHandler.postDelayed(seekbarUpdateRunnable, 1000);
-                    } else {
-                        mHandler.removeCallbacks(seekbarUpdateRunnable);
-                    }
-                } else {
-                    mHandler.removeCallbacks(seekbarUpdateRunnable);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
 
     private void setSeekbarDuration(int duration) {
         mSeekBar.setMax(duration);

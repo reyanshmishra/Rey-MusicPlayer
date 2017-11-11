@@ -1,6 +1,5 @@
 package com.boom.music.player.LauncherActivity;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,12 +7,14 @@ import android.view.ViewGroup;
 
 import com.boom.music.player.Album.AlbumFragment;
 import com.boom.music.player.Artist.FragmentArtist;
+import com.boom.music.player.Common;
 import com.boom.music.player.FileDirectory.FolderFragment;
 import com.boom.music.player.Genres.FragmentGenres;
 import com.boom.music.player.PlayList.PlaylistFragment;
 import com.boom.music.player.R;
 import com.boom.music.player.Songs.SongsFragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,32 +24,26 @@ public class SwipeAdapter extends FragmentPagerAdapter {
 
     private String mPageTile[];
 
-    public SwipeAdapter(FragmentManager fm, Context context) {
+    private ArrayList<Fragment> fragments = new ArrayList<>();
+
+    public SwipeAdapter(FragmentManager fm) {
         super(fm);
-        mPageTile = context.getResources().getStringArray(R.array.fragments_titles);
+        mPageTile = Common.getInstance().getResources().getStringArray(R.array.fragments_titles);
         mFragmentManager = fm;
         mFragmentTags = new HashMap<>();
+
+        fragments.add(new AlbumFragment());
+        fragments.add(new FragmentArtist());
+        fragments.add(new SongsFragment());
+        fragments.add(new FragmentGenres());
+        fragments.add(new PlaylistFragment());
+        fragments.add(new FolderFragment());
+
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new AlbumFragment();
-            case 1:
-                return new FragmentArtist();
-            case 2:
-                return new SongsFragment();
-            case 3:
-                return new FragmentGenres();
-            case 4:
-                return new PlaylistFragment();
-            case 5:
-                return new FolderFragment();
-            default:
-                break;
-        }
-        return null;
+        return fragments.get(position);
     }
 
     @Override

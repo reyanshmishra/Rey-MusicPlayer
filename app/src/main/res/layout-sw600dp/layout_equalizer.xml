@@ -3,7 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/colorPrimary"
+    android:background="@color/bgcolor"
               android:orientation="vertical">
 
     <LinearLayout
@@ -115,7 +115,7 @@
                     android:max="31"
                     android:progress="16"
                     android:progressBackgroundTint="@color/textColorSecondary"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
+
                     android:thumbOffset="8dp"/>
 
                 <TextView
@@ -161,7 +161,6 @@
                     android:max="31"
                     android:progress="16"
                     android:progressBackgroundTint="@color/textColorSecondary"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
                     android:thumbOffset="8dp"/>
 
                 <TextView
@@ -417,8 +416,8 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:padding="18dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="18dp">
 
                 <com.triggertrap.seekarc.SeekArc
                     android:id="@+id/seek_arc_virtualizer"
@@ -471,9 +470,9 @@
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:padding="18dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="18dp">
 
                 <com.triggertrap.seekarc.SeekArc
                     android:id="@+id/seek_arc_bass_boost"

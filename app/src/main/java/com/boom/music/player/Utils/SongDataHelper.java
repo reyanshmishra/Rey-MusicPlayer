@@ -68,7 +68,8 @@ public class SongDataHelper {
             Bitmap bitmap = ImageLoader.getInstance().loadImageSync(getAlbumArtPath());
             setAlbumArt(bitmap);
             try {
-                setColor(Palette.from(bitmap).generate().getDominantColor(Color.parseColor("#FFFFFF")));
+                int d = Palette.from(bitmap).generate().getDominantColor(Color.parseColor("#FFFFFF"));
+                setColor(d);
             } catch (Exception e) {
                 setColor(Color.parseColor("#FFFFFF"));
             }
@@ -188,14 +189,12 @@ public class SongDataHelper {
         mAlbumArt = albumArt;
     }
 
+    public int getColor() {
+        return mColor;
+    }
 
     public void setColor(int color) {
         mColor = color;
-    }
-
-
-    public int getColor() {
-        return mColor;
     }
 
 }

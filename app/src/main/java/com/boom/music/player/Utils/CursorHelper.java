@@ -140,22 +140,6 @@ public class CursorHelper {
         return songs;
     }
 
-
-    public interface Projections {
-        String[] songProjection = new String[]{
-                MediaStore.Audio.Media._ID,
-                MediaStore.Audio.Media.TITLE,
-                MediaStore.Audio.Media.ALBUM,
-                MediaStore.Audio.Media.ALBUM_ID,
-                MediaStore.Audio.Media.ARTIST,
-                MediaStore.Audio.Media.ARTIST_ID,
-                MediaStore.Audio.Media.DATA,
-                MediaStore.Audio.Media.TRACK,
-                MediaStore.Audio.Media.DURATION
-        };
-    }
-
-
     public static ArrayList<Album> getAlbumsList() {
 
         String sort = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT)
@@ -191,7 +175,6 @@ public class CursorHelper {
 
     }
 
-
     public static ArrayList<Album> getAlbumsForCursor(Cursor cursor) {
         ArrayList<Album> albums = new ArrayList();
 
@@ -217,7 +200,6 @@ public class CursorHelper {
                 "_id", "album", "artist", "album_art"}, selection, paramArrayOfString, sort);
         return cursor;
     }
-
 
     public static Boolean buildMusicLibrary(OnProgressUpdate onProgressUpdate) {
         int progress = 0;
@@ -254,7 +236,6 @@ public class CursorHelper {
 
             try {
                 mApp.getDBAccessHelper().getWritableDatabase().delete(DataBaseHelper.GENRES_TABLE, null, null);
-                mApp.getDBAccessHelper().getWritableDatabase().delete(DataBaseHelper.FILE_DIRECTORY_TABLE, null, null);
 
                 if (cursor != null && cursor.moveToFirst()) {
                     do {
@@ -396,7 +377,6 @@ public class CursorHelper {
         return cursor;
     }
 
-
     public static ArrayList<Album> getAlbumsForSelection(String from, String selectionCondition) {
 
         String selection = null;
@@ -459,6 +439,21 @@ public class CursorHelper {
             cursor.close();
         }
         return albums;
+    }
+
+
+    public interface Projections {
+        String[] songProjection = new String[]{
+                MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.ALBUM,
+                MediaStore.Audio.Media.ALBUM_ID,
+                MediaStore.Audio.Media.ARTIST,
+                MediaStore.Audio.Media.ARTIST_ID,
+                MediaStore.Audio.Media.DATA,
+                MediaStore.Audio.Media.TRACK,
+                MediaStore.Audio.Media.DURATION
+        };
     }
 
 

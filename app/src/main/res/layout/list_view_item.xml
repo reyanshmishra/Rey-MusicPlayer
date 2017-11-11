@@ -4,7 +4,7 @@
     android:id="@+id/listViewParent"
     android:layout_width="match_parent"
     android:layout_height="84dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:foreground="?android:attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/listViewRightSubText"

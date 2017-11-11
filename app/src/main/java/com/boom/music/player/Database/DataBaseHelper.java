@@ -22,28 +22,19 @@ import com.boom.music.player.Utils.SortOrder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    private Context mContext;
     public static final String DATABASE_NAME = "Boom.db";
     public static final int DATABASE_VERSION = 1;
-
-    private SQLiteDatabase mDatabase;
-    private static DataBaseHelper mDatabaseHelper;
-
-
     public static final String RECENTLY_PLAYED_TABLE = "RecentlyPlayedTable";
     public static final String DATE = "date";
-
     public static final String SONGS_TABLE = "SongsTable";
-
     /**
      * Favorites Tables and song columns.
      */
     public static final String FAVORITES_TABLE = "FavoritesTable";
-
-
     public static final String SONG_ID = "songId";
     public static final String SONG_TITLE = "songTitle";
     public static final String SONG_ARTIST = "songArtist";
@@ -53,19 +44,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String ALBUM_ID = "albumId";
     public static final String TRACK_NO = "tackNo";
     public static final String ARTIST_ID = "artistId";
-
     /**
      * Top tracks table.
      */
     public static final String TOP_TRACKS_TABLE = "TopTracksTable";
     public static final String SONG_COUNT = "songCount";
-
     //Equalizer presets table.
     public static final String EQUALIZER_PRESETS_TABLE = "EqualizerPresetsTable";
     public static final String PRESET_NAME = "preset_name";
-
     public static final String EQUALIZER_TABLE = "EqualizerTable";
-
     public static final String _ID = "_id";
     public static final String EQ_50_HZ = "eq_50_hz";
     public static final String EQ_130_HZ = "eq_130_hz";
@@ -74,25 +61,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String EQ_2000_HZ = "eq_2000_hz";
     public static final String EQ_5000_HZ = "eq_5000_hz";
     public static final String EQ_12500_HZ = "eq_12500_hz";
-
     public static final String VIRTUALIZER = "eq_virtualizer";
     public static final String BASS_BOOST = "eq_bass_boost";
     public static final String REVERB = "eq_reverb";
     public static final String VOLUME = "eq_volume";
-
     public static final String FILE_DIRECTORY_TABLE = "FileDirectoryTable";
-
     /**
      * Genre table and columns.
      */
     public static final String GENRES_TABLE = "GenresTable";
-
     public static final String GENRE_ID = "genreId";
     public static final String GENRE_NAME = "genreName";
     public static final String NO_OF_ALBUMS_IN_GENRE = "noOfAlbumsInGenre";
     public static final String GENRE_ALBUM_ART = "genreAlbumArt";
-
-
     /**
      * Artist table and columns.
      */
@@ -103,6 +84,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String NO_OF_ALBUMS_BY_ARTIST = "noOfAlbumsByArtist";
     public static final String NO_OF_TRACKS_BY_ARTIST = "noOfTracksByArtist";
     public static final String ARTIST_ALBUM_ART = "artistAlbumArt";
+    /**
+     * Tabs table this table used to rearraged the tabs on home activity.
+     */
+    public static final String TABS_TABLE = "TabsTable";
+    public static final String TAB_NAME = "tabName";
+    public static final String TAB_POSITION = "tabPosition";
+    private static DataBaseHelper mDatabaseHelper;
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
 
 
     private DataBaseHelper(Context context) {
@@ -230,6 +220,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 songsColTypes);
 
 
+        //TABS table.
+        String[] tabsTableCols = {TAB_NAME, TAB_POSITION};
+        String[] tabsTableColTypes = {
+                "TEXT", "INTEGER"};
+
+        String createTabTable = buildCreateStatement(TABS_TABLE,
+                tabsTableCols,
+                tabsTableColTypes);
+
+
         db.execSQL(createEqualizerTable);
         db.execSQL(createEqualizerPresetsTable);
         db.execSQL(createFavoritesTable);
@@ -238,6 +238,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(createRecentlyPlayedTable);
         db.execSQL(createArtistPlayedTable);
         db.execSQL(createSongsTable);
+        db.execSQL(createTabTable);
+
         Logger.log("EQ TABLE CREATED");
     }
 
@@ -262,6 +264,40 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             mDatabase = getWritableDatabase();
         return mDatabase;
     }
+
+    public ArrayList<HashMap<String, Integer>> getTabs() {
+        ArrayList<HashMap<String, Integer>> hashMaps = new ArrayList<>();
+        String query = "SELECT * FROM " + TABS_TABLE;
+        Cursor cursor = getDatabase().rawQuery(query, null);
+        if (cursor != null && cursor.getCount() > 0) {
+            if (cursor.moveToFirst()) {
+                do {
+                    HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
+                    stringIntegerHashMap.put(cursor.getString(cursor.getColumnIndex(TAB_NAME)), cursor.getInt(cursor.getColumnIndex(TAB_POSITION)));
+                    hashMaps.add(stringIntegerHashMap);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            return hashMaps;
+
+        } else {
+            String[] tabs = Common.getInstance().getResources().getStringArray(R.array.fragments_titles);
+
+            for (int i = 0; i < tabs.length; i++) {
+                ContentValues values = new ContentValues();
+                values.put(TAB_NAME, tabs[i]);
+                values.put(TAB_POSITION, i);
+                try {
+                    getDatabase().insertOrThrow(TABS_TABLE, null, values);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return getTabs();
+        }
+    }
+
 
     public int[] getEQValues() {
         /*String[] columnsToReturn = {
@@ -468,10 +504,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String rawQuery = "SELECT DISTINCT " + SONG_ID + " FROM " + FAVORITES_TABLE + " WHERE " + SONG_ID + "=" + "'"
                 + songId + "'";
         Cursor cursor = getDatabase().rawQuery(rawQuery, null);
-        if (cursor != null && cursor.getCount() == 0) {
-            return false;
-        }
-        return true;
+        return !(cursor != null && cursor.getCount() == 0);
     }
 
 
