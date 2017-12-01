@@ -88,6 +88,123 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
     private ImageButton mSearchButton;
     private ImageButton mBackButton;
     private int mPosition;
+    /**
+     * Animates the content views in.
+     */
+    private Runnable animateContent = new Runnable() {
+
+        @Override
+        public void run() {
+
+            //Slide down the header image.
+
+
+            TranslateAnimation slideDown = new TranslateAnimation(mHeaderLayout, 500, null,
+                    View.VISIBLE, Animation.RELATIVE_TO_SELF,
+                    0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, -2.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f);
+
+            slideDown.setAnimationListener(new Animation.AnimationListener() {
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    mHeaderLayout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+
+            });
+
+            slideDown.animate();
+        }
+
+    };
+    /**
+     * Animates the content views in.
+     */
+    private Runnable animatebackground = new Runnable() {
+
+        @Override
+        public void run() {
+
+            //Slide down the header image.
+
+
+            TranslateAnimation slideDown = new TranslateAnimation(mDummyBackgroundView, 500, null,
+                    View.VISIBLE, Animation.RELATIVE_TO_SELF,
+                    0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, -2.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f);
+
+            slideDown.setAnimationListener(new Animation.AnimationListener() {
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    mDummyBackgroundView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+
+            });
+
+            slideDown.animate();
+        }
+
+    };
+    private Runnable initGridView = new Runnable() {
+
+        @Override
+        public void run() {
+            android.view.animation.TranslateAnimation animation = new
+                    android.view.animation.TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 2.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f);
+
+            animation.setDuration(500);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+
+                @Override
+                public void onAnimationEnd(Animation arg0) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation arg0) {
+                    // TODO Auto-generated method stub
+
+                }
+
+                @Override
+                public void onAnimationStart(Animation arg0) {
+                    mRecyclerView.setVisibility(View.VISIBLE);
+
+
+                }
+
+            });
+
+            mRecyclerView.startAnimation(animation);
+        }
+
+    };
 
     @Nullable
     @Override
@@ -205,8 +322,8 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
         RelativeLayout relativeLayout = (RelativeLayout) mSearchButton.getParent();
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) relativeLayout.getLayoutParams();
 
-//        params.topMargin = Common.getStatusBarHeight(getActivity());
-//        relativeLayout.setLayoutParams(params);
+        params.topMargin = Common.getStatusBarHeight(getActivity());
+        relativeLayout.setLayoutParams(params);
 
         mSearchButton.setOnClickListener(v -> startActivity(new Intent(getActivity(), SearchActivity.class)));
         mBackButton.setOnClickListener(v -> removeFragment());
@@ -239,90 +356,6 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
         mOnScrolledListener = null;
     }
 
-    /**
-     * Animates the content views in.
-     */
-    private Runnable animateContent = new Runnable() {
-
-        @Override
-        public void run() {
-
-            //Slide down the header image.
-
-
-            TranslateAnimation slideDown = new TranslateAnimation(mHeaderLayout, 500, null,
-                    View.VISIBLE, Animation.RELATIVE_TO_SELF,
-                    0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, -2.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f);
-
-            slideDown.setAnimationListener(new Animation.AnimationListener() {
-
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    mHeaderLayout.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-
-            });
-
-            slideDown.animate();
-        }
-
-    };
-
-
-    /**
-     * Animates the content views in.
-     */
-    private Runnable animatebackground = new Runnable() {
-
-        @Override
-        public void run() {
-
-            //Slide down the header image.
-
-
-            TranslateAnimation slideDown = new TranslateAnimation(mDummyBackgroundView, 500, null,
-                    View.VISIBLE, Animation.RELATIVE_TO_SELF,
-                    0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, -2.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f);
-
-            slideDown.setAnimationListener(new Animation.AnimationListener() {
-
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    mDummyBackgroundView.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-
-            });
-
-            slideDown.animate();
-        }
-
-    };
-
-
     private void setHeaderImage() {
         try {
             Bitmap artwork = ImageLoader.getInstance().loadImageSync(COVER_PATH);
@@ -336,7 +369,6 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
         } catch (Exception e) {
         }
     }
-
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
@@ -408,7 +440,6 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
 
     }
 
-
     @Override
     public void onSongDeleted() {
         mAlbums.remove(mPosition);
@@ -417,46 +448,6 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
             removeFragment();
         }
     }
-
-
-    private Runnable initGridView = new Runnable() {
-
-        @Override
-        public void run() {
-            android.view.animation.TranslateAnimation animation = new
-                    android.view.animation.TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f,
-                    Animation.RELATIVE_TO_SELF, 2.0f,
-                    Animation.RELATIVE_TO_SELF, 0.0f);
-
-            animation.setDuration(500);
-            animation.setAnimationListener(new Animation.AnimationListener() {
-
-                @Override
-                public void onAnimationEnd(Animation arg0) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation arg0) {
-                    // TODO Auto-generated method stub
-
-                }
-
-                @Override
-                public void onAnimationStart(Animation arg0) {
-                    mRecyclerView.setVisibility(View.VISIBLE);
-
-
-                }
-
-            });
-
-            mRecyclerView.startAnimation(animation);
-        }
-
-    };
-
 
     private void slideAwayHeader() {
         if (mGoingBack) return;

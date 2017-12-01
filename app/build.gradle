@@ -13,7 +13,7 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.boom.music.player"
-        minSdkVersion 19
+        minSdkVersion 21
         multiDexEnabled true
         targetSdkVersion 25
         versionCode 41

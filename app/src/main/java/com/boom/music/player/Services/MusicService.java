@@ -75,7 +75,6 @@ public class MusicService extends Service {
     private int mSongPos = 0;
     private Bundle mBundle;
     private Intent mMediaIntent;
-    private Intent mPlayPauseIntent;
     private Context mContext;
     private MediaPlayer mMediaPlayer1;
     private PowerManager.WakeLock mWakeLock;
@@ -146,6 +145,34 @@ public class MusicService extends Service {
             mHandler.postDelayed(this, 500);
         }
     };
+    /**
+     * When MediaPlayer is done playing music.
+     */
+
+    MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
+
+
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
+            if (mSongPos < mListSongs.size() - 1) {
+                mSongPos++;
+                startSong();
+            } else {
+                mSongPos = 0;
+                startSong();
+                stopSelf();
+            }
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
+            if (mSongPos < mListSongs.size() - 1) {
+                mSongPos++;
+                startSong();
+            } else {
+                mSongPos = 0;
+                startSong();
+            }
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
+            startSong();
+        }
+    };
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -213,34 +240,6 @@ public class MusicService extends Service {
             Intent intent = new Intent(Constants.ACTION_UPDATE_NOW_PLAYING_UI);
             intent.putExtra(Constants.JUST_UPDATE_UI, true);
             LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
-        }
-    };
-    /**
-     * When MediaPlayer is done playing music.
-     */
-
-    MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
-
-
-        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
-            if (mSongPos < mListSongs.size() - 1) {
-                mSongPos++;
-                startSong();
-            } else {
-                mSongPos = 0;
-                startSong();
-                stopSelf();
-            }
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
-            if (mSongPos < mListSongs.size() - 1) {
-                mSongPos++;
-                startSong();
-            } else {
-                mSongPos = 0;
-                startSong();
-            }
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
-            startSong();
         }
     };
     /**
@@ -457,10 +456,7 @@ public class MusicService extends Service {
         mHandler = new Handler();
 
 
-        /**
-         *Play pause intent to display the correct UI throughout the entire app.
-         */
-        mPlayPauseIntent = new Intent(Constants.ACTION_PLAY_PAUSE);
+
 
         /**
          *Take the wakeup lock to stop CPU from sleeping cause we are dancing on the beats.
@@ -562,7 +558,6 @@ public class MusicService extends Service {
     private void handleIntent(Intent intent) {
         if (intent.getAction().equalsIgnoreCase(Constants.ACTION_PAUSE)) {
             playPauseSong();
-            mHandler.postDelayed(mStopServiceRunnable, 300000);
         } else if (intent.getAction().equalsIgnoreCase(Constants.ACTION_NEXT)) {
             nextSong();
         } else if (intent.getAction().equalsIgnoreCase(Constants.ACTION_PREVIOUS)) {
@@ -683,7 +678,6 @@ public class MusicService extends Service {
 
     public void updateNotification() {
         startForeground(NOTIFICATION_ID, mediaStyleNotification());
-        mHandler.removeCallbacks(mStopServiceRunnable);
 
         updateWidgets();
         mMediaSession.setMetadata(new MediaMetadataCompat.Builder()
@@ -717,8 +711,10 @@ public class MusicService extends Service {
         } else {
             mHandler.post(startMediaPlayerIfPrepared);
         }
-
-        sendBroadcast(mPlayPauseIntent);
+        /**
+         *Play pause intent to display the correct UI throughout the entire app.
+         */
+        sendPlayPauseBroadCast();
         updateNotification();
     }
 
@@ -728,20 +724,27 @@ public class MusicService extends Service {
             mAudioManager.abandonAudioFocus(audioFocusChangeListener);
             mHandler.removeCallbacks(sendUpdatesToUI);
         }
-        sendBroadcast(mPlayPauseIntent);
         updateNotification();
         stopForeground(false);
+    }
+
+    private void sendPlayPauseBroadCast() {
+        Intent intent = new Intent(Constants.ACTION_UPDATE_NOW_PLAYING_UI);
+        intent.putExtra(Constants.ACTION_PLAY_PAUSE, true);
+        sendBroadcast(intent);
     }
 
     public void playPauseSong() {
         if (!mMediaPlayer1.isPlaying()) {
             startPlaying();
+            mHandler.removeCallbacks(mStopServiceRunnable);
         } else {
             stopPlaying();
             stopForeground(false);
+            mHandler.postDelayed(mStopServiceRunnable, 300000);
+
         }
-        mPlayPauseIntent.putExtra(Constants.ACTION_PLAY_PAUSE,true);
-        sendBroadcast(mPlayPauseIntent);
+        sendPlayPauseBroadCast();
     }
 
     private void saveQueue() {
@@ -793,6 +796,7 @@ public class MusicService extends Service {
     }
 
     public void nextSong() {
+        PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
@@ -890,7 +894,7 @@ public class MusicService extends Service {
         clearABRepeatRange();
         updateWidgets();
 
-        sendBroadcast(mPlayPauseIntent);
+        sendPlayPauseBroadCast();
 
         mHandler.removeCallbacks(sendUpdatesToUI);
 

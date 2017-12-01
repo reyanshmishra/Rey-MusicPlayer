@@ -97,9 +97,9 @@ public class TracksSubFragment extends Fragment implements MusicUtils.Defs, OnAd
     private Button mPlayAllButton;
     private View mView;
     private RelativeLayout mParent;
-//    private CardView mEmptyCardView;
+    //    private CardView mEmptyCardView;
 //    private TextView mEmptyTextView;
-private Handler mHandler;
+    private Handler mHandler;
     private OnScrolledListener mOnScrolledListener;
     private ImageButton mSearchButton;
     private ImageButton mBackButton;

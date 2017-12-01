@@ -132,7 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/browser_sub_header_layout"
-        android:background="@color/bgcolor"
+        android:background="@color/white"
         android:clipToPadding="false"
         android:paddingBottom="65dp"
         android:visibility="invisible" />

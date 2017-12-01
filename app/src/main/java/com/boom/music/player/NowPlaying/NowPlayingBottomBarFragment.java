@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +27,6 @@ import com.boom.music.player.Common;
 import com.boom.music.player.Models.Song;
 import com.boom.music.player.R;
 import com.boom.music.player.Utils.Constants;
-import com.boom.music.player.Utils.MusicUtils;
 import com.boom.music.player.Utils.PreferencesHelper;
 import com.boom.music.player.Utils.TypefaceHelper;
 
@@ -105,6 +103,7 @@ public class NowPlayingBottomBarFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private NowPlayingBottomBarAdapter mNowPlayingBottomBarAdapter;
     private ArrayList<Song> songs;
+
     /**
      * Update UI when track completes it self and goes to next one
      */
@@ -113,16 +112,14 @@ public class NowPlayingBottomBarFragment extends Fragment {
     BroadcastReceiver mUpdateUIReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.hasExtra(Constants.JUST_UPDATE_UI)) {
-                if (intent.hasExtra(Constants.ACTION_PLAY_PAUSE)) {
-                    if (mApp.getService().getMediaPlayer().isPlaying()) {
-                        mFloatingActionButton.setImageResource(R.drawable.pause);
-                    } else {
-                        mFloatingActionButton.setImageResource(R.drawable.play);
-                    }
+            if (intent.hasExtra(Constants.ACTION_PLAY_PAUSE)) {
+                if (mApp.getService().getMediaPlayer().isPlaying()) {
+                    mFloatingActionButton.setImageResource(R.drawable.pause);
                 } else {
-                    updateUI();
+                    mFloatingActionButton.setImageResource(R.drawable.play);
                 }
+            } else {
+                updateUI();
             }
         }
     };
@@ -160,8 +157,8 @@ public class NowPlayingBottomBarFragment extends Fragment {
         updateUI();
         mFloatingActionButton.setOnClickListener(v -> {
             mApp.getPlayBackStarter().playPauseFromBottomBar();
-            try {
 
+            try {
                 setSeekbarDuration(mApp.getService().getMediaPlayer().getDuration());
             } catch (NullPointerException e) {
                 e.printStackTrace();
@@ -216,13 +213,13 @@ public class NowPlayingBottomBarFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        LocalBroadcastManager.getInstance(Common.getInstance()).registerReceiver((mUpdateUIReceiver), new IntentFilter(Constants.ACTION_UPDATE_NOW_PLAYING_UI));
+        getActivity().registerReceiver((mUpdateUIReceiver), new IntentFilter(Constants.ACTION_UPDATE_NOW_PLAYING_UI));
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        LocalBroadcastManager.getInstance(Common.getInstance()).unregisterReceiver((mUpdateUIReceiver));
+        getActivity().unregisterReceiver((mUpdateUIReceiver));
     }
 
     private void updateUI() {
@@ -251,7 +248,7 @@ public class NowPlayingBottomBarFragment extends Fragment {
                 @Override
                 protected Void doInBackground(Void... params) {
                     songs = mApp.getDBAccessHelper().getQueue();
-                    position = MusicUtils.getSongPosition();
+                    position = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
                     seekPosition = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, 0);
                     return null;
                 }

@@ -48,14 +48,12 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
     private AppBarLayout mAppBarLayout;
     private ArrayList<Fragment> mFragments;
 
-    private Common mApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
-        mApp = (Common) Common.getInstance();
 
         mFragments = new ArrayList<>();
         mTabLayout = (TabLayout) findViewById(R.id.id_tabs);
@@ -80,8 +78,8 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
 
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mAppBarLayout.getLayoutParams();
-//      params.topMargin = Common.getStatusBarHeight(this);
-//      mAppBarLayout.setLayoutParams(params);
+        params.topMargin = Common.getStatusBarHeight(this);
+        mAppBarLayout.setLayoutParams(params);
 
 
         setSupportActionBar(mToolbar);
@@ -91,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
         });
+
 
     }
 

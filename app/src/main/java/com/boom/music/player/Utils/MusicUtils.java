@@ -710,10 +710,7 @@ public class MusicUtils {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static boolean hasPermission() {
         List<UriPermission> uriPermission = Common.getInstance().getContentResolver().getPersistedUriPermissions();
-        if (uriPermission != null && uriPermission.size() > 0) {
-            return true;
-        }
-        return false;
+        return uriPermission != null && uriPermission.size() > 0;
     }
 
     public static void showConfirmationDialog(AppCompatActivity activity, ArrayList<Song> files, OnTaskCompleted onTaskCompleted) {
@@ -809,10 +806,7 @@ public class MusicUtils {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static boolean isFromSdCard(String filepath) {
         String path1 = Environment.getExternalStorageDirectory().toString();
-        if (filepath.startsWith(path1)) {
-            return false;
-        }
-        return true;
+        return !filepath.startsWith(path1);
 
     }
 
@@ -848,6 +842,26 @@ public class MusicUtils {
         }
     }
 
+    public static Drawable createBlurredImageFromBitmap(Bitmap bitmap, Context context) {
+        int inSampleSize = 9;
+        android.support.v8.renderscript.RenderScript rs = android.support.v8.renderscript.RenderScript.create(context);
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = inSampleSize;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] imageInByte = stream.toByteArray();
+        ByteArrayInputStream bis = new ByteArrayInputStream(imageInByte);
+        Bitmap blurTemplate = BitmapFactory.decodeStream(bis, null, options);
+        final android.support.v8.renderscript.Allocation input = android.support.v8.renderscript.Allocation.createFromBitmap(rs, blurTemplate);
+        final android.support.v8.renderscript.Allocation output = android.support.v8.renderscript.Allocation.createTyped(rs, input.getType());
+        final android.support.v8.renderscript.ScriptIntrinsicBlur script = android.support.v8.renderscript.ScriptIntrinsicBlur.create(rs, android.support.v8.renderscript.Element.U8_4(rs));
+        script.setRadius(8f);
+        script.setInput(input);
+        script.forEach(output);
+        output.copyTo(blurTemplate);
+        return new BitmapDrawable(context.getResources(), blurTemplate);
+    }
+
 
     public interface Defs {
 
@@ -879,32 +893,6 @@ public class MusicUtils {
         int EDIT_TAGS = 32;
         int REQUEST_WRITE_SETTINGS = 34;
 
-    }
-
-
-    public static Drawable createBlurredImageFromBitmap(Bitmap bitmap, Context context) {
-        int inSampleSize = 9;
-        android.support.v8.renderscript.RenderScript rs = android.support.v8.renderscript.RenderScript.create(context);
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = inSampleSize;
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] imageInByte = stream.toByteArray();
-        ByteArrayInputStream bis = new ByteArrayInputStream(imageInByte);
-        Bitmap blurTemplate = BitmapFactory.decodeStream(bis, null, options);
-        final android.support.v8.renderscript.Allocation input = android.support.v8.renderscript.Allocation.createFromBitmap(rs, blurTemplate);
-        final android.support.v8.renderscript.Allocation output = android.support.v8.renderscript.Allocation.createTyped(rs, input.getType());
-        final android.support.v8.renderscript.ScriptIntrinsicBlur script = android.support.v8.renderscript.ScriptIntrinsicBlur.create(rs, android.support.v8.renderscript.Element.U8_4(rs));
-        script.setRadius(8f);
-        script.setInput(input);
-        script.forEach(output);
-        output.copyTo(blurTemplate);
-        return new BitmapDrawable(context.getResources(), blurTemplate);
-    }
-
-
-    public static int getSongPosition() {
-        return PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.CURRENT_SONG_POSITION, 0);
     }
 
 }

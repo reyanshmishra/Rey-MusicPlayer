@@ -10,9 +10,9 @@ import android.util.DisplayMetrics;
 
 import com.boom.music.player.Database.DataBaseHelper;
 import com.boom.music.player.GoogleAnalytics.AnalyticsTrackers;
-import com.boom.music.player.Services.MusicService;
 import com.boom.music.player.NowPlaying.NowPlayingActivity;
 import com.boom.music.player.PlayBackStarter.PlayBackStarter;
+import com.boom.music.player.Services.MusicService;
 import com.boom.music.player.Utils.PreferencesHelper;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -37,23 +37,14 @@ public class Common extends MultiDexApplication {
      * Enable or disable debugging and TAG
      */
 
-    /**
-     * Constant and service instance
-     */
-    private static Context mContext;
-    private MusicService mService;
-
     //Device orientation constants.
     public static final int ORIENTATION_PORTRAIT = 0;
     public static final int ORIENTATION_LANDSCAPE = 1;
-
-
     //Device screen size/orientation identifiers.
     public static final String REGULAR = "regular";
     public static final String SMALL_TABLET = "small_tablet";
     public static final String LARGE_TABLET = "large_tablet";
     public static final String XLARGE_TABLET = "xlarge_tablet";
-
     public static final int REGULAR_SCREEN_PORTRAIT = 0;
     public static final int REGULAR_SCREEN_LANDSCAPE = 1;
     public static final int SMALL_TABLET_PORTRAIT = 2;
@@ -62,8 +53,10 @@ public class Common extends MultiDexApplication {
     public static final int LARGE_TABLET_LANDSCAPE = 5;
     public static final int XLARGE_TABLET_PORTRAIT = 6;
     public static final int XLARGE_TABLET_LANDSCAPE = 7;
-
-
+    /**
+     * Constant and service instance
+     */
+    private static Context mContext;
     /**
      * UIL options
      */
@@ -73,8 +66,7 @@ public class Common extends MultiDexApplication {
             .cacheOnDisk(true)
             .cacheInMemory(true)
             .build();
-
-
+    private MusicService mService;
     /**
      * DataBase instance
      */
@@ -102,117 +94,6 @@ public class Common extends MultiDexApplication {
         return mContext;
     }
 
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mContext = getApplicationContext();
-        mPlayBackStarter = new PlayBackStarter(mContext);
-
-        // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
-        initImageLoader();
-
-        AnalyticsTrackers.initialize(this);
-        AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
-
-        /**
-         *disable UIL Logs
-         */
-        L.writeDebugLogs(false);
-    }
-
-
-    public synchronized Tracker getGoogleAnalyticsTracker() {
-        AnalyticsTrackers analyticsTrackers = AnalyticsTrackers.getInstance();
-        return analyticsTrackers.get(AnalyticsTrackers.Target.APP);
-    }
-
-    public void trackScreenView(String screenName) {
-        Tracker t = getGoogleAnalyticsTracker();
-        // Set screen name.
-        t.setScreenName(screenName);
-        // Send a screen view.
-        t.send(new HitBuilders.ScreenViewBuilder().build());
-        GoogleAnalytics.getInstance(this).dispatchLocalHits();
-    }
-
-    public void trackException(Exception e) {
-        if (e != null) {
-            Tracker t = getGoogleAnalyticsTracker();
-
-            t.send(new HitBuilders.ExceptionBuilder()
-                    .setDescription(new StandardExceptionParser(this, null).getDescription(Thread.currentThread().getName(), e))
-                    .setFatal(false)
-                    .build()
-            );
-        }
-    }
-
-    public void trackEvent(String category, String action, String label) {
-        Tracker t = getGoogleAnalyticsTracker();
-        // Build and send an Event.
-        t.send(new HitBuilders.EventBuilder().setCategory(category).setAction(action).setLabel(label).build());
-    }
-
-    public boolean isServiceRunning() {
-        return mIsServiceRunning;
-    }
-
-    public void setIsServiceRunning(boolean running) {
-        mIsServiceRunning = running;
-    }
-
-    public MusicService getService() {
-        return mService;
-    }
-
-
-    public void setService(MusicService service) {
-        mService = service;
-    }
-
-    private void initImageLoader() {
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
-                .defaultDisplayImageOptions(options)
-                .build();
-        ImageLoader.getInstance().init(config);
-
-        L.writeDebugLogs(false);
-        L.disableLogging();
-        L.writeLogs(false);
-    }
-
-    public DataBaseHelper getDBAccessHelper() {
-        return DataBaseHelper.getDatabaseHelper(mContext);
-    }
-
-
-    public PlayBackStarter getPlayBackStarter() {
-        return mPlayBackStarter;
-    }
-
-    public void setPlayBackStarter(PlayBackStarter playBackStarter) {
-        mPlayBackStarter = playBackStarter;
-    }
-
-    /**
-     * Converts dp unit to equivalent pixels, depending on device density.
-     *
-     * @param dp      A value in dp (density independent pixels) unit. Which we need to convert into pixels
-     * @param context Context to get resources and device specific display metrics
-     * @return A float value to represent px equivalent to dp depending on device density
-     */
-
-    public float convertDpToPixels(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * (metrics.densityDpi / 160f);
-        return px;
-    }
-
-
     /**
      * Returns the orientation of the device.
      */
@@ -224,7 +105,6 @@ public class Common extends MultiDexApplication {
             return ORIENTATION_PORTRAIT;
         }
     }
-
 
     /**
      * Returns the current screen configuration of the device.
@@ -307,14 +187,6 @@ public class Common extends MultiDexApplication {
         return 2;
     }
 
-    /**
-     * Returns the sharedpreferences instance
-     */
-    public PreferencesHelper getSharedPreferencesHelper() {
-        return PreferencesHelper.getInstance();
-    }
-
-
     /*
      * Returns the status bar height for the current layout configuration.
      */
@@ -324,7 +196,6 @@ public class Common extends MultiDexApplication {
         if (resourceId > 0) {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
-
         return result;
     }
 
@@ -341,6 +212,114 @@ public class Common extends MultiDexApplication {
         return 0;
     }
 
+    public static String getAndroidId() {
+        return Settings.Secure.ANDROID_ID;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mContext = getApplicationContext();
+        mPlayBackStarter = new PlayBackStarter(mContext);
+
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        initImageLoader();
+
+        AnalyticsTrackers.initialize(this);
+        AnalyticsTrackers.getInstance().get(AnalyticsTrackers.Target.APP);
+
+        /**
+         *disable UIL Logs
+         */
+        L.writeDebugLogs(false);
+    }
+
+    public synchronized Tracker getGoogleAnalyticsTracker() {
+        AnalyticsTrackers analyticsTrackers = AnalyticsTrackers.getInstance();
+        return analyticsTrackers.get(AnalyticsTrackers.Target.APP);
+    }
+
+    public void trackScreenView(String screenName) {
+        Tracker t = getGoogleAnalyticsTracker();
+        // Set screen name.
+        t.setScreenName(screenName);
+        // Send a screen view.
+        t.send(new HitBuilders.ScreenViewBuilder().build());
+        GoogleAnalytics.getInstance(this).dispatchLocalHits();
+    }
+
+    public void trackException(Exception e) {
+        if (e != null) {
+            Tracker t = getGoogleAnalyticsTracker();
+
+            t.send(new HitBuilders.ExceptionBuilder()
+                    .setDescription(new StandardExceptionParser(this, null).getDescription(Thread.currentThread().getName(), e))
+                    .setFatal(false)
+                    .build()
+            );
+        }
+    }
+
+    public void trackEvent(String category, String action, String label) {
+        Tracker t = getGoogleAnalyticsTracker();
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder().setCategory(category).setAction(action).setLabel(label).build());
+    }
+
+    public boolean isServiceRunning() {
+        return mIsServiceRunning;
+    }
+
+    public void setIsServiceRunning(boolean running) {
+        mIsServiceRunning = running;
+    }
+
+    public MusicService getService() {
+        return mService;
+    }
+
+    public void setService(MusicService service) {
+        mService = service;
+    }
+
+    private void initImageLoader() {
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .defaultDisplayImageOptions(options)
+                .build();
+
+        ImageLoader.getInstance().init(config);
+
+        L.writeDebugLogs(false);
+        L.disableLogging();
+        L.writeLogs(false);
+    }
+
+    public DataBaseHelper getDBAccessHelper() {
+        return DataBaseHelper.getDatabaseHelper(mContext);
+    }
+
+    public PlayBackStarter getPlayBackStarter() {
+        return mPlayBackStarter;
+    }
+
+    /**
+     * Converts dp unit to equivalent pixels, depending on device density.
+     *
+     * @param dp      A value in dp (density independent pixels) unit. Which we need to convert into pixels
+     * @param context Context to get resources and device specific display metrics
+     * @return A float value to represent px equivalent to dp depending on device density
+     */
+
+    public float convertDpToPixels(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * (metrics.densityDpi / 160f);
+        return px;
+    }
+
     /*public NowPlayingActivity getNowPlayingActivity2() {
         return mNowPlayingActivity2;
     }*/
@@ -349,16 +328,19 @@ public class Common extends MultiDexApplication {
         mNowPlayingActivity2 = NowPlayingActivity2;
     }*/
 
+    /**
+     * Returns the sharedpreferences instance
+     */
+    public PreferencesHelper getSharedPreferencesHelper() {
+        return PreferencesHelper.getInstance();
+    }
+
     public FirebaseAnalytics getFirebaseAnalytics() {
         return mFirebaseAnalytics;
     }
 
     public void setFirebaseAnalytics(FirebaseAnalytics firebaseAnalytics) {
         mFirebaseAnalytics = firebaseAnalytics;
-    }
-
-    public static String getAndroidId() {
-        return Settings.Secure.ANDROID_ID;
     }
 
     public boolean isTabletInLandscape() {

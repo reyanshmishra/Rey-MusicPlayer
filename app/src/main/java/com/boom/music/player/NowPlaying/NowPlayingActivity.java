@@ -61,26 +61,21 @@ import java.util.ArrayList;
 public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDialogFragment.HmsPickerDialogHandler {
 
 
+    public ArrayList<Song> mSongs;
+    TextView mTimerText;
     private QueueFragment mQueueFragment;
-
-
     private FrameLayout mParentLayout;
-
     /**
      * Application context
      */
     private Common mApp;
     private Context mContext;
-
-
     /**
      * VelocityViewPager and its adapter
      */
 
     private VelocityViewPager mVelocityViewPager;
     private PlaylistPagerAdapter mViewPagerAdapter;
-
-
     /**
      * Buttons to control playback
      */
@@ -90,54 +85,287 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
     private ImageButton mPreviousButton;
     private ImageButton mNextButton;
     private ImageButton mRepeatButton;
+    View.OnClickListener onRepeatListener = v -> {
+        /**
+         *Set repeat logic
+         */
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_PLAYLIST);
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_SONG);
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF);
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.A_B_REPEAT) {
+            mApp.getService().clearABRepeatRange();
+            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF);
+        }
+        applyRepeatButton();
+    };
     private ImageButton mShuffleButton;
-
-
+    View.OnClickListener onShuffleListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF) == Constants.SHUFFLE_OFF) {
+                if (mApp.isServiceRunning()) {
+                    mApp.getService().setShuffledOne();
+                } else {
+                }
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_ON);
+            } else {
+                if (mApp.isServiceRunning()) {
+                    mApp.getService().setOriginalOne();
+                } else {
+                }
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF);
+            }
+            applyShuffleIcon();
+        }
+    };
     /**
      * Seekbar indicator
      */
     private CardView mSeekBarIndicatorCardView;
     private TextView mSeekBarIndicatorTextView;
     private SeekBar mSeekBar;
-
-
     /**
      * Layouts
      */
     private RelativeLayout mRootRelativeLayout;
     private RelativeLayout mNowPlayingLayout;
-
     /**
      * Toolbar and appbar
      */
 
     private Toolbar mToolbar;
     private AppBarLayout mAppBarLayout;
-
     /**
      * Handler
      */
     private Handler mHandler;
+    /**
+     * Create a new Runnable to update the seekbar and time every 100ms.
+     */
+    public Runnable seekbarUpdateRunnable = new Runnable() {
+        public void run() {
+            try {
+                long currentPosition = mApp.getService().getMediaPlayer().getCurrentPosition();
+                int currentPositionInSecs = (int) currentPosition / 1000;
+                mSeekBar.setProgress(currentPositionInSecs);
+                mHandler.postDelayed(this, 100);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+    View.OnClickListener onPlayPauseListener = v -> {
+
+        //BZZZT! Give the user a brief haptic feedback touch response.
+        v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+
+        //Update the playback UI elements.
+        if (mApp.isServiceRunning()) {
+            if (mApp.getService().isPlayingMusic()) {
+                animatePauseToPlay();
+                mHandler.removeCallbacks(seekbarUpdateRunnable);
+            } else {
+                animatePlayToPause();
+                mHandler.post(seekbarUpdateRunnable);
+            }
+        } else {
+            animatePlayToPause();
+            mHandler.postDelayed(seekbarUpdateRunnable, 1500);
+        }
+
+            /*
+             * Toggle the playback state in a separate thread. This
+             * will allow the play/pause button animation to remain
+             * buttery smooth.
+             */
+        new AsyncTask() {
+
+            @Override
+            protected Object doInBackground(Object[] params) {
+                mApp.getPlayBackStarter().playPauseFromBottomBar();
+                return null;
+            }
+
+        }.execute();
 
 
+    };
     /**
      * Control and its parts
      */
 
     private CardView mControlsHolderCardView;
-
-
     //Differentiates between a user's scroll input and a programmatic scroll.
     private boolean USER_SCROLL = true;
+    View.OnClickListener onPreviousListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //Remove the seekbar update runnable.
 
+
+			/*
+             * Scrolling the pager will automatically call the skipToTrack() method.
+			 * Since we're passing true for the dispatchToListener parameter, the
+			 * onPageSelected() listener will receive a callback once the scrolling
+			 * animation completes. This has the side-benefit of letting the animation
+			 * finish before starting playback (keeps the animation buttery smooth).
+			 */
+
+            int newPosition = mVelocityViewPager.getCurrentItem() - 1;
+            if (newPosition > -1) {
+                scrollViewPager(newPosition, true, 1, true);
+            } else {
+                mVelocityViewPager.setCurrentItem(0, false);
+            }
+        }
+    };
+    View.OnClickListener onNextListener = v -> {
+        //Remove the seekbar update runnable.
+
+        /*
+             * Scrolling the pager will automatically call the skipToTrack() method.
+			 * Since we're passing true for the dispatchToListener parameter, the
+			 * onPageSelected() listener will receive a callback once the scrolling
+			 * animation completes. This has the side-benefit of letting the animation
+			 * finish before starting playback (keeps the animation buttery smooth).
+			 */
+        int newPosition = mVelocityViewPager.getCurrentItem() + 1;
+        if (newPosition < mViewPagerAdapter.getCount()) {
+            scrollViewPager(newPosition, true, 1, true);
+        } else {
+            if (mApp.getSharedPreferencesHelper().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST)
+                mVelocityViewPager.setCurrentItem(0, false);
+            else
+                Toast.makeText(mContext, R.string.no_songs_to_skip_to, Toast.LENGTH_SHORT).show();
+        }
+    };
+    /**
+     * Update UI when track completes it self and goes to next one
+     */
+
+
+    BroadcastReceiver mUpdateUIReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent.hasExtra(Constants.JUST_UPDATE_UI)) {
+                try {
+                    int newPosition = mApp.getService().getCurrentSongIndex();
+                    int currentPosition = mVelocityViewPager.getCurrentItem();
+                    if (currentPosition != newPosition) {
+                        if (newPosition > 0 && Math.abs(newPosition - currentPosition) <= 5) {
+                            scrollViewPager(newPosition, true, 1, false);
+                        } else {
+                            mVelocityViewPager.setCurrentItem(newPosition, false);
+                        }
+                        mSeekBar.setMax(mApp.getService().getMediaPlayer().getDuration() / 1000);
+                        mSeekBar.setProgress(0);
+                        if (mQueueFragment != null) {
+                            mQueueFragment.getAdapter().notifyDataSetChanged();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                mHandler.post(seekbarUpdateRunnable);
+                mPlayPauseButton.setImageResource(R.drawable.pause);
+            } else if (intent.hasExtra(Constants.ACTION_PLAY_PAUSE)) {
+                if (mApp.getService().isPlayingMusic()) {
+                    animatePauseToPlay();
+                    mHandler.removeCallbacks(seekbarUpdateRunnable);
+                } else {
+                    animatePlayToPause();
+                    mHandler.post(seekbarUpdateRunnable);
+                }
+            }
+        }
+    };
+    VelocityViewPager.OnPageChangeListener mPageChangeListener = new VelocityViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int pagerPosition, float swipeVelocity, int offsetFromCurrentPosition) {
+            if (mApp.isServiceRunning() && mApp.getService().getSongList().size() != 1) {
+                if (swipeVelocity == 0.0f && pagerPosition != mApp.getService().getCurrentSongIndex()) {
+                    if (USER_SCROLL) {
+                        mHandler.postDelayed(() -> mApp.getService().setSelectedSong(pagerPosition), 200);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int scrollState) {
+            if (scrollState == VelocityViewPager.SCROLL_STATE_DRAGGING) USER_SCROLL = true;
+        }
+    };
     private RelativeLayout mNowPlayingContainer;
     private RelativeLayout mQueueFragmentContainer;
-
-    public ArrayList<Song> mSongs;
     private int mRemainingTimeToPause;
-
-
     private ArrayList<Fragment> mFragments;
+    /**
+     * Seekbar change indicator.
+     */
+    private Runnable fadeOutSeekbarIndicator = () -> {
+        FadeAnimation fadeOut = new FadeAnimation(mSeekBarIndicatorCardView,
+                300, 0.9f, 0.0f, null);
+        fadeOut.animate();
+    };
+    SeekBar.OnSeekBarChangeListener onSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            try {
+                if (mApp.getService().isMediaPlayerPrepared()) {
+                    long currentSongDuration = mApp.getService().getMediaPlayer().getDuration();
+                    seekBar.setMax((int) currentSongDuration / 1000);
+                    if (fromUser) {
+                        mSeekBarIndicatorTextView.setText(Common.convertMillisToMinsSecs(seekBar.getProgress() * 1000));
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            mHandler.removeCallbacks(fadeOutSeekbarIndicator);
+            mSeekBarIndicatorCardView.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            int seekBarPosition = seekBar.getProgress();
+            if (mApp.isServiceRunning())
+                mApp.getService().getMediaPlayer().seekTo(seekBarPosition * 1000);
+            //Re-initiate the handler.
+            //Fade out the indicator after 1000ms.
+            mHandler.postDelayed(fadeOutSeekbarIndicator, 1000);
+
+        }
+    };
+    private Runnable pauseTimer = new Runnable() {
+        public void run() {
+            mRemainingTimeToPause--;
+
+            if (mTimerText != null)
+                mTimerText.setText(MusicUtils.makeShortTimeString(mContext, mRemainingTimeToPause));
+
+            mHandler.postDelayed(this, 1000);
+            if (mRemainingTimeToPause == 0) {
+                if (mApp.isServiceRunning())
+                    mApp.getPlayBackStarter().playPauseSongs();
+                Toast.makeText(mContext, R.string.paused_by_timer, Toast.LENGTH_SHORT).show();
+                mHandler.removeCallbacks(this);
+            }
+        }
+    };
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -203,10 +431,9 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
          */
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mAppBarLayout.getLayoutParams();
-        /*params.topMargin = Common.getStatusBarHeight(this);
+        params.topMargin = Common.getStatusBarHeight(this);
         params.bottomMargin = 0;
         mAppBarLayout.setLayoutParams(params);
-*/
 
         /**
          *All Buttons
@@ -240,27 +467,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
 
     }
 
-
-    View.OnClickListener onShuffleListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF) == Constants.SHUFFLE_OFF) {
-                if (mApp.isServiceRunning()) {
-                    mApp.getService().setShuffledOne();
-                } else {
-                }
-                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_ON);
-            } else {
-                if (mApp.isServiceRunning()) {
-                    mApp.getService().setOriginalOne();
-                } else {
-                }
-                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF);
-            }
-            applyShuffleIcon();
-        }
-    };
-
     private void applyShuffleIcon() {
         if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.SHUFFLE_MODE, Constants.SHUFFLE_OFF) == Constants.SHUFFLE_OFF) {
             mShuffleButton.setImageResource(R.drawable.shuffle);
@@ -268,84 +474,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
             mShuffleButton.setImageResource(R.drawable.shuffle_on);
         }
     }
-
-
-    View.OnClickListener onRepeatListener = v -> {
-        /**
-         *Set repeat logic
-         */
-        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
-            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_PLAYLIST);
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
-            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_SONG);
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
-            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF);
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.A_B_REPEAT) {
-            mApp.getService().clearABRepeatRange();
-            PreferencesHelper.getInstance().put(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF);
-        }
-        applyRepeatButton();
-    };
-
-    View.OnClickListener onPreviousListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //Remove the seekbar update runnable.
-
-
-			/*
-             * Scrolling the pager will automatically call the skipToTrack() method.
-			 * Since we're passing true for the dispatchToListener parameter, the
-			 * onPageSelected() listener will receive a callback once the scrolling
-			 * animation completes. This has the side-benefit of letting the animation
-			 * finish before starting playback (keeps the animation buttery smooth).
-			 */
-
-            int newPosition = mVelocityViewPager.getCurrentItem() - 1;
-            if (newPosition > -1) {
-                scrollViewPager(newPosition, true, 1, true);
-            } else {
-                mVelocityViewPager.setCurrentItem(0, false);
-            }
-        }
-    };
-    /**
-     * Create a new Runnable to update the seekbar and time every 100ms.
-     */
-    public Runnable seekbarUpdateRunnable = new Runnable() {
-        public void run() {
-            try {
-                long currentPosition = mApp.getService().getMediaPlayer().getCurrentPosition();
-                int currentPositionInSecs = (int) currentPosition / 1000;
-                mSeekBar.setProgress(currentPositionInSecs);
-                mHandler.postDelayed(this, 100);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
-
-    View.OnClickListener onNextListener = v -> {
-        //Remove the seekbar update runnable.
-
-        /*
-             * Scrolling the pager will automatically call the skipToTrack() method.
-			 * Since we're passing true for the dispatchToListener parameter, the
-			 * onPageSelected() listener will receive a callback once the scrolling
-			 * animation completes. This has the side-benefit of letting the animation
-			 * finish before starting playback (keeps the animation buttery smooth).
-			 */
-        int newPosition = mVelocityViewPager.getCurrentItem() + 1;
-        if (newPosition < mViewPagerAdapter.getCount()) {
-            scrollViewPager(newPosition, true, 1, true);
-        } else {
-            if (mApp.getSharedPreferencesHelper().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST)
-                mVelocityViewPager.setCurrentItem(0, false);
-            else
-                Toast.makeText(mContext, R.string.no_songs_to_skip_to, Toast.LENGTH_SHORT).show();
-        }
-    };
 
     /**
      * Scrolls the ViewPager programmatically. If dispatchToListener
@@ -360,131 +488,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
         mVelocityViewPager.scrollToItem(newPosition, smoothScroll, velocity, dispatchToListener);
 
     }
-
-
-    View.OnClickListener onPlayPauseListener = v -> {
-
-        //BZZZT! Give the user a brief haptic feedback touch response.
-        v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-
-        //Update the playback UI elements.
-        if (mApp.isServiceRunning()) {
-            if (mApp.getService().isPlayingMusic()) {
-                animatePauseToPlay();
-                mHandler.removeCallbacks(seekbarUpdateRunnable);
-            } else {
-                animatePlayToPause();
-                mHandler.post(seekbarUpdateRunnable);
-            }
-        } else {
-            animatePlayToPause();
-            mHandler.postDelayed(seekbarUpdateRunnable, 1500);
-        }
-
-            /*
-             * Toggle the playback state in a separate thread. This
-             * will allow the play/pause button animation to remain
-             * buttery smooth.
-             */
-        new AsyncTask() {
-
-            @Override
-            protected Object doInBackground(Object[] params) {
-                mApp.getPlayBackStarter().playPauseFromBottomBar();
-                return null;
-            }
-
-        }.execute();
-
-
-    };
-
-
-    SeekBar.OnSeekBarChangeListener onSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            try {
-                if (mApp.getService().isMediaPlayerPrepared()) {
-                    long currentSongDuration = mApp.getService().getMediaPlayer().getDuration();
-                    seekBar.setMax((int) currentSongDuration / 1000);
-                    if (fromUser) {
-                        mSeekBarIndicatorTextView.setText(Common.convertMillisToMinsSecs(seekBar.getProgress() * 1000));
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-            mHandler.removeCallbacks(fadeOutSeekbarIndicator);
-            mSeekBarIndicatorCardView.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-            int seekBarPosition = seekBar.getProgress();
-            if (mApp.isServiceRunning())
-                mApp.getService().getMediaPlayer().seekTo(seekBarPosition * 1000);
-            //Re-initiate the handler.
-            //Fade out the indicator after 1000ms.
-            mHandler.postDelayed(fadeOutSeekbarIndicator, 1000);
-
-        }
-    };
-    /**
-     * Seekbar change indicator.
-     */
-    private Runnable fadeOutSeekbarIndicator = () -> {
-        FadeAnimation fadeOut = new FadeAnimation(mSeekBarIndicatorCardView,
-                300, 0.9f, 0.0f, null);
-        fadeOut.animate();
-    };
-
-
-    /**
-     * Update UI when track completes it self and goes to next one
-     */
-
-
-    BroadcastReceiver mUpdateUIReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            if (intent.hasExtra(Constants.JUST_UPDATE_UI)) {
-                try {
-                    int newPosition = mApp.getService().getCurrentSongIndex();
-                    int currentPosition = mVelocityViewPager.getCurrentItem();
-                    if (currentPosition != newPosition) {
-                        if (newPosition > 0 && Math.abs(newPosition - currentPosition) <= 5) {
-                            scrollViewPager(newPosition, true, 1, false);
-                        } else {
-                            mVelocityViewPager.setCurrentItem(newPosition, false);
-                        }
-                        mSeekBar.setMax(mApp.getService().getMediaPlayer().getDuration() / 1000);
-                        mSeekBar.setProgress(0);
-                        if (mQueueFragment != null) {
-                            mQueueFragment.getAdapter().notifyDataSetChanged();
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                mHandler.post(seekbarUpdateRunnable);
-                mPlayPauseButton.setImageResource(R.drawable.pause);
-            } else if (intent.hasExtra(Constants.ACTION_PLAY_PAUSE)) {
-                if (mApp.getService().isPlayingMusic()) {
-                    animatePauseToPlay();
-                    mHandler.removeCallbacks(seekbarUpdateRunnable);
-                } else {
-                    animatePlayToPause();
-                    mHandler.post(seekbarUpdateRunnable);
-                }
-            }
-        }
-    };
-
 
     /**
      * Slides in the controls bar from the bottom along with a
@@ -520,7 +523,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
 
         mControlsHolderCardView.startAnimation(slideUp);
     }
-
 
     /**
      * Animates the pause button to a play button.
@@ -592,7 +594,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
         mPlayPauseButton.startAnimation(scaleOut);
     }
 
-
     /**
      * Animates the play button to a pause button.
      */
@@ -660,7 +661,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
         mPlayPauseButton.startAnimation(scaleOut);
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -723,7 +723,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
         }
     }
 
-
     @Override
     public void onBackPressed() {
         if (mFragments.size() > 0) {
@@ -779,29 +778,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
 
     }
 
-    VelocityViewPager.OnPageChangeListener mPageChangeListener = new VelocityViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int pagerPosition, float swipeVelocity, int offsetFromCurrentPosition) {
-            if (mApp.isServiceRunning() && mApp.getService().getSongList().size() != 1) {
-                if (swipeVelocity == 0.0f && pagerPosition != mApp.getService().getCurrentSongIndex()) {
-                    if (USER_SCROLL) {
-                        mHandler.postDelayed(() -> mApp.getService().setSelectedSong(pagerPosition), 200);
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int scrollState) {
-            if (scrollState == VelocityViewPager.SCROLL_STATE_DRAGGING) USER_SCROLL = true;
-        }
-    };
-
     /**
      * Smoothly scrolls the seekbar to the indicated position.
      */
@@ -811,8 +787,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
         animation.setInterpolator(new DecelerateInterpolator());
         animation.start();
     }
-
-    TextView mTimerText;
 
     public void setTimer() {
         if (mRemainingTimeToPause > 0) {
@@ -843,25 +817,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
         Toast.makeText(mContext, R.string.pause_timer_is_set, Toast.LENGTH_SHORT).show();
         mHandler.post(pauseTimer);
     }
-
-
-    private Runnable pauseTimer = new Runnable() {
-        public void run() {
-            mRemainingTimeToPause--;
-
-            if (mTimerText != null)
-                mTimerText.setText(MusicUtils.makeShortTimeString(mContext, mRemainingTimeToPause));
-
-            mHandler.postDelayed(this, 1000);
-            if (mRemainingTimeToPause == 0) {
-                if (mApp.isServiceRunning())
-                    mApp.getPlayBackStarter().playPauseSongs();
-                Toast.makeText(mContext, R.string.paused_by_timer, Toast.LENGTH_SHORT).show();
-                mHandler.removeCallbacks(this);
-            }
-        }
-    };
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
