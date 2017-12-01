@@ -145,34 +145,6 @@ public class MusicService extends Service {
             mHandler.postDelayed(this, 500);
         }
     };
-    /**
-     * When MediaPlayer is done playing music.
-     */
-
-    MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
-
-
-        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
-            if (mSongPos < mListSongs.size() - 1) {
-                mSongPos++;
-                startSong();
-            } else {
-                mSongPos = 0;
-                startSong();
-                stopSelf();
-            }
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
-            if (mSongPos < mListSongs.size() - 1) {
-                mSongPos++;
-                startSong();
-            } else {
-                mSongPos = 0;
-                startSong();
-            }
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
-            startSong();
-        }
-    };
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -240,6 +212,34 @@ public class MusicService extends Service {
             Intent intent = new Intent(Constants.ACTION_UPDATE_NOW_PLAYING_UI);
             intent.putExtra(Constants.JUST_UPDATE_UI, true);
             LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
+        }
+    };
+    /**
+     * When MediaPlayer is done playing music.
+     */
+
+    MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
+
+
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
+            if (mSongPos < mListSongs.size() - 1) {
+                mSongPos++;
+                startSong();
+            } else {
+                mSongPos = 0;
+                startSong();
+                stopSelf();
+            }
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
+            if (mSongPos < mListSongs.size() - 1) {
+                mSongPos++;
+                startSong();
+            } else {
+                mSongPos = 0;
+                startSong();
+            }
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
+            startSong();
         }
     };
     /**

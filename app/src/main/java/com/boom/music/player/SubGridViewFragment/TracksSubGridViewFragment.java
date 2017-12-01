@@ -82,7 +82,7 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
 
     private Button mPlayAllButton;
     private Handler mHandler;
-    private View mDummyBackgroundView;
+//    private View mDummyBackgroundView;
 
     private OnScrolledListener mOnScrolledListener;
     private ImageButton mSearchButton;
@@ -138,7 +138,7 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
 
             //Slide down the header image.
 
-
+/*
             TranslateAnimation slideDown = new TranslateAnimation(mDummyBackgroundView, 500, null,
                     View.VISIBLE, Animation.RELATIVE_TO_SELF,
                     0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
@@ -164,7 +164,7 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
 
             });
 
-            slideDown.animate();
+            slideDown.animate();*/
         }
 
     };
@@ -215,7 +215,7 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
         Bundle bundle = getArguments();
         mView.setOnClickListener(v -> Logger.log("INTER"));
 
-        mDummyBackgroundView = mView.findViewById(R.id.background);
+//        mDummyBackgroundView = mView.findViewById(R.id.background);
 
         mHeaderLayout = (RelativeLayout) mView.findViewById(R.id.browser_sub_header_layout);
         mHeaderImage = (ImageView) mView.findViewById(R.id.browser_sub_header_image);
@@ -274,7 +274,7 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
 
                     int scrollY = -(topChild.getTop()) + findRealFirstVisibleItemPosition(linearLayoutManager.findFirstVisibleItemPosition()) * topChild.getHeight();
 
-                    int adjustedScrollY = (int) ((-scrollY) - mApp.convertDpToPixels(280.0f, mContext));
+                    int adjustedScrollY = (int) ((-scrollY) - mApp.convertDpToPixels(290f, mContext));
 
                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mHeaderLayout.getLayoutParams();
                     params.topMargin = (adjustedScrollY / 3);
@@ -482,7 +482,7 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
 
 
     private void slideAwayBackground() {
-        TranslateAnimation slideDown = new TranslateAnimation(mDummyBackgroundView, 500, new AccelerateInterpolator(2.0f),
+       /* TranslateAnimation slideDown = new TranslateAnimation(mDummyBackgroundView, 500, new AccelerateInterpolator(2.0f),
                 View.INVISIBLE, Animation.RELATIVE_TO_SELF,
                 0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f,
@@ -508,7 +508,7 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
 
         });
 
-        slideDown.animate();
+        slideDown.animate();*/
     }
 
 

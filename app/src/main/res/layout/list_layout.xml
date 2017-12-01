@@ -19,7 +19,6 @@
         android:layout_toLeftOf="@+id/overflow"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/white"
         tools:text="Desiigner"/>
 
     <ImageView

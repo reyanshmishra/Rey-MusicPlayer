@@ -2,9 +2,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/gradientDrawble"
-        android:top="340dp">
+        android:top="330dp">
         <shape android:shape="rectangle">
-            <solid android:color="@color/white" />
+            <solid android:color="#ffffff" />
         </shape>
     </item>
 
