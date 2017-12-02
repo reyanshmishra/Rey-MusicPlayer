@@ -28,13 +28,6 @@ The awesome Music Player includes a lot of features some of them are mentioned b
 <img src="https://i.imgur.com/j9uQ1PO.png" width=900 height=625>
 
 
-<img src="https://i.imgur.com/ZWyP7hr.jpg" width=761 height=480>
-
-
-<img src="https://i.imgur.com/EvKgSz7.jpg" width=761 height=480>
-
-
-
 <H1>Developed By</H1>
 Reyansh mishra - reyanshmishra@outlook.com
 Website - www.reyanshmishra.com
