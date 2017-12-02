@@ -37,8 +37,8 @@ import com.boom.music.player.R;
  */
 public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
-    private boolean mBeingDrawn = true;
     private final ItemTouchHelperAdapter mAdapter;
+    private boolean mBeingDrawn = true;
 
     public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
         mAdapter = adapter;
@@ -73,16 +73,18 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         if (source.getItemViewType() != target.getItemViewType()) {
             return false;
         }
-
-        // Notify the adapter of the move
         mAdapter.onItemMove(source.getAdapterPosition(), target.getAdapterPosition());
         return true;
     }
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
-        // Notify the adapter of the dismissal
         mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
+    }
+
+    @Override
+    public int interpolateOutOfBoundsScroll(RecyclerView recyclerView, int viewSize, int viewSizeOutOfBounds, int totalSize, long msSinceStartScroll) {
+        return super.interpolateOutOfBoundsScroll(recyclerView, viewSize, viewSizeOutOfBounds, totalSize, 3000);
     }
 
     @Override
@@ -92,7 +94,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         } else {
             CardView cardView = (CardView) viewHolder.itemView.findViewById(R.id.background);
             cardView.setCardElevation(16);
-            cardView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.getContext(), R.color.colorPrimaryDark));
+            cardView.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.getContext(), R.color.white));
         }
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
     }
