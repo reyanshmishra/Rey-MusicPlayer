@@ -28,6 +28,7 @@ import com.boom.music.player.Views.FastScroller;
  */
 public class QueueFragment extends Fragment implements OnStartDragListener {
 
+
     private Common mApp;
     private QueueAdapter mAdapter;
     private RecyclerView mRecyclerView;
