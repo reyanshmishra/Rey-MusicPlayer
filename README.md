@@ -25,7 +25,7 @@ The awesome Music Player includes a lot of features some of them are mentioned b
 <br>
 
 
-<img src="https://imgur.com/a/DHK4g" width=761 height=480>
+<img src="https://i.imgur.com/j9uQ1PO.png" width=761 height=480>
 
 
 <img src="https://i.imgur.com/ZWyP7hr.jpg" width=761 height=480>
