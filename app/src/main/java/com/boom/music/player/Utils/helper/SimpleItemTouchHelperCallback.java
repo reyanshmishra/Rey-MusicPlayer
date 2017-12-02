@@ -84,7 +84,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public int interpolateOutOfBoundsScroll(RecyclerView recyclerView, int viewSize, int viewSizeOutOfBounds, int totalSize, long msSinceStartScroll) {
-        return super.interpolateOutOfBoundsScroll(recyclerView, viewSize, viewSizeOutOfBounds, totalSize, 3000);
+        return super.interpolateOutOfBoundsScroll(recyclerView, 350, viewSizeOutOfBounds, totalSize, 2000);
     }
 
     @Override

@@ -14,7 +14,7 @@ import com.boom.music.player.Utils.Constants;
 
 /**
  * Created by Reyansh on 22/05/2016.
- *
+ * <p>
  * This is the just the small widget which can be put on the main screen and the songs can be played.
  */
 public class SmallWidgetProvider extends AppWidgetProvider {
@@ -71,7 +71,6 @@ public class SmallWidgetProvider extends AppWidgetProvider {
 
 
             if (mApp.isServiceRunning()) {
-
                 views.setTextViewText(R.id.notification_expanded_base_line_one, mApp.getService().getSongDataHelper().getTitle());
                 views.setTextViewText(R.id.notification_expanded_base_line_two, mApp.getService().getSongDataHelper().getAlbum());
                 views.setTextViewText(R.id.notification_expanded_base_line_three, mApp.getService().getSongDataHelper().getArtist());

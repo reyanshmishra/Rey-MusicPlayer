@@ -30,16 +30,9 @@ public class PreferencesHelper {
 
     private static final String MUSIC_PLAYER_PREFERENCE = "MUSIC_PLAYER_PREFERENCES";
     private static PreferencesHelper sSharedPrefs;
-
-    public SharedPreferences getPref() {
-        return mPref;
-    }
-
     private SharedPreferences mPref;
     private SharedPreferences.Editor mEditor;
     private boolean mBulkUpdate = false;
-
-
     private PreferencesHelper(Context context) {
         mPref = context.getSharedPreferences(MUSIC_PLAYER_PREFERENCE, Context.MODE_PRIVATE);
     }
@@ -51,6 +44,9 @@ public class PreferencesHelper {
         return sSharedPrefs;
     }
 
+    public SharedPreferences getPref() {
+        return mPref;
+    }
 
     public void put(Key key, String val) {
         doEdit();
@@ -266,6 +262,6 @@ public class PreferencesHelper {
         GENRE_SORT_ORDER,
         GENRE_SORT_TYPE,
         COLORS,
-        TABS, LAUNCH_COUNT, IS_EQUALIZER_ACTIVE
+        TABS, LAUNCH_COUNT, IS_EQUALIZER_ACTIVE, RECENT_SEARCH
     }
 }

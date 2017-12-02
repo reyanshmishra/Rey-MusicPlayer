@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
             getSupportActionBar().setDisplayShowHomeEnabled(false);
         });
 
-
     }
 
     @Override

@@ -8,8 +8,8 @@ import com.boom.music.player.Common;
 import com.boom.music.player.Utils.Constants;
 
 /**
-*Bro
-*/
+ * Bro
+ */
 public class NotificationBroadcastReceiver extends BroadcastReceiver {
     private Common mCommon;
 
@@ -25,8 +25,7 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
             } else if (action.equalsIgnoreCase(Constants.ACTION_PREVIOUS)) {
                 mCommon.getService().previousSong();
             } else if (action.equalsIgnoreCase(Constants.ACTION_STOP)) {
-                mCommon.getService().                stopSelf();
-                ;
+                mCommon.getService().stopSelf();
             }
         } catch (Exception e) {
         }

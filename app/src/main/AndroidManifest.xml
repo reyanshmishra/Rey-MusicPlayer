@@ -81,21 +81,21 @@
             android:name=".Setting.SettingActivity"
             android:parentActivityName=".LauncherActivity.MainActivity"
 
-            android:theme="@style/AppThemeSubActivity">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LauncherActivity.MainActivity" />
         </activity>
 
 
-        <!--<receiver android:name=".BroadcastReceivers.NotificationBroadcastReceiver">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="com.boom.music.player.action.PAUSE"/>-->
-        <!--<action android:name="com.boom.music.player.action.NEXT"/>-->
-        <!--<action android:name="com.boom.music.player.action.PREVIOUS"/>-->
-        <!--<action android:name="com.boom.music.player.action.STOP"/>-->
-        <!--</intent-filter>-->
-        <!--</receiver>-->
+        <receiver android:name=".BroadcastReceivers.NotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.boom.music.player.action.PAUSE" />
+                <action android:name="com.boom.music.player.action.NEXT" />
+                <action android:name="com.boom.music.player.action.PREVIOUS" />
+                <action android:name="com.boom.music.player.action.STOP" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name="com.google.android.gms.analytics.AnalyticsService"

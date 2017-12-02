@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context="com.boom.music.player.TagEditor.Id3TagEditorActivity">
 
@@ -22,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="340dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/ic_placeholder"/>
+            app:srcCompat="@drawable/ic_placeholder" />
 
 
         <android.support.design.widget.AppBarLayout
@@ -41,7 +39,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:elevation="0dp"
                 app:elevation="0dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -87,9 +85,7 @@
                         android:hint="@string/tag_title"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_small">
-                    </EditText>
+                        android:textSize="@dimen/text_size_small"></EditText>
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -107,8 +103,8 @@
                         android:hint="@string/tag_artist"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_small"/>
+
+                        android:textSize="@dimen/text_size_small" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -125,8 +121,8 @@
                         android:hint="@string/tag_album"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_small"/>
+
+                        android:textSize="@dimen/text_size_small" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -144,8 +140,7 @@
                         android:hint="@string/tag_album_artist"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_small"/>
+                        android:textSize="@dimen/text_size_small" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -162,9 +157,7 @@
                         android:hint="@string/tag_genre"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_small"
-                        />
+                        android:textSize="@dimen/text_size_small" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -181,8 +174,8 @@
                         android:hint="@string/tag_producer"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_small"/>
+
+                        android:textSize="@dimen/text_size_small" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -201,9 +194,7 @@
                         android:inputType="number"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_small"
-                        />
+                        android:textSize="@dimen/text_size_small" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -222,8 +213,7 @@
                         android:ems="10"
                         android:hint="@string/tag_track"
                         android:inputType="number"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_small"/>
+                        android:textSize="@dimen/text_size_small" />
                 </android.support.design.widget.TextInputLayout>
 
                 <TextView
@@ -235,7 +225,7 @@
                     android:layout_toRightOf="@+id/text_input_track"
                     android:gravity="center"
                     android:paddingTop="4dp"
-                    android:text="of"/>
+                    android:text="of" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/text_input_total_field"
@@ -252,9 +242,7 @@
                         android:inputType="number"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_small"
-                        />
+                        android:textSize="@dimen/text_size_small" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -270,9 +258,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="@string/tag_comments"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_small"
-                        />
+
+                        android:textSize="@dimen/text_size_small" />
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
@@ -289,8 +276,7 @@
                     android:paddingRight="75dp"
                     android:text="@string/fetch_best_match"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -305,6 +291,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:tint="@color/white"
         app:backgroundTint="@color/pink"
-        app:srcCompat="@drawable/ic_save_24dp"/>
+        app:srcCompat="@drawable/ic_save_24dp" />
 
 </RelativeLayout>

@@ -532,7 +532,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
     public void saveQueue(ArrayList<Song> songs) {
-        Logger.log("SIZEE" + songs.size());
         getDatabase().beginTransaction();
         getDatabase().delete(SONGS_TABLE, null, null);
         for (int i = 0; i < songs.size(); i++) {
@@ -547,7 +546,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             values.put(TRACK_NO, songs.get(i)._trackNumber);
             values.put(ARTIST_ID, songs.get(i)._artistId);
             getDatabase().insert(SONGS_TABLE, null, values);
-            Logger.log("DONEEEEE" + i);
         }
         getDatabase().setTransactionSuccessful();
         getDatabase().endTransaction();

@@ -56,7 +56,6 @@
                 android:gravity="bottom"
                 android:singleLine="true"
                 android:text="Song Name"
-                android:textColor="@color/white"
                 android:textSize="16sp"/>
 
         </RelativeLayout>

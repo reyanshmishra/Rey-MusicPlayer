@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/main_parent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
 
     <RelativeLayout
         android:id="@+id/best_matches"
@@ -20,8 +20,7 @@
             android:layout_centerVertical="true"
             android:background="?selectableItemBackground"
             android:padding="12dp"
-            android:tint="@color/pink"
-            app:srcCompat="@drawable/drawable_arrow_back"/>
+            app:srcCompat="@drawable/drawable_arrow_back" />
 
         <EditText
             android:id="@+id/edit_text_search"
@@ -35,7 +34,7 @@
             android:padding="8dp"
             android:singleLine="true"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/gray"/>
+            android:textColor="@color/white" />
 
         <ImageButton
             android:id="@+id/image_button_cross"
@@ -45,25 +44,31 @@
             android:layout_centerVertical="true"
             android:background="?selectableItemBackground"
             android:padding="12dp"
-            android:tint="@color/gray"
             android:visibility="invisible"
-            app:srcCompat="@drawable/cross_light"/>
+            app:srcCompat="@drawable/cross_light" />
 
     </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/best_matches"
+        android:background="@color/white">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadeScrollbars="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/list_view_item" />
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_below="@+id/best_matches"
-        android:background="@drawable/drawable_drop_shadow"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/best_matches"
-        android:fadeScrollbars="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/list_view_item"/>
-
+        android:background="@drawable/drawable_drop_shadow" />
 </RelativeLayout>

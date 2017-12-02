@@ -113,11 +113,12 @@ public class NowPlayingBottomBarFragment extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.hasExtra(Constants.ACTION_PLAY_PAUSE)) {
-                if (mApp.getService().getMediaPlayer().isPlaying()) {
-                    mFloatingActionButton.setImageResource(R.drawable.pause);
-                } else {
-                    mFloatingActionButton.setImageResource(R.drawable.play);
-                }
+                if (mApp.isServiceRunning())
+                    if (mApp.getService().getMediaPlayer().isPlaying()) {
+                        mFloatingActionButton.setImageResource(R.drawable.pause);
+                    } else {
+                        mFloatingActionButton.setImageResource(R.drawable.play);
+                    }
             } else {
                 updateUI();
             }
@@ -226,11 +227,12 @@ public class NowPlayingBottomBarFragment extends Fragment {
 
         if (mApp.isServiceRunning()) {
             mNowPlayingBottomBarAdapter.updateData(mApp.getService().getSongList());
-
-            if (mApp.getService().getMediaPlayer().isPlaying()) {
-                mFloatingActionButton.setImageResource(R.drawable.pause);
-            } else {
-                mFloatingActionButton.setImageResource(R.drawable.play);
+            if (mApp.isServiceRunning()) {
+                if (mApp.getService().getMediaPlayer().isPlaying()) {
+                    mFloatingActionButton.setImageResource(R.drawable.pause);
+                } else {
+                    mFloatingActionButton.setImageResource(R.drawable.play);
+                }
             }
 
             mView.setVisibility(View.VISIBLE);

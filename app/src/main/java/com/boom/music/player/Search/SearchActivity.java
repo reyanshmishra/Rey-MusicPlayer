@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 
+import com.boom.music.player.Activities.TracksSubFragment;
 import com.boom.music.player.AsyncTasks.AsyncAddTo;
 import com.boom.music.player.Common;
 import com.boom.music.player.Dialogs.PlaylistDialog;
@@ -30,19 +31,18 @@ import com.boom.music.player.Models.Artist;
 import com.boom.music.player.Models.Genre;
 import com.boom.music.player.Models.Song;
 import com.boom.music.player.R;
-import com.boom.music.player.TagEditor.Id3TagEditorActivity;
-import com.boom.music.player.Activities.TracksSubFragment;
 import com.boom.music.player.SubGridViewFragment.TracksSubGridViewFragment;
+import com.boom.music.player.TagEditor.Id3TagEditorActivity;
 import com.boom.music.player.Utils.Constants;
 import com.boom.music.player.Utils.CursorHelper;
 import com.boom.music.player.Utils.Logger;
 import com.boom.music.player.Utils.MusicUtils;
+import com.boom.music.player.Utils.PreferencesHelper;
 import com.boom.music.player.Utils.TypefaceHelper;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewTextChangeEvent;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -75,12 +75,14 @@ public class SearchActivity extends AppCompatActivity implements MusicUtils.Defs
         mApp = (Common) getApplicationContext();
         mContext = getApplicationContext();
         mSearchResults = new ArrayList<>();
+
         mImageButtonClear = (ImageButton) findViewById(R.id.image_button_cross);
         mBackImageButton = (ImageButton) findViewById(R.id.image_back_button);
         mBackImageButton.setOnClickListener(v -> finish());
         mFragments = new ArrayList<>();
         mMainParent = (RelativeLayout) findViewById(R.id.main_parent);
         mRelativeLayout = (RelativeLayout) findViewById(R.id.best_matches);
+
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mRelativeLayout.getLayoutParams();
         params.topMargin = Common.getStatusBarHeight(this);
@@ -118,6 +120,9 @@ public class SearchActivity extends AppCompatActivity implements MusicUtils.Defs
                 .debounce(175, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getSearchObserver());
+        String recentlySearchedKey = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.RECENT_SEARCH, "");
+        mSearchEditText.setText(recentlySearchedKey);
+        mSearchEditText.setSelection(recentlySearchedKey.length());
     }
 
     private DisposableObserver<TextViewTextChangeEvent> getSearchObserver() {
@@ -159,22 +164,22 @@ public class SearchActivity extends AppCompatActivity implements MusicUtils.Defs
 
             if (!songs.isEmpty()) {
                 mSearchResults.add("Songs");
-                mSearchResults.addAll((Collection) (songs));
+                mSearchResults.addAll(songs);
             }
 
             if (!albums.isEmpty()) {
                 mSearchResults.add("Albums");
-                mSearchResults.addAll((Collection) (albums));
+                mSearchResults.addAll(albums);
             }
 
             if (!artists.isEmpty()) {
                 mSearchResults.add("Artists");
-                mSearchResults.addAll((Collection) (artists));
+                mSearchResults.addAll(artists);
             }
 
             if (!genres.isEmpty()) {
                 mSearchResults.add("Genres");
-                mSearchResults.addAll((Collection) (genres));
+                mSearchResults.addAll(genres);
             }
 
         } else {
@@ -409,5 +414,12 @@ public class SearchActivity extends AppCompatActivity implements MusicUtils.Defs
         fragmentTransaction.add(R.id.main_parent, fragment);
         fragmentTransaction.commitAllowingStateLoss();
         mFragments.add(fragment);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PreferencesHelper.getInstance().put(PreferencesHelper.Key.RECENT_SEARCH, mSearchEditText.getText().toString().trim());
+
     }
 }

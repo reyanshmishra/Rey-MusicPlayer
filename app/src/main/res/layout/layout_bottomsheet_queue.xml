@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bbb"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
 
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize">
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimary">
 
         <ImageButton
             android:id="@+id/image_back_button"
@@ -23,7 +22,7 @@
             android:layout_marginRight="8dp"
             android:background="?selectableItemBackground"
             android:padding="8dp"
-            app:srcCompat="@drawable/drawable_arrow_back"/>
+            app:srcCompat="@drawable/drawable_arrow_back" />
 
         <TextView
             android:id="@+id/edit_text_search"
@@ -38,7 +37,7 @@
             android:text="@string/now_playing"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/image_button_overflow"
@@ -50,34 +49,22 @@
             android:padding="3dp"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            app:srcCompat="@drawable/ic_action_overflow_light"/>
+            app:srcCompat="@drawable/ic_action_overflow_light" />
 
     </RelativeLayout>
 
-    <View
-        android:id="@+id/shadow"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:layout_below="@+id/toolbar"
-        android:background="@drawable/drawable_drop_shadow"/>
 
     <include
         layout="@layout/fragment_album_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/shadow"/>
-    <!--
+        android:layout_below="@+id/toolbar" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/best_matches_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/shadow"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:orientation="vertical"
-            android:paddingTop="5dp"
-            tools:listitem="@layout/list_view_item"/>-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/drawable_drop_shadow" />
+
+
 </RelativeLayout>

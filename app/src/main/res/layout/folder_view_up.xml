@@ -25,7 +25,6 @@
         android:layout_marginLeft="15dp"
         android:layout_toRightOf="@+id/listViewLeftIcon"
         android:singleLine="true"
-        android:textColor="@color/white"
         android:textSize="16sp"
         tools:text="..Artist Name"/>
 </RelativeLayout>

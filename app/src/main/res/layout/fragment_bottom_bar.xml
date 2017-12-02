@@ -85,7 +85,11 @@
                 app:fabSize="mini"
                 app:srcCompat="@drawable/play" />
 
-
+            <View
+                android:layout_width="115dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/drawable_right_to_left_gradient" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

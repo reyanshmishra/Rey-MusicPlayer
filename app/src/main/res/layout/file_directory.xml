@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/drawable_drop_shadow"/>
+        android:background="@drawable/drawable_drop_shadow" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="120dp"/>
+        android:paddingBottom="120dp" />
 
     <RelativeLayout
         android:id="@+id/empty_state"
@@ -32,7 +33,7 @@
             android:layout_height="125dp"
             android:layout_centerInParent="true"
             android:tint="@color/textColorSecondary"
-            app:srcCompat="@drawable/drawable_emoticon_poop"/>
+            app:srcCompat="@drawable/drawable_emoticon_poop" />
 
         <TextView
             android:id="@+id/empty_text_view"
@@ -42,7 +43,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="@string/hey_i_am_empty"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 
 

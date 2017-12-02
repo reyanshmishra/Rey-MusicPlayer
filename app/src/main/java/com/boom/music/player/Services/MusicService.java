@@ -456,8 +456,6 @@ public class MusicService extends Service {
         mHandler = new Handler();
 
 
-
-
         /**
          *Take the wakeup lock to stop CPU from sleeping cause we are dancing on the beats.
          */
@@ -745,6 +743,7 @@ public class MusicService extends Service {
 
         }
         sendPlayPauseBroadCast();
+        saveQueue();
     }
 
     private void saveQueue() {
@@ -755,13 +754,6 @@ public class MusicService extends Service {
                 PreferencesHelper.getInstance().put(PreferencesHelper.Key.CURRENT_SONG_POSITION, mSongPos);
                 PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, mMediaPlayer1.getCurrentPosition());
                 PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_TOTAL_SEEK_DURATION, mMediaPlayer1.getDuration());
-
-                mMediaPlayer1.pause();
-                if (mMediaPlayer1 != null) {
-                    mMediaPlayer1.stop();
-                    mMediaPlayer1.release();
-                    mMediaPlayer1 = null;
-                }
                 return null;
             }
         }.execute();
@@ -889,7 +881,6 @@ public class MusicService extends Service {
     @Override
     public void onDestroy() {
 
-        saveQueue();
         mApp.setIsServiceRunning(false);
         clearABRepeatRange();
         updateWidgets();
@@ -912,6 +903,12 @@ public class MusicService extends Service {
             mEqualizerHelper = null;
         }
 
+        mMediaPlayer1.pause();
+        if (mMediaPlayer1 != null) {
+            mMediaPlayer1.stop();
+            mMediaPlayer1.release();
+            mMediaPlayer1 = null;
+        }
         mAudioManagerHelper.setHasAudioFocus(false);
         mAudioManager.abandonAudioFocus(audioFocusChangeListener);
 
