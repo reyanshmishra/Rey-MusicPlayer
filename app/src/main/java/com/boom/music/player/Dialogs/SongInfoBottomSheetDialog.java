@@ -54,10 +54,37 @@ public class SongInfoBottomSheetDialog extends BottomSheetDialogFragment {
     private List<BestMatchesModel.Results> results;
     private String SONG_NAME;
     private ProgressBar mProgressBar;
+    Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            fetchBestMatches(mBestMatchesEdiText.getText().toString().trim());
+        }
+    };
     private ImageView mCrossImageViewButton;
     private ImageView mBackImageViewButton;
     private Handler mHandler;
+    TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (s.toString().length() == 0) {
+                mCrossImageViewButton.setVisibility(View.INVISIBLE);
+            } else {
+                mCrossImageViewButton.setVisibility(View.VISIBLE);
+            }
+            mHandler.removeCallbacks(mRunnable);
+            mHandler.postDelayed(mRunnable, 600);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -100,39 +127,10 @@ public class SongInfoBottomSheetDialog extends BottomSheetDialogFragment {
         mBestMatchesRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), Common.getNumberOfColms() + 1));
         mBestMatchesAdapter = new BestMatchesAdapter((Id3TagEditorActivity) getActivity(), null);
         mBestMatchesRecyclerView.setAdapter(mBestMatchesAdapter);
+        ((View) mView.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
         fetchBestMatches(SONG_NAME);
     }
-
-
-    TextWatcher mTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (s.toString().length() == 0) {
-                mCrossImageViewButton.setVisibility(View.INVISIBLE);
-            } else {
-                mCrossImageViewButton.setVisibility(View.VISIBLE);
-            }
-            mHandler.removeCallbacks(mRunnable);
-            mHandler.postDelayed(mRunnable, 600);
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
-    Runnable mRunnable = new Runnable() {
-        @Override
-        public void run() {
-            fetchBestMatches(mBestMatchesEdiText.getText().toString().trim());
-        }
-    };
 
     @Override
     public void onDestroy() {

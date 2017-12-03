@@ -1,21 +1,22 @@
-package com.boom.music.player.NowPlaying;
+package com.boom.music.player.Dialogs;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 import com.boom.music.player.Adapters.QueueAdapter;
 import com.boom.music.player.Common;
-import com.boom.music.player.Dialogs.PlaylistDialog;
+import com.boom.music.player.NowPlaying.NowPlayingActivity;
 import com.boom.music.player.R;
 import com.boom.music.player.Utils.MusicUtils;
 import com.boom.music.player.Utils.PreferencesHelper;
@@ -24,9 +25,10 @@ import com.boom.music.player.Utils.helper.SimpleItemTouchHelperCallback;
 import com.boom.music.player.Views.FastScroller;
 
 /**
- * Created by Reyansh on 11/06/2016.
+ * Created by reyansh on 12/3/17.
  */
-public class QueueFragment extends Fragment implements OnStartDragListener {
+
+public class SongQueueBottomSheet extends BottomSheetDialogFragment implements OnStartDragListener {
 
 
     private Common mApp;
@@ -40,9 +42,13 @@ public class QueueFragment extends Fragment implements OnStartDragListener {
     private ImageButton mOverflowButton;
 
 
+    @SuppressLint("RestrictedApi")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.layout_bottomsheet_queue, container, false);
+    public void setupDialog(Dialog dialog, int style) {
+        super.setupDialog(dialog, style);
+        mView = getActivity().getLayoutInflater().inflate(R.layout.layout_bottomsheet_queue, null, false);
+
+
         mContext = getActivity().getApplicationContext();
         mApp = (Common) getActivity().getApplicationContext();
 
@@ -57,8 +63,15 @@ public class QueueFragment extends Fragment implements OnStartDragListener {
         mOverflowButton = (ImageButton) mView.findViewById(R.id.image_button_overflow);
 
         mBackImageButton.setOnClickListener(v -> {
-            getActivity().onBackPressed();
+            dismiss();
         });
+
+        getDialog().setOnShowListener(dialog1 -> {
+            BottomSheetDialog d = (BottomSheetDialog) dialog1;
+            View bottomSheetInternal = d.findViewById(android.support.design.R.id.design_bottom_sheet);
+            BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
+        });
+
         mOverflowButton.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(getActivity(), v);
             popupMenu.inflate(R.menu.menu_playlist);
@@ -99,11 +112,10 @@ public class QueueFragment extends Fragment implements OnStartDragListener {
             mRecyclerView.getLayoutManager().scrollToPosition(pos);
         }
 
-        RelativeLayout relativeLayout = (RelativeLayout) mBackImageButton.getParent();
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) relativeLayout.getLayoutParams();
-        params.topMargin = Common.getStatusBarHeight(getActivity());
-        relativeLayout.setLayoutParams(params);
-        return mView;
+        dialog.setContentView(mView);
+
+        ((View) mView.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
     }
 
     @Override
@@ -118,4 +130,10 @@ public class QueueFragment extends Fragment implements OnStartDragListener {
     public QueueAdapter getAdapter() {
         return mAdapter;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
 }
