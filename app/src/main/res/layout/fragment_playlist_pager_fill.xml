@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <ImageView
@@ -11,25 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/brown"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="85dp"
-        android:background="@drawable/toolbar_bg_gradient"/>
+        android:background="@drawable/toolbar_bg_gradient" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_above="@+id/bottomDarkPatch"
-        android:background="@drawable/drawable_black_to_transparent"/>
+        android:background="@drawable/drawable_black_to_transparent" />
 
     <RelativeLayout
         android:id="@+id/bottomDarkPatch"
         android:layout_width="match_parent"
         android:layout_height="137dp"
         android:layout_alignParentBottom="true"
-        android:background="#BB000000"/>
+        android:background="#BB000000" />
 
     <RelativeLayout
         android:id="@+id/songInfoLayout"
@@ -58,7 +57,7 @@
             android:singleLine="true"
             android:text="Unknown Song Title"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"/>
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/artistAlbumName"
@@ -80,7 +79,7 @@
             android:singleLine="true"
             android:text="Unknown Artist - Unknown Album"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <ImageButton
             android:id="@+id/now_playing_overflow_icon"
@@ -90,6 +89,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
             android:background="?android:selectableItemBackground"
-            app:srcCompat="@drawable/drawable_overflow"/>
+            android:padding="6dp"
+            app:srcCompat="@drawable/drawable_overflow" />
     </RelativeLayout>
 </RelativeLayout>

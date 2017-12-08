@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:rsb="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/repeat_song_range_instructions"
@@ -13,7 +12,7 @@
         android:layout_margin="15dp"
         android:text="@string/repeat_song_instruction"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/textColorSecondary"/>
+        android:textColor="@color/textColorSecondary" />
 
     <TextView
         android:id="@+id/repeat_song_range_A_time"
@@ -24,7 +23,7 @@
         android:layout_marginTop="10dp"
         android:text="0:00"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/textColorSecondary"/>
+        android:textColor="@color/textColorSecondary" />
 
     <TextView
         android:id="@+id/repeat_song_range_B_time"
@@ -32,24 +31,11 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/repeat_song_range_A_time"
         android:layout_alignRight="@+id/repeat_song_range_instructions"
-        android:text="-0:00"
+        android:text="0:00"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/textColorSecondary"/>
+        android:textColor="@color/textColorSecondary" />
 
 
-    <org.florescu.android.rangeseekbar.RangeSeekBar
-        android:id="@+id/range_seek_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/repeat_song_range_A_time"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        rsb:thumbNormal="@drawable/apptheme_scrubber_control_normal_holo"
-        rsb:thumbPressed="@drawable/apptheme_scrubber_control_pressed_holo"
-        rsb:showLabels="false"
-        rsb:valuesAboveThumbs="false"/>
 
     <SeekBar
         android:id="@+id/repeat_song_range_placeholder_seekbar"
@@ -59,7 +45,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        android:visibility="gone"/>
+        android:layout_marginTop="10dp" />
+
 
 </RelativeLayout>

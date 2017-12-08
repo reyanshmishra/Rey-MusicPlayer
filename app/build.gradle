@@ -1,10 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 android {
-    signingConfigs {
-        
-    }
-    compileSdkVersion 25
+
+    compileSdkVersion 26
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.boom.music.player"
@@ -15,7 +13,6 @@ android {
         versionName "3.3.11"
         renderscriptTargetApi 22
         renderscriptSupportModeEnabled true
-        signingConfig signingConfigs.music
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
@@ -28,9 +25,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            signingConfig signingConfigs.music
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
         }
         debug {
             debuggable true
@@ -72,7 +67,6 @@ dependencies {
     compile 'com.github.channguyen:rsv:1.0.1'
     compile 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.6.0'
     compile 'com.squareup.okhttp:okhttp:2.3.0'
-    compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.github.Triggertrap:SeekArc:v1.1'
     compile 'com.google.android.gms:play-services:11.0.1'

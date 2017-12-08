@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.boom.music.player.Common;
@@ -14,8 +17,7 @@ import com.boom.music.player.Utils.Constants;
 import com.boom.music.player.Utils.MusicUtils;
 import com.boom.music.player.Utils.PreferencesHelper;
 import com.boom.music.player.Utils.TypefaceHelper;
-
-import org.florescu.android.rangeseekbar.RangeSeekBar;
+import com.boom.music.player.Views.RangeSeekBar;
 
 /**
  * Created by Reyansh on 23/07/2016.
@@ -29,12 +31,14 @@ public class ABRepeatDialog extends DialogFragment {
     private int repeatPointB;
 
     private int currentSongDurationMillis;
-    private int currentSongDurationSecs;
 
     private TextView repeatSongATime;
     private TextView repeatSongBTime;
+    private SeekBar mSeekBar;
 
-    private RangeSeekBar mRangeSeekBar;
+    private RangeSeekBar<Integer> mRangeSeekBar;
+    private ViewGroup viewGroup;
+
 
     @Override
     public void onStart() {
@@ -56,21 +60,60 @@ public class ABRepeatDialog extends DialogFragment {
 
         builder.setTitle(R.string.a_b_repeat);
         View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_ab_repeat, null);
-        mRangeSeekBar = (RangeSeekBar) view.findViewById(R.id.range_seek_bar);
+        mSeekBar = view.findViewById(R.id.repeat_song_range_placeholder_seekbar);
 
-        repeatSongATime = (TextView) view.findViewById(R.id.repeat_song_range_A_time);
-        repeatSongBTime = (TextView) view.findViewById(R.id.repeat_song_range_B_time);
+        repeatSongATime = view.findViewById(R.id.repeat_song_range_A_time);
+        repeatSongBTime = view.findViewById(R.id.repeat_song_range_B_time);
+
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mSeekBar.getLayoutParams();
+        viewGroup = (ViewGroup) mSeekBar.getParent();
+        viewGroup.removeView(mSeekBar);
+
 
         repeatSongATime.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Condensed-Font"));
         repeatSongBTime.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Condensed-Font"));
-        TextView textView = (TextView) view.findViewById(R.id.repeat_song_range_instructions);
+
+        TextView textView = view.findViewById(R.id.repeat_song_range_instructions);
         textView.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), "Futura-Condensed-Font"));
 
         currentSongDurationMillis = mApp.getService().getMediaPlayer().getDuration();
-        currentSongDurationSecs = currentSongDurationMillis / 1000;
+
+        mRangeSeekBar = new RangeSeekBar<>(0, currentSongDurationMillis, getActivity().getApplicationContext());
+
+        mRangeSeekBar.setLayoutParams(params);
+        viewGroup.addView(mRangeSeekBar);
 
 
-        initDialog();
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.A_B_REPEAT) {
+
+            repeatSongATime.setText(MusicUtils.convertMillisToMinsSecs(mApp.getService().getRepeatSongRangePointA()));
+            repeatSongBTime.setText(MusicUtils.convertMillisToMinsSecs(mApp.getService().getRepeatSongRangePointB()));
+
+
+            repeatPointA = mApp.getService().getRepeatSongRangePointA();
+            repeatPointB = mApp.getService().getRepeatSongRangePointB();
+
+            mRangeSeekBar.setSelectedMinValue(repeatPointA);
+            mRangeSeekBar.setSelectedMaxValue(repeatPointB);
+
+        } else {
+            repeatSongATime.setText("0:00");
+            repeatSongBTime.setText(MusicUtils.convertMillisToMinsSecs(currentSongDurationMillis));
+
+            repeatPointA = 0;
+            repeatPointB = currentSongDurationMillis;
+        }
+
+        mRangeSeekBar.setOnRangeSeekBarChangeListener((bar, minValue, maxValue) -> {
+            repeatPointA = minValue;
+            repeatPointB = maxValue;
+            repeatSongATime.setText(MusicUtils.convertMillisToMinsSecs(minValue));
+            repeatSongBTime.setText(MusicUtils.convertMillisToMinsSecs(maxValue));
+        });
+
+        repeatSongATime.setText(MusicUtils.convertMillisToMinsSecs(repeatPointA));
+        repeatSongBTime.setText(MusicUtils.convertMillisToMinsSecs(repeatPointB));
+
 
         builder.setView(view);
 
@@ -86,53 +129,4 @@ public class ABRepeatDialog extends DialogFragment {
     }
 
 
-    private void initDialog() {
-
-        currentSongDurationMillis = mApp.getService().getMediaPlayer().getDuration();
-        currentSongDurationSecs = currentSongDurationMillis / 1000;
-
-
-        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.A_B_REPEAT) {
-
-            repeatSongATime.setText(MusicUtils.convertMillisToMinsSecs(mApp.getService().getRepeatSongRangePointA()));
-            repeatSongBTime.setText(MusicUtils.convertMillisToMinsSecs(mApp.getService().getRepeatSongRangePointB()));
-
-
-            repeatPointA = mApp.getService().getRepeatSongRangePointA();
-            repeatPointB = mApp.getService().getRepeatSongRangePointB();
-
-            mRangeSeekBar.setRangeValues(0, currentSongDurationMillis);
-
-            mRangeSeekBar.setSelectedMinValue(repeatPointA);
-            mRangeSeekBar.setSelectedMaxValue(repeatPointB);
-
-        } else {
-            repeatSongATime.setText("0:00");
-            repeatSongBTime.setText(MusicUtils.convertMillisToMinsSecs(currentSongDurationMillis));
-
-            repeatPointA = 0;
-            repeatPointB = currentSongDurationMillis;
-
-            mRangeSeekBar.setRangeValues(0, currentSongDurationMillis);
-
-            mRangeSeekBar.setSelectedMinValue(repeatPointA);
-            mRangeSeekBar.setSelectedMaxValue(repeatPointB);
-
-        }
-
-
-        mRangeSeekBar.setOnRangeSeekBarChangeListener((bar, minValue, maxValue) -> {
-            repeatPointA = (int) minValue;
-            repeatPointB = (int) maxValue;
-
-            repeatSongATime.setText(MusicUtils.convertMillisToMinsSecs(repeatPointA));
-            repeatSongBTime.setText(MusicUtils.convertMillisToMinsSecs(repeatPointB));
-
-        });
-
-        repeatSongATime.setText(MusicUtils.convertMillisToMinsSecs(repeatPointA));
-        repeatSongBTime.setText(MusicUtils.convertMillisToMinsSecs(repeatPointB));
-
-
-    }
 }

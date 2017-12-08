@@ -4,14 +4,15 @@
     android:id="@+id/bbb"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:padding="1dp">
 
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary">
+        android:background="@drawable/drawable_dialogs_background"
+        android:backgroundTint="@color/colorPrimary">
 
         <ImageButton
             android:id="@+id/image_back_button"

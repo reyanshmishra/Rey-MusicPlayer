@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-    android:background="@color/bgcolor"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,13 +23,13 @@
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </android.support.design.widget.AppBarLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:background="@drawable/drawable_drop_shadow"/>
+            android:background="@drawable/drawable_drop_shadow" />
     </LinearLayout>
 
     <LinearLayout
@@ -53,7 +53,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:padding="8dp"
                 android:tint="@color/_light_gray"
-                app:srcCompat="@drawable/ic_volume_mute_black_24dp"/>
+                app:srcCompat="@drawable/ic_volume_mute_black_24dp" />
 
             <SeekBar
                 android:id="@+id/volume_seekbar"
@@ -63,7 +63,7 @@
                 android:layout_toLeftOf="@+id/volume_high"
                 android:layout_toRightOf="@+id/volume_mute"
 
-                android:thumbOffset="8dp"/>
+                android:thumbOffset="8dp" />
 
             <ImageButton
                 android:id="@+id/volume_high"
@@ -73,7 +73,7 @@
                 android:layout_centerVertical="true"
                 android:background="?android:attr/selectableItemBackground"
                 android:padding="8dp"
-                app:srcCompat="@drawable/ic_volume_up_black_24dp"/>
+                app:srcCompat="@drawable/ic_volume_up_black_24dp" />
 
         </RelativeLayout>
 
@@ -101,8 +101,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/white" />
 
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
@@ -121,7 +120,7 @@
                         android:progressBackgroundTint="@color/textColorSecondary"
                         android:splitTrack="false"
                         android:thumbOffset="8dp"
-                        app:seekBarRotation="CW270"/>
+                        app:seekBarRotation="CW270" />
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
 
@@ -134,8 +133,7 @@
                     android:singleLine="true"
                     android:text="50 Hz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
 
@@ -155,8 +153,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/white" />
 
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
@@ -176,7 +173,7 @@
                         android:splitTrack="false"
 
                         android:thumbOffset="8dp"
-                        app:seekBarRotation="CW270"/>
+                        app:seekBarRotation="CW270" />
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
 
@@ -190,7 +187,7 @@
                     android:singleLine="true"
                     android:text="130 Hz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -209,7 +206,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
@@ -228,7 +225,7 @@
                         android:splitTrack="false"
 
                         android:thumbOffset="8dp"
-                        app:seekBarRotation="CW270"/>
+                        app:seekBarRotation="CW270" />
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
                 <TextView
@@ -241,7 +238,7 @@
                     android:singleLine="true"
                     android:text="320 Hz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -260,7 +257,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
@@ -279,7 +276,7 @@
                         android:splitTrack="false"
 
                         android:thumbOffset="8dp"
-                        app:seekBarRotation="CW270"/>
+                        app:seekBarRotation="CW270" />
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
                 <TextView
@@ -292,8 +289,7 @@
                     android:singleLine="true"
                     android:text="800 Hz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -312,8 +308,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/white" />
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
@@ -332,7 +327,7 @@
                         android:splitTrack="false"
 
                         android:thumbOffset="8dp"
-                        app:seekBarRotation="CW270"/>
+                        app:seekBarRotation="CW270" />
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
                 <TextView
@@ -345,8 +340,7 @@
                     android:singleLine="true"
                     android:text="2 kHz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -366,7 +360,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
@@ -386,7 +380,7 @@
                         android:splitTrack="false"
 
                         android:thumbOffset="8dp"
-                        app:seekBarRotation="CW270"/>
+                        app:seekBarRotation="CW270" />
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
 
@@ -401,8 +395,7 @@
                     android:singleLine="true"
                     android:text="5 kHz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/white" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -420,7 +413,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
@@ -439,7 +432,7 @@
                         android:splitTrack="false"
 
                         android:thumbOffset="8dp"
-                        app:seekBarRotation="CW270"/>
+                        app:seekBarRotation="CW270" />
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
 
@@ -453,8 +446,7 @@
                     android:singleLine="true"
                     android:text="12.5 Hz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white"
-                    />
+                    android:textColor="@color/white" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -486,7 +478,7 @@
                     app:startAngle="45"
                     app:sweepAngle="270"
                     app:thumb="@color/white"
-                    app:touchInside="true"/>
+                    app:touchInside="true" />
 
                 <ImageButton
                     android:id="@+id/image_button_virtualizer"
@@ -502,7 +494,7 @@
                     android:scaleType="fitCenter"
                     android:scaleX="@dimen/control_button_scale"
                     android:scaleY="@dimen/control_button_scale"
-                    android:src="@drawable/drawable_eq_circle_"/>
+                    android:src="@drawable/drawable_eq_circle_" />
 
                 <TextView
                     android:id="@+id/virtualizer"
@@ -514,7 +506,7 @@
                     android:text="@string/virtualizer"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/textColorSecondary"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -540,7 +532,7 @@
                     app:startAngle="45"
                     app:sweepAngle="270"
                     app:thumb="@color/white"
-                    app:touchInside="true"/>
+                    app:touchInside="true" />
 
                 <ImageButton
                     android:id="@+id/image_button_bass_boost"
@@ -557,7 +549,7 @@
                     android:scaleX="@dimen/control_button_scale"
 
                     android:scaleY="@dimen/control_button_scale"
-                    android:src="@drawable/drawable_eq_circle_"/>
+                    android:src="@drawable/drawable_eq_circle_" />
 
                 <TextView
                     android:id="@+id/bass_boost"
@@ -569,8 +561,7 @@
                     android:text="@string/bass_boost"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/textColorSecondary"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -598,7 +589,7 @@
                     android:textAllCaps="false"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/pink"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -621,7 +612,7 @@
                         android:id="@+id/reverb_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="0dp"/>
+                        android:padding="0dp" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -646,7 +637,7 @@
                     android:textAllCaps="false"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/pink"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

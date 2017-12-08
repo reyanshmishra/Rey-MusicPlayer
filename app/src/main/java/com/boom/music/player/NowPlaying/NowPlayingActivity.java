@@ -6,8 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,12 +14,10 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
@@ -41,6 +37,7 @@ import android.widget.Toast;
 import com.boom.music.player.Activities.TracksSubFragment;
 import com.boom.music.player.Animations.FadeAnimation;
 import com.boom.music.player.Common;
+import com.boom.music.player.Dialogs.SongQueueBottomSheet;
 import com.boom.music.player.LauncherActivity.MainActivity;
 import com.boom.music.player.Models.Song;
 import com.boom.music.player.R;
@@ -62,14 +59,16 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
 
 
     public ArrayList<Song> mSongs;
-    TextView mTimerText;
-    private QueueFragment mQueueFragment;
+    private SongQueueBottomSheet songInfoBottomSheetDialog;
+    private TextView mTimerText;
     private FrameLayout mParentLayout;
     /**
      * Application context
      */
     private Common mApp;
     private Context mContext;
+
+
     /**
      * VelocityViewPager and its adapter
      */
@@ -127,11 +126,15 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
     private CardView mSeekBarIndicatorCardView;
     private TextView mSeekBarIndicatorTextView;
     private SeekBar mSeekBar;
+
+
     /**
      * Layouts
      */
     private RelativeLayout mRootRelativeLayout;
     private RelativeLayout mNowPlayingLayout;
+
+
     /**
      * Toolbar and appbar
      */
@@ -242,6 +245,8 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
                 Toast.makeText(mContext, R.string.no_songs_to_skip_to, Toast.LENGTH_SHORT).show();
         }
     };
+
+
     /**
      * Update UI when track completes it self and goes to next one
      */
@@ -263,8 +268,8 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
                         }
                         mSeekBar.setMax(mApp.getService().getMediaPlayer().getDuration() / 1000);
                         mSeekBar.setProgress(0);
-                        if (mQueueFragment != null) {
-                            mQueueFragment.getAdapter().notifyDataSetChanged();
+                        if (songInfoBottomSheetDialog != null) {
+                            songInfoBottomSheetDialog.getAdapter().notifyDataSetChanged();
                         }
                     }
                 } catch (Exception e) {
@@ -273,16 +278,19 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
                 mHandler.post(seekbarUpdateRunnable);
                 mPlayPauseButton.setImageResource(R.drawable.pause);
             } else if (intent.hasExtra(Constants.ACTION_PLAY_PAUSE)) {
-                if (mApp.getService().isPlayingMusic()) {
-                    animatePauseToPlay();
-                    mHandler.removeCallbacks(seekbarUpdateRunnable);
-                } else {
-                    animatePlayToPause();
-                    mHandler.post(seekbarUpdateRunnable);
-                }
+                if (mApp.isServiceRunning())
+
+                    if (mApp.getService().isPlayingMusic()) {
+                        mPlayPauseButton.setImageResource(R.drawable.pause);
+                        mHandler.removeCallbacks(seekbarUpdateRunnable);
+                    } else {
+                        mPlayPauseButton.setImageResource(R.drawable.play);
+                        mHandler.post(seekbarUpdateRunnable);
+                    }
             }
         }
     };
+
     VelocityViewPager.OnPageChangeListener mPageChangeListener = new VelocityViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int pagerPosition, float swipeVelocity, int offsetFromCurrentPosition) {
@@ -412,19 +420,19 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
 
         mQueueFragmentContainer = (RelativeLayout) findViewById(R.id.queue_fragment_container);
         mNowPlayingContainer = (RelativeLayout) findViewById(R.id.nowPlayingRootContainer);
-
-        if (Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation) {
-            DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
-            int width = (metrics.widthPixels) / 2;
-
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mQueueFragmentContainer.getLayoutParams();
-            params.width = width;
-            mQueueFragmentContainer.setLayoutParams(params);
-
-            RelativeLayout.LayoutParams paramss = (RelativeLayout.LayoutParams) mNowPlayingContainer.getLayoutParams();
-            paramss.width = width;
-            mNowPlayingContainer.setLayoutParams(paramss);
-        }
+//
+//        if (Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation) {
+//            DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+//            int width = (metrics.widthPixels) / 2;
+//
+//            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mQueueFragmentContainer.getLayoutParams();
+//            params.width = width;
+//            mQueueFragmentContainer.setLayoutParams(params);
+//
+//            RelativeLayout.LayoutParams paramss = (RelativeLayout.LayoutParams) mNowPlayingContainer.getLayoutParams();
+//            paramss.width = width;
+//            mNowPlayingContainer.setLayoutParams(paramss);
+//        }
 
         /**
          *set toolbar height
@@ -664,13 +672,13 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
     @Override
     protected void onStart() {
         super.onStart();
-        LocalBroadcastManager.getInstance(mContext).registerReceiver((mUpdateUIReceiver), new IntentFilter(Constants.ACTION_UPDATE_NOW_PLAYING_UI));
+        registerReceiver((mUpdateUIReceiver), new IntentFilter(Constants.ACTION_UPDATE_NOW_PLAYING_UI));
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LocalBroadcastManager.getInstance(mContext).unregisterReceiver((mUpdateUIReceiver));
+        unregisterReceiver((mUpdateUIReceiver));
     }
 
     @Override
@@ -725,6 +733,11 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
 
     @Override
     public void onBackPressed() {
+        if (songInfoBottomSheetDialog != null && songInfoBottomSheetDialog.isAdded()) {
+            songInfoBottomSheetDialog.dismiss();
+            songInfoBottomSheetDialog = null;
+            return;
+        }
         if (mFragments.size() > 0) {
             Fragment fragment = mFragments.get(mFragments.size() - 1);
             if (fragment instanceof TracksSubFragment) {
@@ -734,9 +747,6 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
                 ((TracksSubGridViewFragment) fragment).removeFragment();
             }
 
-            if (fragment instanceof QueueFragment) {
-                ((QueueFragment) fragment).removeFragment();
-            }
             mFragments.remove(fragment);
             return;
         }
@@ -791,7 +801,7 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
     public void setTimer() {
         if (mRemainingTimeToPause > 0) {
             View view = getLayoutInflater().inflate(R.layout.dialog_timer, null);
-            mTimerText = (TextView) view.findViewById(R.id.text_view_timer_dialog);
+            mTimerText = view.findViewById(R.id.text_view_timer_dialog);
             new AlertDialog.Builder(this)
                     .setTitle(R.string.timer_is_running)
                     .setView(view)
@@ -828,8 +838,9 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_search) {
-            mQueueFragment = new QueueFragment();
-            addFragment(mQueueFragment);
+            songInfoBottomSheetDialog = new SongQueueBottomSheet();
+            songInfoBottomSheetDialog.show(getSupportFragmentManager(), "BOTTOM_SHEET");
+
             return true;
         }
         return super.onOptionsItemSelected(item);

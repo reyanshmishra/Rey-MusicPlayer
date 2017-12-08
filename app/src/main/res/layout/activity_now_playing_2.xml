@@ -116,7 +116,6 @@
                         android:background="?android:selectableItemBackground"
                         android:paddingBottom="4dp"
                         android:paddingTop="4dp"
-                        android:scaleX="1.5"
                         app:srcCompat="@drawable/skip_backward" />
 
 
@@ -154,7 +153,6 @@
                         android:background="?android:selectableItemBackground"
                         android:paddingBottom="4dp"
                         android:paddingTop="4dp"
-                        android:scaleX="1.5"
                         app:srcCompat="@drawable/skip_forward" />
 
                     <ImageButton

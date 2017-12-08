@@ -33,10 +33,6 @@ Reyansh mishra - reyanshmishra@outlook.com
 Website - www.reyanshmishra.com
 
 
-
-<H1>No longer maintained.</H1>
-This projects is no longer maintained due to lack of time.
-
 <H1>Credits</H1>
 Jams:-https://github.com/psaravan/JamsMusicPlayer<br>
 RangeSlider:-https://github.com/channguyen/range-slider-view<br>

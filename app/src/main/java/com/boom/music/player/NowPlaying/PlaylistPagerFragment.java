@@ -16,8 +16,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.boom.music.player.Activities.TracksSubFragment;
+import com.boom.music.player.Common;
 import com.boom.music.player.Dialogs.ABRepeatDialog;
 import com.boom.music.player.Equalizer.EqualizerActivity;
 import com.boom.music.player.R;
@@ -75,69 +77,7 @@ public class PlaylistPagerFragment extends Fragment {
     private Context mContext;
     private Bitmap mBitmap;
 
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_playlist_pager_fill, container, false);
-        mContext = getActivity().getApplicationContext();
-        mPosition = getArguments().getInt("POSITION");
-
-        mSongNameTextView = (TextView) mView.findViewById(R.id.songName);
-        mAlbumOrArtistNameTextView = (TextView) mView.findViewById(R.id.artistAlbumName);
-
-        mAlbumArtImageView = (ImageView) mView.findViewById(R.id.coverArt);
-
-        mSongNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
-        mAlbumOrArtistNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
-
-
-        mPopUpMenuButton = (ImageButton) mView.findViewById(R.id.now_playing_overflow_icon);
-        mPopupMenu = new PopupMenu(getActivity(), mPopUpMenuButton);
-        mPopupMenu.getMenuInflater().inflate(R.menu.now_playing_overflow_menu, mPopupMenu.getMenu());
-        mPopupMenu.setOnMenuItemClickListener(menuItemClickListener);
-
-        mSongDataHelper = new SongDataHelper();
-
-        mSongDataHelper.populateSongData(getContext(), ((NowPlayingActivity) getActivity()).mSongs, mPosition);
-
-        ImageLoader.getInstance().displayImage(mSongDataHelper.getAlbumArtPath(), mAlbumArtImageView, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-
-            }
-
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                int padding = MusicUtils.getDPFromPixel(215);
-                mAlbumArtImageView.setImageResource(R.drawable.ic_placeholder);
-                mAlbumArtImageView.setPadding(padding, padding, padding, padding);
-            }
-
-
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                mAlbumArtImageView.setImageBitmap(loadedImage);
-                mSongDataHelper.setAlbumArt(loadedImage);
-                mBitmap = loadedImage;
-            }
-
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-                Log.d("TAG-", "" + "CANCELLED " + mSongDataHelper.getTitle());
-            }
-        });
-
-        mSongNameTextView.setText(mSongDataHelper.getTitle());
-        mAlbumOrArtistNameTextView.setText(mSongDataHelper.getAlbum() + " - " + mSongDataHelper.getArtist());
-
-        mSongNameTextView.setSelected(true);
-        mAlbumOrArtistNameTextView.setSelected(true);
-        mPopUpMenuButton.setOnClickListener(overflowClickListener);
-        return mView;
-    }
-
-
+    private Common mApp;
     /**
      * Overflow button click listener.
      */
@@ -152,7 +92,39 @@ public class PlaylistPagerFragment extends Fragment {
         }
 
     };
+    /**
+     * "Go to" popup menu item click listener.
+     */
+    private PopupMenu.OnMenuItemClickListener goToMenuClickListener = item -> {
+        Bundle bundle = new Bundle();
+        NowPlayingActivity nowPlayingActivity = (NowPlayingActivity) getActivity();
+        Fragment fragment;
 
+        switch (item.getItemId()) {
+            case R.id.go_to_this_artist:
+                fragment = new TracksSubGridViewFragment();
+                bundle.putString(Constants.HEADER_TITLE, nowPlayingActivity.mSongs.get(mPosition)._artist);
+                bundle.putString(Constants.HEADER_SUB_TITLE, nowPlayingActivity.mSongs.get(mPosition)._album);
+                bundle.putString(Constants.FROM_WHERE, "ARTIST");
+                bundle.putLong(Constants.SELECTION_VALUE, nowPlayingActivity.mSongs.get(mPosition)._artistId);
+                bundle.putString(Constants.COVER_PATH, (MusicUtils.getAlbumArtUri(nowPlayingActivity.mSongs.get(mPosition)._albumId).toString()));
+                fragment.setArguments(bundle);
+                ((NowPlayingActivity) getActivity()).addFragment(fragment);
+                break;
+            case R.id.go_to_this_album:
+                fragment = new TracksSubFragment();
+                bundle.putString(Constants.HEADER_TITLE, nowPlayingActivity.mSongs.get(mPosition)._album);
+                bundle.putString(Constants.HEADER_SUB_TITLE, nowPlayingActivity.mSongs.get(mPosition)._artist);
+                bundle.putString(Constants.FROM_WHERE, "ALBUMS");
+                bundle.putLong(Constants.SELECTION_VALUE, nowPlayingActivity.mSongs.get(mPosition)._albumId);
+                fragment.setArguments(bundle);
+                ((NowPlayingActivity) getActivity()).addFragment(fragment);
+                break;
+
+        }
+
+        return false;
+    };
     /**
      * Menu item click listener for the overflow pop up menu.
      */
@@ -202,9 +174,15 @@ public class PlaylistPagerFragment extends Fragment {
                     }
 */
                 case R.id.a_b_repeat:
-                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                    ABRepeatDialog dialog = new ABRepeatDialog();
-                    dialog.show(ft, "repeatSongRangeDialog");
+
+                    if (mApp.isServiceRunning()) {
+                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        ABRepeatDialog dialog = new ABRepeatDialog();
+                        dialog.show(ft, "repeatSongRangeDialog");
+                    } else {
+                        Toast.makeText(mContext, R.string.start_playback_to_activate_ab_repeat, Toast.LENGTH_SHORT).show();
+                    }
+
                     break;
                 case R.id.go_to:
                     PopupMenu goToPopupMenu = new PopupMenu(getActivity(), mPopUpMenuButton);
@@ -219,39 +197,67 @@ public class PlaylistPagerFragment extends Fragment {
 
     };
 
-    /**
-     * "Go to" popup menu item click listener.
-     */
-    private PopupMenu.OnMenuItemClickListener goToMenuClickListener = item -> {
-        Bundle bundle = new Bundle();
-        NowPlayingActivity nowPlayingActivity = (NowPlayingActivity) getActivity();
-        Fragment fragment;
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mView = inflater.inflate(R.layout.fragment_playlist_pager_fill, container, false);
+        mContext = getActivity().getApplicationContext();
+        mPosition = getArguments().getInt("POSITION");
 
-        switch (item.getItemId()) {
-            case R.id.go_to_this_artist:
-                fragment = new TracksSubGridViewFragment();
-                bundle.putString(Constants.HEADER_TITLE, nowPlayingActivity.mSongs.get(mPosition)._artist);
-                bundle.putString(Constants.HEADER_SUB_TITLE, nowPlayingActivity.mSongs.get(mPosition)._album);
-                bundle.putString(Constants.FROM_WHERE, "ARTIST");
-                bundle.putLong(Constants.SELECTION_VALUE, nowPlayingActivity.mSongs.get(mPosition)._artistId);
-                bundle.putString(Constants.COVER_PATH, (MusicUtils.getAlbumArtUri(nowPlayingActivity.mSongs.get(mPosition)._albumId).toString()));
-                fragment.setArguments(bundle);
-                ((NowPlayingActivity) getActivity()).addFragment(fragment);
-                break;
-            case R.id.go_to_this_album:
-                fragment = new TracksSubFragment();
-                bundle.putString(Constants.HEADER_TITLE, nowPlayingActivity.mSongs.get(mPosition)._album);
-                bundle.putString(Constants.HEADER_SUB_TITLE, nowPlayingActivity.mSongs.get(mPosition)._artist);
-                bundle.putString(Constants.FROM_WHERE, "ALBUMS");
-                bundle.putLong(Constants.SELECTION_VALUE, nowPlayingActivity.mSongs.get(mPosition)._albumId);
-                fragment.setArguments(bundle);
-                ((NowPlayingActivity) getActivity()).addFragment(fragment);
-                break;
+        mSongNameTextView = mView.findViewById(R.id.songName);
+        mAlbumOrArtistNameTextView = mView.findViewById(R.id.artistAlbumName);
 
-        }
+        mAlbumArtImageView = mView.findViewById(R.id.coverArt);
 
-        return false;
-    };
+        mSongNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
+        mAlbumOrArtistNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
+
+        mApp = (Common) getActivity().getApplicationContext();
+
+        mPopUpMenuButton = mView.findViewById(R.id.now_playing_overflow_icon);
+        mPopupMenu = new PopupMenu(getActivity(), mPopUpMenuButton);
+        mPopupMenu.getMenuInflater().inflate(R.menu.now_playing_overflow_menu, mPopupMenu.getMenu());
+        mPopupMenu.setOnMenuItemClickListener(menuItemClickListener);
+
+        mSongDataHelper = new SongDataHelper();
+
+        mSongDataHelper.populateSongData(getContext(), ((NowPlayingActivity) getActivity()).mSongs, mPosition);
+
+        ImageLoader.getInstance().displayImage(mSongDataHelper.getAlbumArtPath(), mAlbumArtImageView, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                int padding = MusicUtils.getDPFromPixel(215);
+                mAlbumArtImageView.setImageResource(R.drawable.ic_placeholder);
+                mAlbumArtImageView.setPadding(padding, padding, padding, padding);
+            }
+
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                mAlbumArtImageView.setImageBitmap(loadedImage);
+                mSongDataHelper.setAlbumArt(loadedImage);
+                mBitmap = loadedImage;
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                Log.d("TAG-", "" + "CANCELLED " + mSongDataHelper.getTitle());
+            }
+        });
+
+        mSongNameTextView.setText(mSongDataHelper.getTitle());
+        mAlbumOrArtistNameTextView.setText(mSongDataHelper.getAlbum() + " - " + mSongDataHelper.getArtist());
+
+        mSongNameTextView.setSelected(true);
+        mAlbumOrArtistNameTextView.setSelected(true);
+        mPopUpMenuButton.setOnClickListener(overflowClickListener);
+        return mView;
+    }
 
     @Override
     public void onDestroy() {

@@ -21,7 +21,6 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -145,6 +144,34 @@ public class MusicService extends Service {
             mHandler.postDelayed(this, 500);
         }
     };
+    /**
+     * When MediaPlayer is done playing music.
+     */
+
+    MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
+
+
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
+            if (mSongPos < mListSongs.size() - 1) {
+                mSongPos++;
+                startSong();
+            } else {
+                mSongPos = 0;
+                startSong();
+                stopSelf();
+            }
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
+            if (mSongPos < mListSongs.size() - 1) {
+                mSongPos++;
+                startSong();
+            } else {
+                mSongPos = 0;
+                startSong();
+            }
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
+            startSong();
+        }
+    };
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -209,37 +236,10 @@ public class MusicService extends Service {
             }
             applyMediaPlayerEQ(getSongDataHelper().getId());
             startPlaying();
+
             Intent intent = new Intent(Constants.ACTION_UPDATE_NOW_PLAYING_UI);
             intent.putExtra(Constants.JUST_UPDATE_UI, true);
-            LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
-        }
-    };
-    /**
-     * When MediaPlayer is done playing music.
-     */
-
-    MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
-
-
-        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
-            if (mSongPos < mListSongs.size() - 1) {
-                mSongPos++;
-                startSong();
-            } else {
-                mSongPos = 0;
-                startSong();
-                stopSelf();
-            }
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
-            if (mSongPos < mListSongs.size() - 1) {
-                mSongPos++;
-                startSong();
-            } else {
-                mSongPos = 0;
-                startSong();
-            }
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
-            startSong();
+            sendBroadcast(intent);
         }
     };
     /**
@@ -750,14 +750,19 @@ public class MusicService extends Service {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
-                mApp.getDBAccessHelper().saveQueue(mListSongs);
-                PreferencesHelper.getInstance().put(PreferencesHelper.Key.CURRENT_SONG_POSITION, mSongPos);
-                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, mMediaPlayer1.getCurrentPosition());
-                PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_TOTAL_SEEK_DURATION, mMediaPlayer1.getDuration());
+                saveIt();
                 return null;
             }
         }.execute();
 
+
+    }
+
+    private void saveIt() {
+        mApp.getDBAccessHelper().saveQueue(mListSongs);
+        PreferencesHelper.getInstance().put(PreferencesHelper.Key.CURRENT_SONG_POSITION, mSongPos);
+        PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_CURRENT_SEEK_DURATION, mMediaPlayer1.getCurrentPosition());
+        PreferencesHelper.getInstance().put(PreferencesHelper.Key.SONG_TOTAL_SEEK_DURATION, mMediaPlayer1.getDuration());
     }
 
     /**
@@ -880,11 +885,10 @@ public class MusicService extends Service {
 
     @Override
     public void onDestroy() {
-
+        saveIt();
         mApp.setIsServiceRunning(false);
         clearABRepeatRange();
         updateWidgets();
-
         sendPlayPauseBroadCast();
 
         mHandler.removeCallbacks(sendUpdatesToUI);
