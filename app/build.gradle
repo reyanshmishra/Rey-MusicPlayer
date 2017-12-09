@@ -25,6 +25,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -41,6 +42,7 @@ android {
     productFlavors {
     }
 }
+
 repositories {
     maven {
         url "https://jitpack.io"
