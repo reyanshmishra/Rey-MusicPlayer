@@ -1,0 +1,101 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/large_widget_parent_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/drawable_button_background"
+    android:padding="16dp">
+
+
+    <RelativeLayout
+        android:id="@+id/holders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/widget_album_art"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/large_widget_preview" />
+
+        <TextView
+            android:id="@+id/songName5"
+            style="@style/NotificationText"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/widget_album_art"
+            android:text="@string/empty_playlist" />
+
+        <TextView
+            android:id="@+id/artistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/songName5"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/widget_album_art"
+            tools:text="Reyansh" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/artistName"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/widget_album_art"
+            android:divider="?android:listDivider"
+            android:gravity="center"
+            android:showDividers="middle">
+
+            <ImageButton
+                android:id="@+id/notification_expanded_base_previous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_playback_previous_light"
+                android:tint="#c8c8c8" />
+
+            <ImageButton
+                android:id="@+id/notification_expanded_base_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="?android:selectableItemBackground"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_playback_play_light"
+                android:tint="#c8c8c8" />
+
+            <ImageButton
+                android:id="@+id/notification_expanded_base_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_playback_next_light"
+                android:tint="#c8c8c8" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/holders"
+        android:layout_margin="8dp"
+        android:background="#cfcfcf" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line"
+        android:fastScrollEnabled="true">
+
+    </ListView>
+</RelativeLayout>
