@@ -16,6 +16,14 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         mCommon = (Common) context.getApplicationContext();
+
+        if (intent.hasExtra("INDEX")) {
+            if (mCommon.isServiceRunning()) {
+                mCommon.getService().setSelectedSong(intent.getExtras().getInt("INDEX"));
+            }
+            return;
+        }
+
         try {
             String action = intent.getAction();
             if (action.equalsIgnoreCase(Constants.ACTION_NEXT)) {

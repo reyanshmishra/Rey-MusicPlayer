@@ -49,12 +49,12 @@ public class SplashActivity extends AppCompatActivity implements OnProgressUpdat
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        mTitle = (TextView) findViewById(R.id.title);
+        mTitle = findViewById(R.id.title);
         mTitle.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOLD));
         ((TextView) findViewById(R.id.building_library_task)).setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_CONDENSED));
 
-        mProgressBar = (ProgressBar) findViewById(R.id.building_library_progress);
-        mProgressBarHolder = (RelativeLayout) findViewById(R.id.progress_elements_container);
+        mProgressBar = findViewById(R.id.building_library_progress);
+        mProgressBarHolder = findViewById(R.id.progress_elements_container);
         mCompositeDisposable = new CompositeDisposable();
 
         //Keeping the track of the launchcount to scan the library.

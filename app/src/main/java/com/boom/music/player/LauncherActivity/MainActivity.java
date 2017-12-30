@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
         mContext = this;
 
         mFragments = new ArrayList<>();
-        mTabLayout = (TabLayout) findViewById(R.id.id_tabs);
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mTabLayout = findViewById(R.id.id_tabs);
+        mViewPager = findViewById(R.id.view_pager);
 
 
         mAdapter = new SwipeAdapter(getSupportFragmentManager());
@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
 
         MusicUtils.changeTabsFont(mContext, mTabLayout);
         MusicUtils.applyFontForToolbarTitle(this);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.id_toolbar_container);
+        mToolbar = findViewById(R.id.toolbar);
+        mAppBarLayout = findViewById(R.id.id_toolbar_container);
 
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mAppBarLayout.getLayoutParams();
@@ -357,10 +357,12 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
 
 
     public void addFragment(Fragment fragment) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.main_parent, fragment);
         fragmentTransaction.commitAllowingStateLoss();
+
         mFragments.add(fragment);
     }
 

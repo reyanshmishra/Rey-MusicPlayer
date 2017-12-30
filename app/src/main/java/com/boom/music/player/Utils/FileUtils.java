@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.boom.music.player.Common;
 import com.boom.music.player.Dialogs.PermissionToEditSdCardDialog;
-import com.boom.music.player.Models.FileModel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,17 +27,6 @@ import java.util.List;
  */
 
 public class FileUtils {
-
-
-    private boolean cutFile(Fragment fragment, File file) {
-        if (!MusicUtils.isKitkat() && MusicUtils.isFromSdCard(file.getAbsolutePath()) && !MusicUtils.hasPermission()) {
-            PermissionToEditSdCardDialog takePermissionDialog = new PermissionToEditSdCardDialog(fragment);
-            takePermissionDialog.show(fragment.getActivity().getSupportFragmentManager(), "PERMISSION_DIALOG");
-        } else {
-
-        }
-        return false;
-    }
 
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -78,7 +66,6 @@ public class FileUtils {
         return document;
     }
 
-
     public static String getExtSdCardFolder(File file) {
         String[] extSdPaths = getExtSdCardPaths();
         try {
@@ -92,7 +79,6 @@ public class FileUtils {
         }
         return null;
     }
-
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static String[] getExtSdCardPaths() {
@@ -116,10 +102,6 @@ public class FileUtils {
         }
         return paths.toArray(new String[paths.size()]);
     }
-
-
-
-
 
     public static boolean deleteRecursive(File fileOrDirectory) {
         if (fileOrDirectory.isDirectory())
@@ -186,6 +168,7 @@ public class FileUtils {
 
             if (MusicUtils.isFromSdCard(destFile.getAbsolutePath())) {
                 DocumentFile documentFile = FileUtils.getDocumentFile(destFile);
+
                 pfd = Common.getInstance().getContentResolver().openFileDescriptor(documentFile.getUri(), "w");
                 FileOutputStream outputStream = new FileOutputStream(pfd.getFileDescriptor());
                 destination = outputStream.getChannel();
@@ -283,13 +266,11 @@ public class FileUtils {
 
     }
 
-
     public static String getFileExtension(String fileName) {
         String fileNameArray[] = fileName.split("\\.");
         String extension = fileNameArray[fileNameArray.length - 1];
         return extension;
     }
-
 
     public static ArrayList<Uri> getListFiles(File parentDir) {
         ArrayList<Uri> inFiles = new ArrayList<>();
@@ -355,6 +336,16 @@ public class FileUtils {
 
     public static int getNoOfFile(File directory) {
         return org.apache.commons.io.FileUtils.listFiles(directory, new String[]{"mp3", "m4a", "oog", "wav"}, true).size();
+    }
+
+    private boolean cutFile(Fragment fragment, File file) {
+        if (!MusicUtils.isKitkat() && MusicUtils.isFromSdCard(file.getAbsolutePath()) && !MusicUtils.hasPermission()) {
+            PermissionToEditSdCardDialog takePermissionDialog = new PermissionToEditSdCardDialog(fragment);
+            takePermissionDialog.show(fragment.getActivity().getSupportFragmentManager(), "PERMISSION_DIALOG");
+        } else {
+
+        }
+        return false;
     }
 
 }

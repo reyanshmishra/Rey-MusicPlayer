@@ -56,7 +56,7 @@ public class SongDataHelper {
         mApp = (Common) context.getApplicationContext();
         mIndex = index;
 
-        if (songs == null && mApp.isServiceRunning()) {
+        if (songs == null && mApp.isServiceRunning() && mApp.getService() != null) {
             this.setId(mApp.getService().getSongList().get(index)._id);
             this.setTitle(mApp.getService().getSongList().get(index)._title);
             this.setAlbum(mApp.getService().getSongList().get(index)._album);

@@ -13,6 +13,12 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -783,13 +789,42 @@ public class MusicUtils {
 
     }
 
+
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, int pixels) {
+        if (bitmap == null) {
+            bitmap = BitmapFactory.decodeResource(Common.getInstance().getResources(),
+                    R.drawable.ic_placeholder);
+        }
+
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+        final float roundPx = pixels;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+
+
     public static int getDPFromPixel(int pixel) {
         Resources r = Common.getInstance().getResources();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, pixel, r.getDisplayMetrics());
     }
 
     public static void applyFontForToolbarTitle(Activity context) {
-        Toolbar toolbar = (Toolbar) context.findViewById(R.id.toolbar);
+        Toolbar toolbar = context.findViewById(R.id.toolbar);
         for (int i = 0; i < toolbar.getChildCount(); i++) {
             View view = toolbar.getChildAt(i);
             if (view instanceof TextView) {
@@ -843,7 +878,7 @@ public class MusicUtils {
     }
 
     public static Drawable createBlurredImageFromBitmap(Bitmap bitmap, Context context) {
-        int inSampleSize = 9;
+        int inSampleSize = 8;
         android.support.v8.renderscript.RenderScript rs = android.support.v8.renderscript.RenderScript.create(context);
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = inSampleSize;

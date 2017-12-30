@@ -160,8 +160,8 @@ public class Id3TagEditorActivity extends AppCompatActivity {
 
         mCompositeDisposable = new CompositeDisposable();
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mFetchDetailsFAB = (FloatingActionButton) findViewById(R.id.save_fab);
+        mToolbar = findViewById(R.id.toolbar);
+        mFetchDetailsFAB = findViewById(R.id.save_fab);
 
 
         setSupportActionBar(mToolbar);
@@ -171,7 +171,7 @@ public class Id3TagEditorActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.id_toolbar_container);
+        mAppBarLayout = findViewById(R.id.id_toolbar_container);
 
         KeyboardUtil keyboardUtil = new KeyboardUtil(this, findViewById(R.id.main_layout));
         keyboardUtil.enable();
@@ -180,12 +180,12 @@ public class Id3TagEditorActivity extends AppCompatActivity {
         statusparams.topMargin = Common.getStatusBarHeight(this);
         mAppBarLayout.setLayoutParams(statusparams);
 
-        mScrollView = (ScrollView) findViewById(R.id.scrollView1);
-        mHeaderLayout = (RelativeLayout) findViewById(R.id.header_layout);
+        mScrollView = findViewById(R.id.scrollView1);
+        mHeaderLayout = findViewById(R.id.header_layout);
 
 
-        mCardView = (CardView) findViewById(R.id.card_view);
-        mAlbumArtImage = (ImageView) findViewById(R.id.album_art_image);
+        mCardView = findViewById(R.id.card_view);
+        mAlbumArtImage = findViewById(R.id.album_art_image);
         MyGestureListener myGestureListener = new MyGestureListener(mScrollView, mAlbumArtImage);
         GestureDetectorCompat mDetector = new GestureDetectorCompat(this, myGestureListener);
         mScrollView.setOnTouchListener((v, event) -> {
@@ -201,42 +201,42 @@ public class Id3TagEditorActivity extends AppCompatActivity {
             return mDetector.onTouchEvent(event);
         });
 
-        mTitleEditText = (EditText) findViewById(R.id.edit_title_field);
+        mTitleEditText = findViewById(R.id.edit_title_field);
         mTitleEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
-        mArtistEditText = (EditText) findViewById(R.id.edit_artist_field);
+        mArtistEditText = findViewById(R.id.edit_artist_field);
         mArtistEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
 
-        mAlbumEditText = (EditText) findViewById(R.id.edit_album_field);
+        mAlbumEditText = findViewById(R.id.edit_album_field);
         mAlbumEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
-        mAlbumArtistEditText = (EditText) findViewById(R.id.edit_album_artist_field);
+        mAlbumArtistEditText = findViewById(R.id.edit_album_artist_field);
         mAlbumArtistEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
-        mGenreEditText = (EditText) findViewById(R.id.edit_genre_field);
+        mGenreEditText = findViewById(R.id.edit_genre_field);
         mGenreEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
-        mProducerEditText = (EditText) findViewById(R.id.edit_producer_field);
+        mProducerEditText = findViewById(R.id.edit_producer_field);
         mProducerEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
-        mYearEditText = (EditText) findViewById(R.id.edit_year_field);
+        mYearEditText = findViewById(R.id.edit_year_field);
         mYearEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
-        mTrackEditText = (EditText) findViewById(R.id.edit_track_field);
+        mTrackEditText = findViewById(R.id.edit_track_field);
         mTrackEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
 
-        mCommentsEditText = (EditText) findViewById(R.id.edit_comment_field);
+        mCommentsEditText = findViewById(R.id.edit_comment_field);
         mCommentsEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
-        mTextOf = (TextView) findViewById(R.id.of);
+        mTextOf = findViewById(R.id.of);
         mTextOf.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
-        mTotalTrackEditText = (EditText) findViewById(R.id.edit_track_total_field);
+        mTotalTrackEditText = findViewById(R.id.edit_track_total_field);
         mTotalTrackEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
-        mUpdateButton = (Button) findViewById(R.id.fetch_best_match);
+        mUpdateButton = findViewById(R.id.fetch_best_match);
         mUpdateButton.setOnClickListener(v -> {
             ProgressDialog progressDialog = new ProgressDialog(Id3TagEditorActivity.this);
             progressDialog.setCancelable(false);
@@ -325,7 +325,6 @@ public class Id3TagEditorActivity extends AppCompatActivity {
 
 
         fetchDetails();
-
 
         if (MusicUtils.isFromSdCard(SONG_PATH) && !MusicUtils.hasPermission()) {
             PermissionToEditSdCardDialog takePermissionDialog = new PermissionToEditSdCardDialog(this);
@@ -444,6 +443,7 @@ public class Id3TagEditorActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
     private void updateFile() {
         mProgressUpdateDialog = new ProgressDialog(this);
         mProgressUpdateDialog.setMessage(getResources().getString(R.string.updating_tags));
@@ -502,6 +502,7 @@ public class Id3TagEditorActivity extends AppCompatActivity {
             File orgFile = new File(SONG_PATH);
             setTags(orgFile);
         }
+
         MediaScannerConnection.scanFile(Common.getInstance(), new String[]{originalFile.getAbsolutePath()}, null, new MediaScannerConnection.MediaScannerConnectionClient() {
             @Override
             public void onMediaScannerConnected() {

@@ -19,6 +19,7 @@ public class MusicVisualizer extends View {
     Paint mPaint;
     int height;
     int width;
+
     private Runnable animateView = new Runnable() {
         @Override
         public void run() {

@@ -86,10 +86,12 @@ dependencies {
     compile 'com.google.firebase:firebase-crash:11.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.3'
+
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.7.2'
     // Unit testing dependencies

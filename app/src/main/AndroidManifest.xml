@@ -5,6 +5,8 @@
 
     <permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -45,6 +47,8 @@
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
+
+
         <receiver android:name=".AppWidget.SmallWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -54,6 +58,19 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/simple_widget_info" />
         </receiver>
+
+
+        <receiver android:name=".AppWidget.QueueWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/simple_widget_info" />
+        </receiver>
+
+
         <receiver android:name="android.support.v4.media.session.MediaButtonReceiver">
             <intent-filter>
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
@@ -101,6 +118,11 @@
             android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
             android:exported="false" />
+
+        <service
+            android:name=".Services.QueueWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"

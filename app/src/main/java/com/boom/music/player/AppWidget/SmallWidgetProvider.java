@@ -30,11 +30,6 @@ public class SmallWidgetProvider extends AppWidgetProvider {
             int currentAppWidgetId = appWidgetIds[i];
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
 
-            Intent previousIntent = new Intent();
-            previousIntent.setAction(Constants.ACTION_PREVIOUS);
-
-            PendingIntent previousPendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, previousIntent, 0);
-            views.setOnClickPendingIntent(R.id.notification_expanded_base_previous, previousPendingIntent);
 
             Intent playpauseIntent = new Intent();
             playpauseIntent.setAction(Constants.ACTION_PAUSE);

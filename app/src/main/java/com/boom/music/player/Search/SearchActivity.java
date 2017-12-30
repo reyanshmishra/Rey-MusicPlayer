@@ -76,12 +76,12 @@ public class SearchActivity extends AppCompatActivity implements MusicUtils.Defs
         mContext = getApplicationContext();
         mSearchResults = new ArrayList<>();
 
-        mImageButtonClear = (ImageButton) findViewById(R.id.image_button_cross);
-        mBackImageButton = (ImageButton) findViewById(R.id.image_back_button);
+        mImageButtonClear = findViewById(R.id.image_button_cross);
+        mBackImageButton = findViewById(R.id.image_back_button);
         mBackImageButton.setOnClickListener(v -> finish());
         mFragments = new ArrayList<>();
-        mMainParent = (RelativeLayout) findViewById(R.id.main_parent);
-        mRelativeLayout = (RelativeLayout) findViewById(R.id.best_matches);
+        mMainParent = findViewById(R.id.main_parent);
+        mRelativeLayout = findViewById(R.id.best_matches);
 
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mRelativeLayout.getLayoutParams();
@@ -90,12 +90,12 @@ public class SearchActivity extends AppCompatActivity implements MusicUtils.Defs
 
         mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        mSearchEditText = (EditText) findViewById(R.id.edit_text_search);
+        mSearchEditText = findViewById(R.id.edit_text_search);
         mSearchEditText.setTypeface(TypefaceHelper.getTypeface(getApplicationContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
 
         mImageButtonClear.setOnClickListener(v -> mSearchEditText.setText(""));
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        mRecyclerView = findViewById(R.id.recyclerview);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override

@@ -116,9 +116,9 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.ItemHolder
             DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
             mWidth = (metrics.widthPixels) / Common.getNumberOfColms();
 
-            albumName = (TextView) itemView.findViewById(R.id.gridViewTitleText);
-            artistName = (TextView) itemView.findViewById(R.id.gridViewSubText);
-            albumart = (ImageView) itemView.findViewById(R.id.gridViewImage);
+            albumName = itemView.findViewById(R.id.gridViewTitleText);
+            artistName = itemView.findViewById(R.id.gridViewSubText);
+            albumart = itemView.findViewById(R.id.gridViewImage);
 
             albumName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
             artistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
@@ -128,7 +128,8 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.ItemHolder
             params.height = mWidth;
             albumart.setLayoutParams(params);
 
-            mOverFlow = (ImageView) itemView.findViewById(R.id.overflow);
+
+            mOverFlow = itemView.findViewById(R.id.overflow);
             mOverFlow.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }

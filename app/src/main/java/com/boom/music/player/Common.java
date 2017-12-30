@@ -41,6 +41,7 @@ public class Common extends MultiDexApplication {
     public static final int ORIENTATION_PORTRAIT = 0;
     public static final int ORIENTATION_LANDSCAPE = 1;
     //Device screen size/orientation identifiers.
+
     public static final String REGULAR = "regular";
     public static final String SMALL_TABLET = "small_tablet";
     public static final String LARGE_TABLET = "large_tablet";

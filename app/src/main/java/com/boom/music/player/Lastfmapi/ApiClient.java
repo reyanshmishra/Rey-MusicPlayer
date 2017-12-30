@@ -10,15 +10,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final long CACHE_SIZE = 4 * 1024 * 1024;
-
     public static final String ITUNES_API_URL = "http://itunes.apple.com/search?";
     public static final String BASE_API_URL = "http://ws.audioscrobbler.com/2.0/";
-
     public static final String BASE_PARAMETERS_ALBUM = "?method=album.getinfo&api_key=c20a698e716e0c68a4463bd1c66c8109&format=json";
     public static final String BASE_PARAMETERS_ARTIST = "?method=artist.getinfo&api_key=c20a698e716e0c68a4463bd1c66c8109&format=json";
-    public static final String TEST_ARTIST = "https://itunes.apple.com/us/artist/justin-bieber/id320569549?uo=4";
-
+    private static final long CACHE_SIZE = 4 * 1024 * 1024;
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {

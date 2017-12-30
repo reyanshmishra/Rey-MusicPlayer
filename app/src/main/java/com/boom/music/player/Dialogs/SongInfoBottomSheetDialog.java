@@ -38,9 +38,8 @@ import retrofit2.Response;
 
 /**
  * Created by REYANSH on 7/29/2017.
- *
+ * <p>
  * This class gets the album art cover and the details of the song and show them in RecyclerView.
- *
  */
 
 public class SongInfoBottomSheetDialog extends BottomSheetDialogFragment {
@@ -92,8 +91,8 @@ public class SongInfoBottomSheetDialog extends BottomSheetDialogFragment {
         super.setupDialog(dialog, style);
         mView = getActivity().getLayoutInflater().inflate(R.layout.layout_bottomsheet_info, null, false);
 
-        mBestMatchesEdiText = (EditText) mView.findViewById(R.id.edit_text_search);
-        mNoMatchesFoundTextView = (TextView) mView.findViewById(R.id.text_view_no_matches_found);
+        mBestMatchesEdiText = mView.findViewById(R.id.edit_text_search);
+        mNoMatchesFoundTextView = mView.findViewById(R.id.text_view_no_matches_found);
         mNoMatchesFoundTextView.setTypeface(TypefaceHelper.getTypeface(Common.getInstance(), TypefaceHelper.FUTURA_BOLD));
         mHandler = new Handler();
 
@@ -119,8 +118,8 @@ public class SongInfoBottomSheetDialog extends BottomSheetDialogFragment {
         mBestMatchesEdiText.setSelection(SONG_NAME.length());
         mBestMatchesEdiText.addTextChangedListener(mTextWatcher);
 
-        mBestMatchesRecyclerView = (RecyclerView) mView.findViewById(R.id.best_matches_recycler_view);
-        mProgressBar = (ProgressBar) mView.findViewById(R.id.progress_bar);
+        mBestMatchesRecyclerView = mView.findViewById(R.id.best_matches_recycler_view);
+        mProgressBar = mView.findViewById(R.id.progress_bar);
 
         dialog.setContentView(mView);
 

@@ -13,6 +13,7 @@ public class BestMatchesModel {
 
     @SerializedName("resultCount")
     public int resultCount;
+
     @SerializedName("results")
     public List<Results> results;
 

@@ -26,10 +26,14 @@
 
         <TextView
             android:id="@+id/songName5"
-            style="@style/NotificationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_toRightOf="@+id/widget_album_art"
-            android:text="@string/empty_playlist" />
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/empty_playlist"
+            android:textColor="@color/gray" />
 
         <TextView
             android:id="@+id/artistName"
@@ -38,6 +42,9 @@
             android:layout_below="@+id/songName5"
             android:layout_centerHorizontal="true"
             android:layout_toRightOf="@+id/widget_album_art"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/gray"
             tools:text="Reyansh" />
 
         <LinearLayout
@@ -93,8 +100,11 @@
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/line"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="15dp"
         android:fastScrollEnabled="true">
 
     </ListView>

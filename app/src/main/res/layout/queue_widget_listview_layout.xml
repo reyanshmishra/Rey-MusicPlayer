@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listViewParent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/listViewLeftIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="8dp"
+        android:src="@drawable/drawable_empty_color_patch_circular" />
+
+
+    <TextView
+        android:id="@+id/listViewSubText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listViewTitleText"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_toRightOf="@+id/listViewLeftIcon"
+        android:fadingEdge="horizontal"
+        android:gravity="top"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Artist Name"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/listViewRightSubText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:ellipsize="end"
+        android:lines="1"
+        android:paddingRight="48dp"
+        android:text="0:00"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="14sp" />
+
+</RelativeLayout>
