@@ -27,6 +27,7 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
+import com.boom.music.player.AppWidget.QueueWidgetProvider;
 import com.boom.music.player.AppWidget.SmallWidgetProvider;
 import com.boom.music.player.BroadcastReceivers.HeadsetNotificationBroadcast;
 import com.boom.music.player.BroadcastReceivers.HeadsetPlugBroadcastReceiver;
@@ -144,34 +145,6 @@ public class MusicService extends Service {
             mHandler.postDelayed(this, 500);
         }
     };
-    /**
-     * When MediaPlayer is done playing music.
-     */
-
-    MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
-
-
-        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
-            if (mSongPos < mListSongs.size() - 1) {
-                mSongPos++;
-                startSong();
-            } else {
-                mSongPos = 0;
-                startSong();
-                stopSelf();
-            }
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
-            if (mSongPos < mListSongs.size() - 1) {
-                mSongPos++;
-                startSong();
-            } else {
-                mSongPos = 0;
-                startSong();
-            }
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
-            startSong();
-        }
-    };
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -240,6 +213,34 @@ public class MusicService extends Service {
             Intent intent = new Intent(Constants.ACTION_UPDATE_NOW_PLAYING_UI);
             intent.putExtra(Constants.JUST_UPDATE_UI, true);
             sendBroadcast(intent);
+        }
+    };
+    /**
+     * When MediaPlayer is done playing music.
+     */
+
+    MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
+
+
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
+            if (mSongPos < mListSongs.size() - 1) {
+                mSongPos++;
+                startSong();
+            } else {
+                mSongPos = 0;
+                startSong();
+                stopSelf();
+            }
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
+            if (mSongPos < mListSongs.size() - 1) {
+                mSongPos++;
+                startSong();
+            } else {
+                mSongPos = 0;
+                startSong();
+            }
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
+            startSong();
         }
     };
     /**
@@ -688,10 +689,25 @@ public class MusicService extends Service {
 
     public void updateWidgets() {
         Intent smallWidgetIntent = new Intent(mContext, SmallWidgetProvider.class);
+        Intent queueWidgetIntent = new Intent(mContext, QueueWidgetProvider.class);
+
+
+
         smallWidgetIntent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        queueWidgetIntent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+
+
         int smallWidgetIds[] = AppWidgetManager.getInstance(mContext).getAppWidgetIds(new ComponentName(mContext, SmallWidgetProvider.class));
+        int queueWidgetIds[] = AppWidgetManager.getInstance(mContext).getAppWidgetIds(new ComponentName(mContext, QueueWidgetProvider.class));
+
+
         smallWidgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, smallWidgetIds);
+        smallWidgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, queueWidgetIds);
+
+
         sendBroadcast(smallWidgetIntent);
+        sendBroadcast(queueWidgetIntent);
+
     }
 
     /**
