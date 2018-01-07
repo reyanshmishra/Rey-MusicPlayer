@@ -62,6 +62,7 @@ public class SongInfoBottomSheetDialog extends BottomSheetDialogFragment {
     private ImageView mCrossImageViewButton;
     private ImageView mBackImageViewButton;
     private Handler mHandler;
+
     TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {

@@ -77,6 +77,8 @@ public class MusicService extends Service {
     private Intent mMediaIntent;
     private Context mContext;
     private MediaPlayer mMediaPlayer1;
+    private MediaPlayer mMediaPlayer2;
+
     private PowerManager.WakeLock mWakeLock;
     private EqualizerHelper mEqualizerHelper;
     /**
@@ -143,6 +145,34 @@ public class MusicService extends Service {
         public void run() {
             sendMediaIntentData();
             mHandler.postDelayed(this, 500);
+        }
+    };
+    /**
+     * When MediaPlayer is done playing music.
+     */
+
+    MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
+
+
+        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
+            if (mSongPos < mListSongs.size() - 1) {
+                mSongPos++;
+                startSong();
+            } else {
+                mSongPos = 0;
+                startSong();
+                stopSelf();
+            }
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
+            if (mSongPos < mListSongs.size() - 1) {
+                mSongPos++;
+                startSong();
+            } else {
+                mSongPos = 0;
+                startSong();
+            }
+        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
+            startSong();
         }
     };
     private AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -213,34 +243,6 @@ public class MusicService extends Service {
             Intent intent = new Intent(Constants.ACTION_UPDATE_NOW_PLAYING_UI);
             intent.putExtra(Constants.JUST_UPDATE_UI, true);
             sendBroadcast(intent);
-        }
-    };
-    /**
-     * When MediaPlayer is done playing music.
-     */
-
-    MediaPlayer.OnCompletionListener mOnCompletionListener = mp -> {
-
-
-        if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_OFF) {
-            if (mSongPos < mListSongs.size() - 1) {
-                mSongPos++;
-                startSong();
-            } else {
-                mSongPos = 0;
-                startSong();
-                stopSelf();
-            }
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_PLAYLIST) {
-            if (mSongPos < mListSongs.size() - 1) {
-                mSongPos++;
-                startSong();
-            } else {
-                mSongPos = 0;
-                startSong();
-            }
-        } else if (PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.REPEAT_MODE, Constants.REPEAT_OFF) == Constants.REPEAT_SONG) {
-            startSong();
         }
     };
     /**
@@ -631,7 +633,11 @@ public class MusicService extends Service {
         mMediaPlayer1 = new MediaPlayer();
         mMediaPlayer1.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
         mMediaPlayer1.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mMediaPlayer1 = new MediaPlayer();
+
+        mMediaPlayer2 = new MediaPlayer();
+        mMediaPlayer2.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
+        mMediaPlayer2.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
 
         if (mListSongs.size() == 0) return;
         startSong();
@@ -690,7 +696,6 @@ public class MusicService extends Service {
     public void updateWidgets() {
         Intent smallWidgetIntent = new Intent(mContext, SmallWidgetProvider.class);
         Intent queueWidgetIntent = new Intent(mContext, QueueWidgetProvider.class);
-
 
 
         smallWidgetIntent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
