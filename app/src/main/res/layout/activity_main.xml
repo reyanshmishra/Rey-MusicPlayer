@@ -73,7 +73,7 @@
 
     <fragment
         android:id="@+id/bottom_bar"
-        android:name="com.boom.music.player.NowPlaying.NowPlayingBottomBarFragment"
+        android:name="com.reyansh.audio.audioplayer.free.NowPlaying.NowPlayingBottomBarFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

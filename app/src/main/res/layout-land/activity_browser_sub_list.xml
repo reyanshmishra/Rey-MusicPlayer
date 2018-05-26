@@ -26,26 +26,32 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/drawable_black_to_transparent"
                 android:scaleType="centerCrop" />
-
-            <android.support.design.widget.AppBarLayout
-                android:id="@+id/id_toolbar_container"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
+                android:layout_height="75dp"
                 android:layout_alignParentTop="true"
-                android:background="@null"
-                android:elevation="0dp"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                app:elevation="0dp">
+                android:background="@drawable/toolbar_bg_gradient" />
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:elevation="0dp"
-                    app:elevation="0dp"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize">
 
-            </android.support.design.widget.AppBarLayout>
+                <ImageButton
+                    android:id="@+id/back_button"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:layout_alignParentLeft="true"
+                    android:background="?selectableItemBackground"
+                    app:srcCompat="@drawable/drawable_arrow_back" />
+
+                <ImageButton
+                    android:id="@+id/search_button"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:layout_alignParentRight="true"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/ic_action_search" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/browser_sub_header_text_layout"

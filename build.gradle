@@ -7,11 +7,12 @@ buildscript {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath 'me.tatarka:gradle-retrolambda:3.6.1'
-        classpath 'com.google.gms:google-services:3.1.0'
+        classpath 'com.google.gms:google-services:4.0.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
     }
@@ -21,10 +22,10 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        google()
         maven {
             url "https://oss.sonatype.org/content/repositories/snapshots/"
         }
-        google()
     }
 
     ext {

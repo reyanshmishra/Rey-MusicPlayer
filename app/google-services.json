@@ -1,35 +1,31 @@
 {
   "project_info": {
-    "project_number": "491104636886",
-    "firebase_url": "https://boom-2a5a8.firebaseio.com",
-    "project_id": "boom-2a5a8",
-    "storage_bucket": "boom-2a5a8.appspot.com"
+    "project_number": "818343813721",
+    "firebase_url": "https://boom-86924.firebaseio.com",
+    "project_id": "boom-86924",
+    "storage_bucket": "boom-86924.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:491104636886:android:26e2f6fe7ea594c0",
+        "mobilesdk_app_id": "1:818343813721:android:fe5489152fd28501",
         "android_client_info": {
-          "package_name": "com.boom.music.player"
+          "package_name": "com.reyansh.audio.audioplayer.free"
         }
       },
       "oauth_client": [
         {
-          "client_id": "491104636886-vthu0uuc2vek665qvfcl43ei8321btsg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.boom.music.player",
-            "certificate_hash": "201b91f0857a228aa1c04b14bf442506b3fc77bc"
-          }
+          "client_id": "818343813721-ot1793c8qanqb2gs758spg8bkjh369em.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
-          "client_id": "491104636886-hakogk42eg5bktdib3bsrdu06084rm1o.apps.googleusercontent.com",
+          "client_id": "818343813721-ot1793c8qanqb2gs758spg8bkjh369em.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC6Fks5g-KioHr_Doqw2YBC8Monwhg2y8c"
+          "current_key": "AIzaSyBk1HQZtvuDbXRpQGAQQybLwAlgGDg8e8A"
         }
       ],
       "services": {
@@ -37,13 +33,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "491104636886-hakogk42eg5bktdib3bsrdu06084rm1o.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

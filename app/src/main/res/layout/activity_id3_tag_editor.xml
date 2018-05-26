@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.boom.music.player.TagEditor.Id3TagEditorActivity">
+    tools:context=".free.TagEditor.Id3TagEditorActivity">
 
     <RelativeLayout
         android:id="@+id/header_layout"

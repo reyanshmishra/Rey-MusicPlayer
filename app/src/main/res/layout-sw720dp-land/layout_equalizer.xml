@@ -65,7 +65,7 @@
                     android:textColor="@color/white"
                     />
 
-                <com.boom.music.player.Views.VerticalSeekBar
+                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
                     android:id="@+id/slider_1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -111,7 +111,7 @@
                     android:textColor="@color/white"
                     />
 
-                <com.boom.music.player.Views.VerticalSeekBar
+                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
                     android:id="@+id/slider_2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -155,7 +155,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/white"/>
 
-                <com.boom.music.player.Views.VerticalSeekBar
+                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
                     android:id="@+id/slider_3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -201,7 +201,7 @@
 
                     />
 
-                <com.boom.music.player.Views.VerticalSeekBar
+                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
                     android:id="@+id/slider_4"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -247,7 +247,7 @@
                     android:textColor="@color/white"
                     />
 
-                <com.boom.music.player.Views.VerticalSeekBar
+                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
                     android:id="@+id/slider_5"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -293,7 +293,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/white"/>
 
-                <com.boom.music.player.Views.VerticalSeekBar
+                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
                     android:id="@+id/slider_6"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -338,7 +338,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/white"/>
 
-                <com.boom.music.player.Views.VerticalSeekBar
+                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
                     android:id="@+id/slider_7"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

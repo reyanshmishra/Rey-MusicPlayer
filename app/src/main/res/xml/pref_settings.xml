@@ -2,37 +2,37 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android"
                     android:title="@string/settings">
     <header
-        android:fragment="com.boom.music.player.Setting.SettingsAppearanceFragment"
+        android:fragment="com.reyansh.audio.audioplayer.free.Setting.SettingsAppearanceFragment"
         android:icon="@drawable/drawable_palette"
         android:summary="@string/appearance_description"
         android:title="@string/appearance"/>
 
     <header
-        android:fragment="com.boom.music.player.Setting.SettingsAlbumArtFragment"
+        android:fragment="com.reyansh.audio.audioplayer.free.Setting.SettingsAlbumArtFragment"
         android:icon="@drawable/drawable_image"
         android:summary="@string/album_art_description"
         android:title="@string/album_art"/>
 
     <header
-        android:fragment="com.boom.music.player.Setting.SettingsAudioFragment"
+        android:fragment="com.reyansh.audio.audioplayer.free.Setting.SettingsAudioFragment"
         android:icon="@drawable/ic_volume_up_black_24dp"
         android:summary="@string/audio_settings_description"
         android:title="@string/audio_settings"/>
 
     <header
-        android:fragment="com.boom.music.player.Setting.SettingsMusicLibraryFragment"
+        android:fragment="com.reyansh.audio.audioplayer.free.Setting.SettingsMusicLibraryFragment"
         android:icon="@drawable/ic_music_library"
         android:summary="@string/music_folders_description"
         android:title="@string/music_library"/>
 
     <header
-        android:fragment="com.boom.music.player.Setting.SettingsScrobblingFragment"
+        android:fragment="com.reyansh.audio.audioplayer.free.Setting.SettingsScrobblingFragment"
         android:icon="@drawable/ic_placeholder"
         android:summary="@string/scrobbling_description"
         android:title="@string/scrobbling"/>
 
     <header
-        android:fragment="com.boom.music.player.Setting.SettingsAboutFragment"
+        android:fragment="com.reyansh.audio.audioplayer.free.Setting.SettingsAboutFragment"
         android:icon="@drawable/drawable_about"
         android:summary="@string/about_description"
         android:title="@string/licenses_and_about"/>

@@ -18,7 +18,7 @@
               android:layout_height="match_parent"
               tools:layout="@layout/fragment_playlist_pager_fill"/>-->
 
-        <com.boom.music.player.VelocityViewPager.VelocityViewPager
+        <com.reyansh.audio.audioplayer.free.VelocityViewPager.VelocityViewPager
             android:id="@+id/nowPlayingPlaylistPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

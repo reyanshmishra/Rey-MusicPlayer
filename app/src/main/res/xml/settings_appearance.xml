@@ -10,13 +10,13 @@
 
         <ListPreference
             android:entries="@array/fragments_titles"
-            android:entryValues="@array/fragments_titles_number"
+            android:entryValues="@array/fragments_titles"
             android:key="preference_key_startup_screen"
             android:summary="@string/default_browser_description"
             android:title="@string/default_browser" />
 
         <Preference
-            android:fragment="com.boom.music.player.Setting.CustomizeSectionFragment"
+            android:fragment="com.reyansh.audio.audioplayer.free.Setting.SettingArrangeTabsFragment"
             android:key="preference_key_tab_items"
             android:summary="@string/choose_tab_items"
             android:title="@string/tabs" />

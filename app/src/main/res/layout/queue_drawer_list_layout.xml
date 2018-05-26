@@ -24,8 +24,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:padding="8dp"
-
-            app:srcCompat="@drawable/drawable_drag" />
+            android:src="@drawable/drawable_drag" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -58,7 +57,7 @@
                 tools:text="Justin Beiber" />
         </LinearLayout>
 
-        <com.boom.music.player.Views.MusicVisualizer
+        <com.reyansh.audio.audioplayer.free.Views.MusicVisualizer
             android:id="@+id/visualizer"
             android:layout_width="25dp"
             android:layout_height="30dp"

@@ -19,7 +19,7 @@
         android:textColor="@color/textColorSecondary"
         android:textSize="14sp" />
 
-    <com.boom.music.player.Views.CircleImageView
+    <com.reyansh.audio.audioplayer.free.Views.CircleImageView
         android:id="@+id/listViewLeftIcon"
         android:layout_width="@dimen/list_view_left_icon_size"
         android:layout_height="@dimen/list_view_left_icon_size"

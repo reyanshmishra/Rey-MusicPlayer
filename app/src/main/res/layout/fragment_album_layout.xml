@@ -25,7 +25,7 @@
         android:visibility="visible"
         tools:listitem="@layout/list_view_item" />
 
-    <com.boom.music.player.Views.FastScroller
+    <com.reyansh.audio.audioplayer.free.Views.FastScroller
         android:id="@+id/fast_scroller"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
