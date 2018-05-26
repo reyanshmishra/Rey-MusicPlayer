@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.reyansh.audio.audioplayer.free.Common;
 import com.reyansh.audio.audioplayer.free.R;
 import com.reyansh.audio.audioplayer.free.Utils.CursorHelper;
@@ -25,7 +25,6 @@ import com.reyansh.audio.audioplayer.free.Utils.helper.ItemTouchHelperAdapter;
 import com.reyansh.audio.audioplayer.free.Utils.helper.ItemTouchHelperViewHolder;
 import com.reyansh.audio.audioplayer.free.Utils.helper.OnStartDragListener;
 import com.reyansh.audio.audioplayer.free.Utils.helper.SimpleItemTouchHelperCallback;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;

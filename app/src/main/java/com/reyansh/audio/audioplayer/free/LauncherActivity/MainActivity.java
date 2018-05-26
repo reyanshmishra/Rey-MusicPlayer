@@ -318,8 +318,8 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
             return;
         }
 
-        if (mViewPager.getCurrentItem() == 5) {
-            FolderFragment folderFragment = (FolderFragment) mAdapter.getFragment(5);
+        if (mAdapter.getFragment(mViewPager.getCurrentItem()) instanceof FolderFragment) {
+            FolderFragment folderFragment = (FolderFragment) mAdapter.getFragment(mViewPager.getCurrentItem());
             if (folderFragment.getCurrentDir().equals("/")) {
                 goHomeScreen();
             } else {
