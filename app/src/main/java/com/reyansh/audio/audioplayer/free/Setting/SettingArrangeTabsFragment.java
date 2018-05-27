@@ -1,6 +1,10 @@
 package com.reyansh.audio.audioplayer.free.Setting;
 
-import android.app.Fragment;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -34,7 +38,7 @@ import java.util.Collections;
  * Created by reyansh on 11/9/17.
  */
 
-public class SettingArrangeTabsFragment extends Fragment  implements OnStartDragListener {
+public class SettingArrangeTabsFragment extends DialogFragment implements OnStartDragListener {
 
     private View mView;
     private RecyclerView mRecyclerView;
@@ -42,10 +46,12 @@ public class SettingArrangeTabsFragment extends Fragment  implements OnStartDrag
     private ItemTouchHelper mItemTouchHelper;
     private boolean mChanged;
 
-    @Nullable
+    private OnDismis mOnDismiss;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.layout_cusotmize_section, container, false);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        mView = LayoutInflater.from(getActivity()).inflate(R.layout.layout_cusotmize_section, null);
 
         Gson gson = new Gson();
         String jsonText = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.TITLES);
@@ -54,16 +60,34 @@ public class SettingArrangeTabsFragment extends Fragment  implements OnStartDrag
 
         mRecyclerView = mView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        CustomizeSectionAdapter customizeSectionAdapter= new CustomizeSectionAdapter();
+        CustomizeSectionAdapter customizeSectionAdapter = new CustomizeSectionAdapter();
         mRecyclerView.setAdapter(customizeSectionAdapter);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(customizeSectionAdapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-        return mView;
+        builder.setView(mView);
+        builder.setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss());
+        builder.setTitle(R.string.arrage_tabs);
+        return builder.create();
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (mOnDismiss != null && mChanged) {
+            mOnDismiss.onDismised();
+        }
+    }
+
+    public void setOnDismissListener(OnDismis onDismissListener) {
+        mOnDismiss = onDismissListener;
+    }
+
+    public interface OnDismis {
+        void onDismised();
+    }
 
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
@@ -99,8 +123,8 @@ public class SettingArrangeTabsFragment extends Fragment  implements OnStartDrag
             mTabTitles.toArray(titles);
             CursorHelper.saveTabTitles(titles);
             notifyItemMoved(fromPosition, toPosition);
-            if (fromPosition!=toPosition){
-                mChanged=true;
+            if (fromPosition != toPosition) {
+                mChanged = true;
             }
             return false;
         }

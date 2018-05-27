@@ -9,8 +9,13 @@
 
 
         <Preference
-            android:key="preference_key_contact_use"
+            android:key="preference_key_contact_us"
             android:title="@string/contact_us"/>
+
+
+        <Preference
+            android:key="preference_key_about_us"
+            android:title="@string/about"/>
         <!--
 
                 <CheckBoxPreference

@@ -378,6 +378,7 @@
     <string name="contact_us">Contact Us</string>
     <string name="album_art">Album Art</string>
     <string name="start_playback_to_activate_ab_repeat">Start playback to activate A-B repeat.</string>
+    <string name="arrage_tabs">Arrange Tabs</string>
 
 
 </resources>

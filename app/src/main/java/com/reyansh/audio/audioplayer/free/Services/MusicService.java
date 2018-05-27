@@ -238,7 +238,7 @@ public class MusicService extends Service {
             if (mPlayingForFirstTime) {
                 mPlayingForFirstTime = false;
             }
-            applyMediaPlayerEQ(getSongDataHelper().getId());
+                applyMediaPlayerEQ(getSongDataHelper().getId());
             startPlaying();
 
             Intent intent = new Intent(Constants.ACTION_UPDATE_NOW_PLAYING_UI);
@@ -277,11 +277,11 @@ public class MusicService extends Service {
      *
      * @param songId The id of the song that mMediaPlayer1 is current handling.
      */
-    private void applyMediaPlayerEQ(long songId) {
+    private void applyMediaPlayerEQ(long songId)  {
 
         if (mEqualizerHelper == null)
             return;
-
+    try {
         short fiftyHertzBand = mEqualizerHelper.getEqualizer().getBand(50000);
         short oneThirtyHertzBand = mEqualizerHelper.getEqualizer().getBand(130000);
         short threeTwentyHertzBand = mEqualizerHelper.getEqualizer().getBand(320000);
@@ -420,7 +420,9 @@ public class MusicService extends Service {
         } else if (eqValues[9] == 6) {
             mEqualizerHelper.getReverb().setPreset(PresetReverb.PRESET_PLATE);
         }
-
+    }catch (Exception e){
+        e.printStackTrace();
+    }
     }
 
 

@@ -16,7 +16,6 @@
             android:title="@string/default_browser" />
 
         <Preference
-            android:fragment="com.reyansh.audio.audioplayer.free.Setting.SettingArrangeTabsFragment"
             android:key="preference_key_tab_items"
             android:summary="@string/choose_tab_items"
             android:title="@string/tabs" />

@@ -3,6 +3,8 @@ package com.reyansh.audio.audioplayer.free;
 
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.provider.Settings;
 import android.support.multidex.MultiDexApplication;
@@ -173,6 +175,18 @@ public class Common extends MultiDexApplication {
         }
 
         return output;
+    }
+
+
+    public static String getVersionName(){
+        try {
+            PackageInfo pInfo = Common.getInstance().getPackageManager().getPackageInfo(Common.getInstance().getPackageName(), 0);
+            String version = pInfo.versionName;
+            return version;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     /**

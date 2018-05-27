@@ -1,5 +1,6 @@
 package com.reyansh.audio.audioplayer.free.Setting;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.reyansh.audio.audioplayer.free.Common;
 import com.reyansh.audio.audioplayer.free.R;
@@ -36,7 +38,8 @@ public class SettingsAboutFragment extends PreferenceFragment {
     private Common mApp;
     private ListView mListView;
     private PreferenceManager mPreferenceManager;
-    private Preference mContactsUsPreference;
+    private Preference mContactsUsPreference;    private Preference mAboutUsPreference;
+
     private Preference mLicensesPreference;
 
     @Override
@@ -46,7 +49,19 @@ public class SettingsAboutFragment extends PreferenceFragment {
         ((SettingActivity) getActivity()).setToolbarTitle(getString(R.string.licenses_and_about));
         mPreferenceManager = getPreferenceManager();
 
-        mContactsUsPreference = mPreferenceManager.findPreference("preference_key_contact_use");
+        mContactsUsPreference = mPreferenceManager.findPreference("preference_key_contact_us");
+        mAboutUsPreference=mPreferenceManager.findPreference("preference_key_about_us");
+        mAboutUsPreference.setOnPreferenceClickListener(preference -> {
+            AlertDialog.Builder  builder    =new AlertDialog.Builder(getActivity());
+            View view  =LayoutInflater.from(getActivity()).inflate(R.layout.layout_about,null);
+            ((TextView)view.findViewById(R.id.version_name)).setText(Common.getVersionName());
+            builder.setView(view);
+            builder.setTitle(R.string.about);
+            builder.setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss());
+            builder.create().show();
+            return false;
+        });
+
         mLicensesPreference = mPreferenceManager.findPreference("preference_key_licenses");
 
         mContactsUsPreference.setOnPreferenceClickListener(preference -> {
@@ -65,7 +80,6 @@ public class SettingsAboutFragment extends PreferenceFragment {
             notices.addNotice(new Notice("Universal Image Loader", "https://github.com/nostra13/Android-Universal-Image-Loader", "Sergey Tarasevich", new ApacheSoftwareLicense20()));
             notices.addNotice(new Notice("android-betterpickers", "https://github.com/code-troopers/android-betterpickers", "Derek Brameyer", new ApacheSoftwareLicense20()));
             notices.addNotice(new Notice("VerticalSeekBar", "https://github.com/h6ah4i/android-verticalseekbar", "Derek Brameyer", new ApacheSoftwareLicense20()));
-
 
 
             new LicensesDialog.Builder(getActivity())

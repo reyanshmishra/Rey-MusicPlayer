@@ -47,6 +47,7 @@ public class SettingActivity extends PreferenceActivity {
     private Context mContext;
     Toolbar mToolbar;
     Fragment mFragment;
+    boolean mIsChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,33 +99,14 @@ public class SettingActivity extends PreferenceActivity {
         root.addView(mToolbar, 0);
         root.addView(view, 1);
         mToolbar.setNavigationOnClickListener(v -> {
-            if (mFragment!=null && mFragment instanceof SettingArrangeTabsFragment){
-                boolean tabsChanged =((SettingArrangeTabsFragment)mFragment).isChanged();
-                if (tabsChanged){
-                    android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
-                    builder.setTitle(R.string.restart_app);
-                    builder.setMessage(R.string.restart_app_des);
-                    builder.setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                        dialogInterface.dismiss();
-                        Intent intent = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        finish();
-                        startActivity(intent);
-                    });
-                    builder.setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                        dialogInterface.dismiss();
-                        onBackPressed();
-                    });
-                    builder.create().show();
-                }else{
                     onBackPressed();
-                }
-            }else{
-                onBackPressed();
-            }
         });
     }
+
+    public void isChanged(boolean isChnaged){
+        mIsChanged=isChnaged;
+    }
+
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
