@@ -8,8 +8,8 @@ android {
         minSdkVersion 21
         multiDexEnabled true
         targetSdkVersion 26
-        versionCode 53
-        versionName "3.4.3"
+        versionCode 54
+        versionName "3.4.31"
         renderscriptTargetApi 22
         renderscriptSupportModeEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -35,7 +35,6 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }

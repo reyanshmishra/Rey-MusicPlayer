@@ -4,10 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,7 +44,7 @@ public class SettingArrangeTabsFragment extends DialogFragment implements OnStar
     private ItemTouchHelper mItemTouchHelper;
     private boolean mChanged;
 
-    private OnDismis mOnDismiss;
+    private OnDismiss mOnDismiss;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -77,16 +75,16 @@ public class SettingArrangeTabsFragment extends DialogFragment implements OnStar
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         if (mOnDismiss != null && mChanged) {
-            mOnDismiss.onDismised();
+            mOnDismiss.onDismissed();
         }
     }
 
-    public void setOnDismissListener(OnDismis onDismissListener) {
+    public void setOnDismissListener(OnDismiss onDismissListener) {
         mOnDismiss = onDismissListener;
     }
 
-    public interface OnDismis {
-        void onDismised();
+    public interface OnDismiss {
+        void onDismissed();
     }
 
     @Override
@@ -94,9 +92,6 @@ public class SettingArrangeTabsFragment extends DialogFragment implements OnStar
         mItemTouchHelper.startDrag(viewHolder);
     }
 
-    public boolean isChanged() {
-        return mChanged;
-    }
 
 
     class CustomizeSectionAdapter extends RecyclerView.Adapter<CustomizeSectionAdapter.ItemHolder> implements ItemTouchHelperAdapter {

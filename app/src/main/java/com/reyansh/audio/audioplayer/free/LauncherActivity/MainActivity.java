@@ -30,6 +30,7 @@ import com.reyansh.audio.audioplayer.free.Setting.SettingActivity;
 import com.reyansh.audio.audioplayer.free.Songs.SongsFragment;
 import com.reyansh.audio.audioplayer.free.SubGridViewFragment.TracksSubGridViewFragment;
 import com.reyansh.audio.audioplayer.free.Utils.Constants;
+import com.reyansh.audio.audioplayer.free.Utils.CursorHelper;
 import com.reyansh.audio.audioplayer.free.Utils.MusicUtils;
 import com.reyansh.audio.audioplayer.free.Utils.PreferencesHelper;
 import com.reyansh.audio.audioplayer.free.Utils.SortOrder;
@@ -292,7 +293,6 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
                 startActivity(new Intent(mContext, SettingActivity.class));
                 break;
 
-
             /* Album sorting options*/
         }
         return super.onOptionsItemSelected(item);
@@ -300,8 +300,14 @@ public class MainActivity extends AppCompatActivity implements OnScrolledListene
 
     private String[] getTabs(){
         String titles = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.TITLES);
-        Gson gson = new Gson();
-        return gson.fromJson(titles, String[].class);
+        if (titles==null){
+            String []tabTitles= new String[]{"ALBUMS", "ARTISTS", "SONGS", "GENRES", "PLAYLISTS", "DIRECTORY"};
+            CursorHelper.saveTabTitles(tabTitles);
+             return tabTitles;
+        }else{
+            Gson gson = new Gson();
+            return gson.fromJson(titles, String[].class);
+        }
     }
 
     @Override

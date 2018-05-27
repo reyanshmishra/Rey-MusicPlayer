@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.preference.Preference;
 import android.provider.Settings;
 import android.support.multidex.MultiDexApplication;
 import android.util.DisplayMetrics;
@@ -177,6 +178,21 @@ public class Common extends MultiDexApplication {
         return output;
     }
 
+    private boolean resetPreferences(){
+        int previousVersionCode= PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.PREVIOUS_VERSION_CODE,1);
+        return previousVersionCode!=getVersionCode();
+    }
+
+    public static int getVersionCode(){
+        try {
+            PackageInfo pInfo = Common.getInstance().getPackageManager().getPackageInfo(Common.getInstance().getPackageName(), 0);
+            int version = pInfo.versionCode;
+            return version;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
     public static String getVersionName(){
         try {

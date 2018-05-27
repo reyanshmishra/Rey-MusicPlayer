@@ -44,7 +44,7 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
             dialog.setOnDismissListener(() -> {
                 restartActivity();
             });
-            dialog.show(ft, "arrageTabsFragment");
+            dialog.show(ft, "arrangeTabsFragment");
             return false;
         });
         mStartUpScreenPreference.setOnPreferenceChangeListener((preference, o) -> {

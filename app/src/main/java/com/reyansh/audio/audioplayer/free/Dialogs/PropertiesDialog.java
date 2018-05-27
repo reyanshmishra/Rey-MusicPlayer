@@ -1,5 +1,4 @@
 package com.reyansh.audio.audioplayer.free.Dialogs;
-
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +13,6 @@ import com.reyansh.audio.audioplayer.free.R;
  */
 
 public class PropertiesDialog extends DialogFragment {
-
 
     @NonNull
     @Override

@@ -216,7 +216,6 @@ public class CursorHelper {
             saveEQPresets(mApp);
             saveTabTitles(new String[]{"ALBUMS", "ARTISTS", "SONGS", "GENRES", "PLAYLISTS", "DIRECTORY"});
             String query = "_id in (select genre_id from audio_genres_map where audio_id in (select _id from audio_meta where is_music != 0))";
-
             //Initialize the database transaction manually (improves performance).
             mApp.getDBAccessHelper().getWritableDatabase().beginTransaction();
 

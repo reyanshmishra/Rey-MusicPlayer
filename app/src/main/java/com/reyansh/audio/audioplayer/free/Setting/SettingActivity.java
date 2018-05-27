@@ -103,10 +103,6 @@ public class SettingActivity extends PreferenceActivity {
         });
     }
 
-    public void isChanged(boolean isChnaged){
-        mIsChanged=isChnaged;
-    }
-
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);

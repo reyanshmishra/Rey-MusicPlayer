@@ -239,7 +239,7 @@ public class PreferencesHelper {
         ARTIST_SORT_ORDER,
         ALBUM_SORT_ORDER,
         SONG_SORT_ORDER,
-        TITLES,
+        TITLES,PREVIOUS_VERSION_CODE,
 
         SONG_SORT_TYPE,
         ARTIST_SORT_TYPE,
