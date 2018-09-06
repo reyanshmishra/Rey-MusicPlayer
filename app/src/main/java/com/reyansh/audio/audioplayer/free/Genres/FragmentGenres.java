@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +28,15 @@ import com.reyansh.audio.audioplayer.free.Models.Album;
 import com.reyansh.audio.audioplayer.free.Models.Genre;
 import com.reyansh.audio.audioplayer.free.Models.Song;
 import com.reyansh.audio.audioplayer.free.R;
+import com.reyansh.audio.audioplayer.free.Search.SearchActivity;
+import com.reyansh.audio.audioplayer.free.Setting.SettingActivity;
+import com.reyansh.audio.audioplayer.free.Songs.SongsFragment;
+import com.reyansh.audio.audioplayer.free.Utils.Constants;
 import com.reyansh.audio.audioplayer.free.Utils.CursorHelper;
 import com.reyansh.audio.audioplayer.free.Utils.HidingScrollListener;
 import com.reyansh.audio.audioplayer.free.Utils.MusicUtils;
+import com.reyansh.audio.audioplayer.free.Utils.PreferencesHelper;
+import com.reyansh.audio.audioplayer.free.Utils.SortOrder;
 import com.reyansh.audio.audioplayer.free.Views.FastScroller;
 
 import java.util.ArrayList;
@@ -176,6 +184,70 @@ public class FragmentGenres extends Fragment implements MusicUtils.Defs, OnTaskC
         });
         menu.inflate(R.menu.popup_album);
         menu.show();
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.clear();
+       getActivity(). getMenuInflater().inflate(R.menu.menu_genre, menu);
+
+        if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+            menu.findItem(R.id.genre_sort_type).setChecked(true);
+        } else {
+            menu.findItem(R.id.genre_sort_type).setChecked(false);
+        }
+
+        String genreSortOrder = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_NAME);
+
+        if (genreSortOrder.equalsIgnoreCase(SortOrder.GenreSortOrder.GENRE_NAME)) {
+            menu.findItem(R.id.genre_sort_name).setChecked(true);
+        } else if (genreSortOrder.equalsIgnoreCase(SortOrder.GenreSortOrder.GENRE_NUMBER_OF_ALBUMS)) {
+            menu.findItem(R.id.genre_sort_no_of_albums).setChecked(true);
+        }
+    }
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_search:
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.genre_sort_name:
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_NAME);
+                onResume();
+                getActivity(). invalidateOptionsMenu();
+                break;
+
+            case R.id.genre_sort_no_of_albums:
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_NUMBER_OF_ALBUMS);
+                onResume();
+                getActivity().  invalidateOptionsMenu();
+                break;
+
+
+            case R.id.genre_sort_type:
+                if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.DESCENDING);
+                } else {
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.GENRE_SORT_TYPE, Constants.ASCENDING);
+                }
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+
+            case R.id.item_settings:
+                startActivity(new Intent(mContext, SettingActivity.class));
+                break;
+
+            /* Album sorting options*/
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

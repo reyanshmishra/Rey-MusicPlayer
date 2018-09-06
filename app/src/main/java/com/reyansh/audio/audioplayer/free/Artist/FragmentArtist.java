@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +28,16 @@ import com.reyansh.audio.audioplayer.free.Models.Album;
 import com.reyansh.audio.audioplayer.free.Models.Artist;
 import com.reyansh.audio.audioplayer.free.Models.Song;
 import com.reyansh.audio.audioplayer.free.R;
+import com.reyansh.audio.audioplayer.free.Search.SearchActivity;
+import com.reyansh.audio.audioplayer.free.Setting.SettingActivity;
+import com.reyansh.audio.audioplayer.free.Songs.SongsFragment;
+import com.reyansh.audio.audioplayer.free.Utils.Constants;
 import com.reyansh.audio.audioplayer.free.Utils.CursorHelper;
 import com.reyansh.audio.audioplayer.free.Utils.HidingScrollListener;
 import com.reyansh.audio.audioplayer.free.Utils.Logger;
 import com.reyansh.audio.audioplayer.free.Utils.MusicUtils;
+import com.reyansh.audio.audioplayer.free.Utils.PreferencesHelper;
+import com.reyansh.audio.audioplayer.free.Utils.SortOrder;
 import com.reyansh.audio.audioplayer.free.Views.FastScroller;
 
 import java.util.ArrayList;
@@ -41,8 +49,8 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 /**
-*The fragment class to display the list of artist in grid view.
-*/
+ * The fragment class to display the list of artist in grid view.
+ */
 public class FragmentArtist extends Fragment implements MusicUtils.Defs, OnTaskCompleted {
 
 
@@ -65,8 +73,8 @@ public class FragmentArtist extends Fragment implements MusicUtils.Defs, OnTaskC
 
         mCompositeDisposable = new CompositeDisposable();
         mApp = (Common) mContext.getApplicationContext();
-        mRecyclerView = (RecyclerView) mView.findViewById(R.id.recyclerView);
-        mFastScroller = (FastScroller) mView.findViewById(R.id.fast_scroller);
+        mRecyclerView = mView.findViewById(R.id.recyclerView);
+        mFastScroller = mView.findViewById(R.id.fast_scroller);
         mFastScroller.setRecyclerView(mRecyclerView);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, Common.getNumberOfColms()));
@@ -177,6 +185,75 @@ public class FragmentArtist extends Fragment implements MusicUtils.Defs, OnTaskC
                 break;
         }
     }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.clear();
+        getActivity().getMenuInflater().inflate(R.menu.menu_artist, menu);
+
+        if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+            menu.findItem(R.id.artist_sort_type).setChecked(true);
+        } else {
+            menu.findItem(R.id.artist_sort_type).setChecked(false);
+        }
+
+        String artistSortOrder = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NAME);
+
+        if (artistSortOrder.equalsIgnoreCase(SortOrder.ArtistSortOrder.ARTIST_NAME)) {
+            menu.findItem(R.id.artist_sort_name).setChecked(true);
+        } else if (artistSortOrder.equalsIgnoreCase(SortOrder.ArtistSortOrder.ARTIST_NUMBER_OF_ALBUMS)) {
+            menu.findItem(R.id.artist_sort_no_of_albums).setChecked(true);
+        } else if (artistSortOrder.equalsIgnoreCase(SortOrder.ArtistSortOrder.ARTIST_NUMBER_OF_SONGS)) {
+            menu.findItem(R.id.artist_sort_no_of_songs).setChecked(true);
+        }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_search:
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.artist_sort_name:
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NAME);
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+
+            case R.id.artist_sort_no_of_albums:
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NUMBER_OF_ALBUMS);
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+
+            case R.id.artist_sort_no_of_songs:
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_NUMBER_OF_SONGS);
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+
+            case R.id.artist_sort_type:
+                if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.DESCENDING);
+                } else {
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.ARTIST_SORT_TYPE, Constants.ASCENDING);
+                }
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+            case R.id.item_settings:
+                startActivity(new Intent(mContext, SettingActivity.class));
+                break;
+
+            /* Album sorting options*/
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public boolean checkAlbumsEmpty(ArrayList<Album> albums, int pos) {
         if (albums.size() == 0) {

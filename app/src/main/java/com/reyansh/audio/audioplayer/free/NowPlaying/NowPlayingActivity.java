@@ -738,7 +738,7 @@ public class NowPlayingActivity extends AppCompatActivity implements HmsPickerDi
             songInfoBottomSheetDialog = null;
             return;
         }
-        if (getSupportFragmentManager().getBackStackEntryCount()> 0) {
+        if (mFragments.size()> 0) {
             Fragment fragment = mFragments.get(mFragments.size() - 1);
             if (fragment instanceof TracksSubFragment) {
                 ((TracksSubFragment) fragment).removeFragment();

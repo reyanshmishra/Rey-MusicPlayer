@@ -470,6 +470,7 @@ public class TracksSubFragment extends Fragment implements MusicUtils.Defs, OnAd
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mGoingBack = false;
                 getActivity().getSupportFragmentManager().beginTransaction().remove(TracksSubFragment.this).commit();
+                getActivity().getSupportFragmentManager().popBackStack();
             }
 
             @Override

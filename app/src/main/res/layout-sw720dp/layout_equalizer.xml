@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/colorPrimary"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/id_toolbar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/id_toolbar_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
@@ -23,29 +23,26 @@
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </android.support.design.widget.AppBarLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:background="@drawable/drawable_drop_shadow"/>
+            android:background="@drawable/drawable_drop_shadow" />
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="50dp"
-        >
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/volume_holder"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
-            android:layout_weight="0.5">
+            android:layout_weight="0.3">
 
             <ImageButton
                 android:id="@+id/volume_mute"
@@ -55,7 +52,8 @@
                 android:layout_centerVertical="true"
                 android:background="?android:attr/selectableItemBackground"
                 android:padding="8dp"
-                app:srcCompat="@drawable/ic_volume_mute_black_24dp"/>
+                android:tint="@color/_light_gray"
+                app:srcCompat="@drawable/ic_volume_mute_black_24dp" />
 
             <SeekBar
                 android:id="@+id/volume_seekbar"
@@ -64,9 +62,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/volume_high"
                 android:layout_toRightOf="@+id/volume_mute"
-                android:progressBackgroundTint="@color/gray"
-                android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                android:thumbOffset="8dp"/>
+                android:thumbOffset="8dp" />
 
             <ImageButton
                 android:id="@+id/volume_high"
@@ -76,7 +72,7 @@
                 android:layout_centerVertical="true"
                 android:background="?android:attr/selectableItemBackground"
                 android:padding="8dp"
-                app:srcCompat="@drawable/ic_volume_up_black_24dp"/>
+                app:srcCompat="@drawable/ic_volume_up_black_24dp" />
 
         </RelativeLayout>
 
@@ -103,22 +99,28 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
-                    />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_1"
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/e50hztxtHeader"
                     android:layout_below="@+id/e50hztxt"
-                    android:layout_centerHorizontal="true"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/textColorSecondary"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
 
                 <TextView
                     android:id="@+id/e50hztxtHeader"
@@ -128,8 +130,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="50 Hz"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     />
 
             </RelativeLayout>
@@ -149,22 +150,29 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_2"
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/e130hztxtHeader"
                     android:layout_below="@+id/e130hztxt"
-                    android:layout_centerHorizontal="true"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/textColorSecondary"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
 
                 <TextView
                     android:id="@+id/e130hztxtHeader"
@@ -175,8 +183,8 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="130 Hz"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
             </RelativeLayout>
 
             <RelativeLayout
@@ -194,21 +202,28 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_3"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/e320hztxtHeader"
                     android:layout_below="@+id/e320hztxt"
-                    android:layout_centerHorizontal="true"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/textColorSecondary"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
                 <TextView
                     android:id="@+id/e320hztxtHeader"
@@ -219,10 +234,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="320 Hz"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
-
-
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     />
             </RelativeLayout>
 
@@ -241,23 +253,28 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
-
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_4"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/e800hztxtHeader"
                     android:layout_below="@+id/e800hztxt"
-                    android:layout_centerHorizontal="true"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/textColorSecondary"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
                 <TextView
                     android:id="@+id/e800hztxtHeader"
@@ -268,8 +285,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="800 Hz"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     />
             </RelativeLayout>
 
@@ -288,22 +304,28 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_5"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/e2khztxtHeader"
                     android:layout_below="@+id/e2khztxt"
-                    android:layout_centerHorizontal="true"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/textColorSecondary"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
                 <TextView
                     android:id="@+id/e2khztxtHeader"
@@ -314,8 +336,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="2 kHz"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     />
             </RelativeLayout>
 
@@ -335,21 +356,30 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_6"
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/e5khztxtHeader"
                     android:layout_below="@+id/e5khztxt"
-                    android:layout_centerHorizontal="true"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/textColorSecondary"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_6"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
 
                 <TextView
                     android:id="@+id/e5khztxtHeader"
@@ -361,8 +391,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="5 kHz"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     />
             </RelativeLayout>
 
@@ -380,21 +409,29 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_7"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/e12_5khztxtHeader"
                     android:layout_below="@+id/e12_5khztxt"
-                    android:layout_centerHorizontal="true"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/textColorSecondary"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp"/>
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_7"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
 
                 <TextView
                     android:id="@+id/e12_5khztxtHeader"
@@ -405,8 +442,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="12.5 Hz"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     />
             </RelativeLayout>
         </LinearLayout>
@@ -414,32 +450,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="12dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="8dp">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="12dp">
+                android:padding="18dp">
 
                 <com.triggertrap.seekarc.SeekArc
                     android:id="@+id/seek_arc_virtualizer"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_margin="25dp"
-                    android:padding="25dp"
+                    android:layout_margin="@dimen/seek_arc_margin"
+                    android:padding="@dimen/seek_arc_padding"
                     android:rotation="180"
                     app:arcColor="#00000000"
                     app:max="1000"
                     app:progress="1"
                     app:progressColor="@color/pink"
-                    app:progressWidth="15dp"
+                    app:progressWidth="12dp"
                     app:roundEdges="true"
                     app:startAngle="45"
                     app:sweepAngle="270"
                     app:thumb="@color/white"
-                    app:touchInside="true"/>
+                    app:touchInside="true" />
 
                 <ImageButton
                     android:id="@+id/image_button_virtualizer"
@@ -455,7 +491,7 @@
                     android:scaleType="fitCenter"
                     android:scaleX="@dimen/control_button_scale"
                     android:scaleY="@dimen/control_button_scale"
-                    android:src="@drawable/drawable_eq_circle_"/>
+                    android:src="@drawable/drawable_eq_circle_" />
 
                 <TextView
                     android:id="@+id/virtualizer"
@@ -465,9 +501,9 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:text="@string/virtualizer"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/textColorSecondary"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -475,25 +511,25 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="12dp">
+                android:padding="18dp">
 
                 <com.triggertrap.seekarc.SeekArc
                     android:id="@+id/seek_arc_bass_boost"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_margin="25dp"
-                    android:padding="25dp"
+                    android:layout_margin="@dimen/seek_arc_margin"
+                    android:padding="@dimen/seek_arc_padding"
                     android:rotation="180"
                     app:arcColor="#00000000"
                     app:max="1000"
                     app:progress="1"
                     app:progressColor="@color/pink"
-                    app:progressWidth="15dp"
+                    app:progressWidth="12dp"
                     app:roundEdges="true"
                     app:startAngle="45"
                     app:sweepAngle="270"
                     app:thumb="@color/white"
-                    app:touchInside="true"/>
+                    app:touchInside="true" />
 
                 <ImageButton
                     android:id="@+id/image_button_bass_boost"
@@ -508,8 +544,9 @@
                     android:padding="@dimen/seek_arc_padding"
                     android:scaleType="fitCenter"
                     android:scaleX="@dimen/control_button_scale"
+
                     android:scaleY="@dimen/control_button_scale"
-                    android:src="@drawable/drawable_eq_circle_"/>
+                    android:src="@drawable/drawable_eq_circle_" />
 
                 <TextView
                     android:id="@+id/bass_boost"
@@ -519,9 +556,9 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:text="@string/bass_boost"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/textColorSecondary"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -547,9 +584,9 @@
                     android:gravity="center"
                     android:text="@string/save"
                     android:textAllCaps="false"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/pink"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -572,7 +609,7 @@
                         android:id="@+id/reverb_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="0dp"/>
+                        android:padding="0dp" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -595,9 +632,9 @@
                     android:background="@drawable/drawable_button_background"
                     android:text="@string/load_preset"
                     android:textAllCaps="false"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/pink"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

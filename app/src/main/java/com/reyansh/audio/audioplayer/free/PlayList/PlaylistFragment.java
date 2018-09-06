@@ -132,6 +132,13 @@ public class PlaylistFragment extends Fragment implements MusicUtils.Defs {
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.clear();
+        getActivity().getMenuInflater().inflate(R.menu.menu_playlists, menu);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         new AsyncFetchPlaylist(this).execute();

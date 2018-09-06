@@ -55,7 +55,6 @@ public class AsyncTaskDelete extends AsyncTask<ArrayList<Song>, String, Boolean>
     protected Boolean doInBackground(ArrayList<Song>... params) {
         mPaths = params[0];
         try {
-
             for (int i = 0; i < mPaths.size(); i++) {
                 File sourceFile = new File(mPaths.get(i)._path);
                 publishProgress(Common.getInstance().getString(R.string.deleting) + " " + sourceFile.getName());

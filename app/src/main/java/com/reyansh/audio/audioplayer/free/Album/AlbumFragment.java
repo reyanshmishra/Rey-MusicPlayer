@@ -11,6 +11,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +28,15 @@ import com.reyansh.audio.audioplayer.free.LauncherActivity.MainActivity;
 import com.reyansh.audio.audioplayer.free.Models.Album;
 import com.reyansh.audio.audioplayer.free.Models.Song;
 import com.reyansh.audio.audioplayer.free.R;
+import com.reyansh.audio.audioplayer.free.Search.SearchActivity;
+import com.reyansh.audio.audioplayer.free.Setting.SettingActivity;
+import com.reyansh.audio.audioplayer.free.Songs.SongsFragment;
+import com.reyansh.audio.audioplayer.free.Utils.Constants;
 import com.reyansh.audio.audioplayer.free.Utils.CursorHelper;
 import com.reyansh.audio.audioplayer.free.Utils.HidingScrollListener;
 import com.reyansh.audio.audioplayer.free.Utils.MusicUtils;
+import com.reyansh.audio.audioplayer.free.Utils.PreferencesHelper;
+import com.reyansh.audio.audioplayer.free.Utils.SortOrder;
 import com.reyansh.audio.audioplayer.free.Views.FastScroller;
 
 import java.util.ArrayList;
@@ -41,8 +49,8 @@ import io.reactivex.schedulers.Schedulers;
 
 
 /**
-*This is {@link Fragment} class to display the list of fragments available in the phone.
-*/
+ * This is {@link Fragment} class to display the list of fragments available in the phone.
+ */
 
 public class AlbumFragment extends Fragment implements MusicUtils.Defs, OnTaskCompleted {
 
@@ -169,6 +177,85 @@ public class AlbumFragment extends Fragment implements MusicUtils.Defs, OnTaskCo
         }
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.clear();
+        getActivity().getMenuInflater().inflate(R.menu.menu_album, menu);
+
+        if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+            menu.findItem(R.id.album_sort_type).setChecked(true);
+        } else {
+            menu.findItem(R.id.album_sort_type).setChecked(false);
+        }
+
+        String albumSortOrder = PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT);
+
+        if (albumSortOrder.equalsIgnoreCase(SortOrder.AlbumSortOrder.ALBUM_DEFAULT)) {
+            menu.findItem(R.id.album_sort_default).setChecked(true);
+        } else if (albumSortOrder.equalsIgnoreCase(SortOrder.AlbumSortOrder.ALBUM_NAME)) {
+            menu.findItem(R.id.album_sort_name).setChecked(true);
+        } else if (albumSortOrder.equalsIgnoreCase(SortOrder.AlbumSortOrder.ALBUM_NUMBER_OF_SONGS)) {
+            menu.findItem(R.id.album_sort_no_of_songs).setChecked(true);
+        } else if (albumSortOrder.equalsIgnoreCase(SortOrder.AlbumSortOrder.ALBUM_YEAR)) {
+            menu.findItem(R.id.album_sort_year).setChecked(true);
+        } else if (albumSortOrder.equalsIgnoreCase(SortOrder.AlbumSortOrder.ALBUM_ARTIST)) {
+            menu.findItem(R.id.album_sort_artist_name).setChecked(true);
+        }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item_search:
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.album_sort_default:
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_DEFAULT);
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+            case R.id.album_sort_name:
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_NAME);
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+            case R.id.album_sort_year:
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_YEAR);
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+            case R.id.album_sort_artist_name:
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_ARTIST);
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+            case R.id.album_sort_no_of_songs:
+                PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_NUMBER_OF_SONGS);
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+            case R.id.album_sort_type:
+                if (PreferencesHelper.getInstance().getString(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING).equalsIgnoreCase(Constants.ASCENDING)) {
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.DESCENDING);
+                } else {
+                    PreferencesHelper.getInstance().put(PreferencesHelper.Key.ALBUM_SORT_TYPE, Constants.ASCENDING);
+                }
+
+                onResume();
+                getActivity().invalidateOptionsMenu();
+                break;
+
+            case R.id.item_settings:
+                startActivity(new Intent(mContext, SettingActivity.class));
+                break;
+
+            /* Album sorting options*/
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onAttach(Context context) {

@@ -62,7 +62,6 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/volume_high"
                 android:layout_toRightOf="@+id/volume_mute"
-
                 android:thumbOffset="8dp" />
 
             <ImageButton
@@ -100,8 +99,7 @@
                     android:gravity="center"
                     android:singleLine="true"
                     android:text="0"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
@@ -133,7 +131,7 @@
                     android:singleLine="true"
                     android:text="50 Hz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
 
             </RelativeLayout>
 
@@ -153,7 +151,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
 
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
@@ -171,7 +169,6 @@
                         android:progress="16"
                         android:progressBackgroundTint="@color/textColorSecondary"
                         android:splitTrack="false"
-
                         android:thumbOffset="8dp"
                         app:seekBarRotation="CW270" />
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
@@ -187,7 +184,7 @@
                     android:singleLine="true"
                     android:text="130 Hz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
             </RelativeLayout>
 
             <RelativeLayout
@@ -206,7 +203,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
@@ -238,7 +235,7 @@
                     android:singleLine="true"
                     android:text="320 Hz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
             </RelativeLayout>
 
             <RelativeLayout
@@ -257,7 +254,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
@@ -289,7 +286,7 @@
                     android:singleLine="true"
                     android:text="800 Hz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
             </RelativeLayout>
 
             <RelativeLayout
@@ -308,7 +305,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
@@ -340,7 +337,7 @@
                     android:singleLine="true"
                     android:text="2 kHz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
             </RelativeLayout>
 
             <RelativeLayout
@@ -360,7 +357,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
 
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
@@ -395,7 +392,7 @@
                     android:singleLine="true"
                     android:text="5 kHz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
             </RelativeLayout>
 
             <RelativeLayout
@@ -413,7 +410,7 @@
                     android:singleLine="true"
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
@@ -446,7 +443,7 @@
                     android:singleLine="true"
                     android:text="12.5 Hz"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/white" />
+                     />
             </RelativeLayout>
         </LinearLayout>
 

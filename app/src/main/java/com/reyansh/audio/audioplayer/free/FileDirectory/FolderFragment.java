@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +85,7 @@ public class FolderFragment extends Fragment implements View.OnClickListener, Mu
         mApp = (Common) mContext.getApplicationContext();
         setHasOptionsMenu(true);
         mLayoutManager = new LinearLayoutManager(mContext);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+        mRecyclerView = v.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST, 20, 20));
 
@@ -118,6 +119,14 @@ public class FolderFragment extends Fragment implements View.OnClickListener, Mu
             mOnScrolledListener = (OnScrolledListener) context;
         }
     }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.clear();
+        getActivity().getMenuInflater().inflate(R.menu.menu_playlists, menu);
+    }
+
 
     @Override
     public void onDetach() {

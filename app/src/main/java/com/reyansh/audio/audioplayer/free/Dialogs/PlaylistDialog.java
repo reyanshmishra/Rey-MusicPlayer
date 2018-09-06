@@ -46,7 +46,7 @@ public class PlaylistDialog extends DialogFragment {
             mSelectedId = getArguments().getLongArray("PLAYLIST_IDS");
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.create_playlist, null);
-        mEditText = (EditText) view.findViewById(R.id.edit_text_playlist);
+        mEditText = view.findViewById(R.id.edit_text_playlist);
         mEditText.addTextChangedListener(mTextWatcher);
         mEditText.setTextColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.black));
         mEditText.setTypeface(TypefaceHelper.getTypeface(getActivity().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
@@ -94,7 +94,8 @@ public class PlaylistDialog extends DialogFragment {
                 Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                 dismiss();
             }
-            ((MainActivity) getActivity()).mAdapter.getFragment(4).onResume();
+            if (getActivity() instanceof MainActivity)
+                ((MainActivity) getActivity()).mAdapter.getFragment(4).onResume();
         }
     }
 

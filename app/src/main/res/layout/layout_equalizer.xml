@@ -113,15 +113,25 @@
 
                     />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_1"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
-                    android:layout_height="250dp"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/gray"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp" />
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/e130hztxtHeader"
+                    android:layout_below="@+id/e130hztxt"
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
 
 
                 <TextView
@@ -159,15 +169,24 @@
 
                     />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_2"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
-                    android:layout_height="250dp"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/gray"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp" />
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/e130hztxtHeader"
+                    android:layout_below="@+id/e130hztxt"
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -204,15 +223,25 @@
 
                     />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_3"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
-                    android:layout_height="250dp"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/gray"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp" />
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/e130hztxtHeader"
+                    android:layout_below="@+id/e130hztxt"
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -248,16 +277,25 @@
 
 
                     />
-
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_4"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
-                    android:layout_height="250dp"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/gray"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp" />
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/e130hztxtHeader"
+                    android:layout_below="@+id/e130hztxt"
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -293,15 +331,25 @@
 
                     />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_5"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
-                    android:layout_height="250dp"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/gray"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp" />
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/e130hztxtHeader"
+                    android:layout_below="@+id/e130hztxt"
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -337,15 +385,25 @@
 
                     />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_6"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
-                    android:layout_height="250dp"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/gray"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp" />
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/e130hztxtHeader"
+                    android:layout_below="@+id/e130hztxt"
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_6"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -379,15 +437,25 @@
                     android:text="0"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <com.reyansh.audio.audioplayer.free.Views.VerticalSeekBar
-                    android:id="@+id/slider_7"
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:layout_width="wrap_content"
-                    android:layout_height="250dp"
-                    android:max="31"
-                    android:progress="16"
-                    android:progressBackgroundTint="@color/gray"
-                    android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
-                    android:thumbOffset="8dp" />
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/e130hztxtHeader"
+                    android:layout_below="@+id/e130hztxt"
+                    android:layout_centerHorizontal="true">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/slider_7"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:max="31"
+                        android:progress="16"
+                        android:progressBackgroundTint="@color/textColorSecondary"
+                        android:splitTrack="false"
+                        android:thumbOffset="8dp"
+                        app:seekBarRotation="CW270" />
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
 
                 <TextView
                     android:layout_width="match_parent"

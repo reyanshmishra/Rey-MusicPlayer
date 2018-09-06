@@ -217,15 +217,15 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
 
 //        mDummyBackgroundView = mView.findViewById(R.id.background);
 
-        mHeaderLayout = (RelativeLayout) mView.findViewById(R.id.browser_sub_header_layout);
-        mHeaderImage = (ImageView) mView.findViewById(R.id.browser_sub_header_image);
-        mHeaderTextView = (TextView) mView.findViewById(R.id.browser_sub_header_text);
-        mSubHeaderTextView = (TextView) mView.findViewById(R.id.browser_sub_header_sub_text);
-        mHeaderPopUp = (ImageButton) mView.findViewById(R.id.overflow);
-        mPlayAllButton = (Button) mView.findViewById(R.id.browser_sub_play_all);
+        mHeaderLayout = mView.findViewById(R.id.browser_sub_header_layout);
+        mHeaderImage = mView.findViewById(R.id.browser_sub_header_image);
+        mHeaderTextView = mView.findViewById(R.id.browser_sub_header_text);
+        mSubHeaderTextView = mView.findViewById(R.id.browser_sub_header_sub_text);
+        mHeaderPopUp = mView.findViewById(R.id.overflow);
+        mPlayAllButton = mView.findViewById(R.id.browser_sub_play_all);
 
-        mSearchButton = (ImageButton) mView.findViewById(R.id.search_button);
-        mBackButton = (ImageButton) mView.findViewById(R.id.back_button);
+        mSearchButton = mView.findViewById(R.id.search_button);
+        mBackButton = mView.findViewById(R.id.back_button);
 
         mHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
         mSubHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
@@ -529,6 +529,7 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
                 mRecyclerView.setVisibility(View.INVISIBLE);
                 mGoingBack = false;
                 getActivity().getSupportFragmentManager().beginTransaction().remove(TracksSubGridViewFragment.this).commit();
+                getActivity().getSupportFragmentManager().popBackStack();
             }
 
             @Override
