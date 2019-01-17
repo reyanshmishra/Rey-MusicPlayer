@@ -70,12 +70,12 @@
         <item>3</item>
     </string-array>
 
-    <string name="app_name">Boom</string>
-    <string name="ok">Ok</string>
-    <string name="cancel">Cancel</string>
-    <string name="ok_caps">OK</string>
-    <string name="cancel_caps">CANCEL</string>
-    <string name="overwrite">Overwrite</string>
+    <string name="app_name" translatable="false">Boom</string>
+    <string name="ok" translatable="false">Ok</string>
+    <string name="cancel" translatable="false">Cancel</string>
+    <string name="ok_caps" translatable="false">OK</string>
+    <string name="cancel_caps" translatable="false">CANCEL</string>
+    <string name="overwrite" translatable="false">Overwrite</string>
     <string name="new_playlist">New Playlist</string>
     <string name="add_to_playlist">Add To Playlist</string>
     <string name="ringtone_menu">Use As Ringtone</string>

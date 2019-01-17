@@ -112,14 +112,11 @@ public class AdapterGenres extends RecyclerView.Adapter<AdapterGenres.ItemHolder
 
         public ItemHolder(View itemView) {
             super(itemView);
-            int mWidth = 0;
+            int mWidth =  Common.getItemWidth();
 
-            DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
-            mWidth = (metrics.widthPixels) / Common.getNumberOfColms();
-
-            title = (TextView) itemView.findViewById(R.id.gridViewTitleText);
-            subTitle = (TextView) itemView.findViewById(R.id.gridViewSubText);
-            albumart = (ImageView) itemView.findViewById(R.id.gridViewImage);
+            title =  itemView.findViewById(R.id.gridViewTitleText);
+            subTitle =  itemView.findViewById(R.id.gridViewSubText);
+            albumart =  itemView.findViewById(R.id.gridViewImage);
 
             title.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
             subTitle.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
@@ -130,7 +127,7 @@ public class AdapterGenres extends RecyclerView.Adapter<AdapterGenres.ItemHolder
             params.height = mWidth;
             albumart.setLayoutParams(params);
 
-            mOverFlow = (ImageView) itemView.findViewById(R.id.overflow);
+            mOverFlow =  itemView.findViewById(R.id.overflow);
             mOverFlow.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }

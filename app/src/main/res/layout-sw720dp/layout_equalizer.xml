@@ -33,6 +33,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -457,7 +458,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="18dp">
+                android:padding="25dp">
 
                 <com.triggertrap.seekarc.SeekArc
                     android:id="@+id/seek_arc_virtualizer"
@@ -511,7 +512,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="18dp">
+                android:padding="25dp">
 
                 <com.triggertrap.seekarc.SeekArc
                     android:id="@+id/seek_arc_bass_boost"

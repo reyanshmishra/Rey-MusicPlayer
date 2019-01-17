@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".free.TagEditor.Id3TagEditorActivity">
+    tools:context="com.reyansh.audio.audioplayer.free.TagEditor.Id3TagEditorActivity">
 
     <RelativeLayout
         android:id="@+id/header_layout"

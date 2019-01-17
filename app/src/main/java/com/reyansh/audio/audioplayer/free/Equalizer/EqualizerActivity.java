@@ -143,7 +143,7 @@ public class EqualizerActivity extends AppCompatActivity {
         /**
          *Adding toolbar.
          */
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -155,61 +155,61 @@ public class EqualizerActivity extends AppCompatActivity {
          *Initializations.
          */
 
-        e50HzSeekBar = (com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar) findViewById(R.id.slider_1);
-        e50HzTextView = (TextView) findViewById(R.id.e50hztxt);
+        e50HzSeekBar = findViewById(R.id.slider_1);
+        e50HzTextView =  findViewById(R.id.e50hztxt);
         e50HzSeekBar.setOnSeekBarChangeListener(equalizer50HzListener);
         e50HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
-        e130HzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_2);
+        e130HzSeekBar =  findViewById(R.id.slider_2);
         e130HzSeekBar.setOnSeekBarChangeListener(equalizer130HzListener);
-        e130HzTextView = (TextView) findViewById(R.id.e130hztxt);
+        e130HzTextView =  findViewById(R.id.e130hztxt);
         e130HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
-        e320HzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_3);
+        e320HzSeekBar =  findViewById(R.id.slider_3);
         e320HzSeekBar.setOnSeekBarChangeListener(equalizer320HzListener);
-        e320HzTextView = (TextView) findViewById(R.id.e320hztxt);
+        e320HzTextView =  findViewById(R.id.e320hztxt);
         e320HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
-        e800HzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_4);
+        e800HzSeekBar =  findViewById(R.id.slider_4);
         e800HzSeekBar.setOnSeekBarChangeListener(equalizer800HzListener);
-        e800HzTextView = (TextView) findViewById(R.id.e800hztxt);
+        e800HzTextView =  findViewById(R.id.e800hztxt);
         e800HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
-        e2kHzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_5);
+        e2kHzSeekBar =  findViewById(R.id.slider_5);
         e2kHzSeekBar.setOnSeekBarChangeListener(equalizer2kHzListener);
-        e2kHzTextView = (TextView) findViewById(R.id.e2khztxt);
+        e2kHzTextView =  findViewById(R.id.e2khztxt);
         e2kHzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
-        e5kHzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_6);
+        e5kHzSeekBar =  findViewById(R.id.slider_6);
         e5kHzSeekBar.setOnSeekBarChangeListener(equalizer5kHzListener);
-        e5kHzTextView = (TextView) findViewById(R.id.e5khztxt);
+        e5kHzTextView =  findViewById(R.id.e5khztxt);
         e5kHzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
-        e12_5kHzSeekBar = (VerticalSeekBar) findViewById(R.id.slider_7);
+        e12_5kHzSeekBar =  findViewById(R.id.slider_7);
         e12_5kHzSeekBar.setOnSeekBarChangeListener(equalizer12_5kHzListener);
-        e12_5HzTextView = (TextView) findViewById(R.id.e12_5khztxt);
+        e12_5HzTextView =  findViewById(R.id.e12_5khztxt);
         e12_5HzTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_CONDENSED));
 
-        mVirtualizerSeekArc = (SeekArc) findViewById(R.id.seek_arc_virtualizer);
+        mVirtualizerSeekArc =  findViewById(R.id.seek_arc_virtualizer);
         mVirtualizerSeekArc.setOnSeekArcChangeListener(virtualizerListener);
 
-        TextView virtualizerText = (TextView) findViewById(R.id.virtualizer);
+        TextView virtualizerText =  findViewById(R.id.virtualizer);
         virtualizerText.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
 
-        TextView bassboostText = (TextView) findViewById(R.id.bass_boost);
+        TextView bassboostText =  findViewById(R.id.bass_boost);
         bassboostText.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
 
-        mBassBoostSeekArc = (SeekArc) findViewById(R.id.seek_arc_bass_boost);
+        mBassBoostSeekArc =  findViewById(R.id.seek_arc_bass_boost);
         mBassBoostSeekArc.setOnSeekArcChangeListener(bassBoostListener);
 
-        mImageButtonVirtualizer = (ImageButton) findViewById(R.id.image_button_virtualizer);
-        mImageButtonBassBoost = (ImageButton) findViewById(R.id.image_button_bass_boost);
+        mImageButtonVirtualizer =  findViewById(R.id.image_button_virtualizer);
+        mImageButtonBassBoost =  findViewById(R.id.image_button_bass_boost);
 
-        mVolumeMute = (ImageButton) findViewById(R.id.volume_mute);
-        mVolumeHigh = (ImageButton) findViewById(R.id.volume_high);
+        mVolumeMute =  findViewById(R.id.volume_mute);
+        mVolumeHigh =  findViewById(R.id.volume_high);
 
-        mReverbSpinner = (Spinner) findViewById(R.id.reverb_spinner);
-        mVolumeSeekBar = (SeekBar) findViewById(R.id.volume_seekbar);
+        mReverbSpinner =  findViewById(R.id.reverb_spinner);
+        mVolumeSeekBar =  findViewById(R.id.volume_seekbar);
 
         mVolumeSeekBar.setMax(100);
         mVolumeSeekBar.setOnSeekBarChangeListener(onVolumeSeekChange);

@@ -116,9 +116,9 @@ public class SubGridViewAdapter extends RecyclerView.Adapter<SubGridViewAdapter.
             DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
             mWidth = (metrics.widthPixels) / Common.getNumberOfColms();
 
-            albumName = (TextView) itemView.findViewById(R.id.gridViewTitleText);
-            artistName = (TextView) itemView.findViewById(R.id.gridViewSubText);
-            albumart = (ImageView) itemView.findViewById(R.id.gridViewImage);
+            albumName =  itemView.findViewById(R.id.gridViewTitleText);
+            artistName =  itemView.findViewById(R.id.gridViewSubText);
+            albumart =  itemView.findViewById(R.id.gridViewImage);
 
 
             albumName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext(), TypefaceHelper.FUTURA_BOOK));
@@ -129,7 +129,7 @@ public class SubGridViewAdapter extends RecyclerView.Adapter<SubGridViewAdapter.
             params.height = mWidth;
             albumart.setLayoutParams(params);
 
-            mOverFlow = (ImageView) itemView.findViewById(R.id.overflow);
+            mOverFlow =  itemView.findViewById(R.id.overflow);
             mOverFlow.setOnClickListener(this);
             itemView.setOnClickListener(this);
 

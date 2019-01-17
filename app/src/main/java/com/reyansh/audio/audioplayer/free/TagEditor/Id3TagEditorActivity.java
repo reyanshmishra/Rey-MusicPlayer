@@ -463,6 +463,7 @@ public class Id3TagEditorActivity extends AppCompatActivity {
                     public void onError(Throwable e) {
                         Log.d(TAG, "ERROR " + e.getMessage());
                         mProgressUpdateDialog.dismiss();
+                        Toast.makeText(Id3TagEditorActivity.this, "Sorry, Could not update changes.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

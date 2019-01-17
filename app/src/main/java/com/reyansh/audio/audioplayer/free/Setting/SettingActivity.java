@@ -198,8 +198,6 @@ public class SettingActivity extends PreferenceActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
             finish();
-        } else {
-            finish();
         }
     }
 }

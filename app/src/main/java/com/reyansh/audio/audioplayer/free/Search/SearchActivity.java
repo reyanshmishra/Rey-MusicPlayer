@@ -96,13 +96,12 @@ public class SearchActivity extends AppCompatActivity implements MusicUtils.Defs
         mImageButtonClear.setOnClickListener(v -> mSearchEditText.setText(""));
 
         mRecyclerView = findViewById(R.id.recyclerview);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, Common.getNumberOfColms());
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                Logger.log("" + mAdapter.getItemViewType(position));
                 if (mAdapter.getItemViewType(position) == 0 || mAdapter.getItemViewType(position) == 2) {
-                    return 3;
+                    return Common.getNumberOfColms();
                 } else {
                     return 1;
                 }

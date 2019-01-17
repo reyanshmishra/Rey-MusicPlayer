@@ -178,12 +178,12 @@ public class Common extends MultiDexApplication {
         return output;
     }
 
-    private boolean resetPreferences(){
-        int previousVersionCode= PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.PREVIOUS_VERSION_CODE,1);
-        return previousVersionCode!=getVersionCode();
+    private boolean resetPreferences() {
+        int previousVersionCode = PreferencesHelper.getInstance().getInt(PreferencesHelper.Key.PREVIOUS_VERSION_CODE, 1);
+        return previousVersionCode != getVersionCode();
     }
 
-    public static int getVersionCode(){
+    public static int getVersionCode() {
         try {
             PackageInfo pInfo = Common.getInstance().getPackageManager().getPackageInfo(Common.getInstance().getPackageName(), 0);
             int version = pInfo.versionCode;
@@ -194,7 +194,7 @@ public class Common extends MultiDexApplication {
         }
     }
 
-    public static String getVersionName(){
+    public static String getVersionName() {
         try {
             PackageInfo pInfo = Common.getInstance().getPackageManager().getPackageInfo(Common.getInstance().getPackageName(), 0);
             String version = pInfo.versionName;
@@ -209,13 +209,27 @@ public class Common extends MultiDexApplication {
      * Returns the no of column which will be applied to the grids on different devices
      */
     public static int getNumberOfColms() {
-
-        if (getDeviceScreenConfiguration() == Common.REGULAR_SCREEN_PORTRAIT) {
+        int config = getDeviceScreenConfiguration();
+        if (config == REGULAR_SCREEN_PORTRAIT) {
             return 2;
-        } else if (getDeviceScreenConfiguration() == Common.REGULAR_SCREEN_LANDSCAPE) {
+        } else if (config == LARGE_TABLET_LANDSCAPE) {
+            return 6;
+        } else if (config == LARGE_TABLET_PORTRAIT) {
             return 4;
+        } else if (config == REGULAR_SCREEN_LANDSCAPE) {
+            return 4;
+        } else if (config == XLARGE_TABLET_LANDSCAPE) {
+            return 8;
+
+        } else if (config == XLARGE_TABLET_PORTRAIT) {
+            return 6;
         }
         return 2;
+    }
+
+    public static int getItemWidth() {
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        return  (metrics.widthPixels) / getNumberOfColms();
     }
 
     /*
@@ -231,8 +245,8 @@ public class Common extends MultiDexApplication {
     }
 
     /*
-    * Returns the navigation bar height for the current layout configuration.
-    */
+     * Returns the navigation bar height for the current layout configuration.
+     */
     public static int getNavigationBarHeight(Context context) {
         Resources resources = context.getResources();
         int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");

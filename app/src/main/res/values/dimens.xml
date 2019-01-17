@@ -75,5 +75,6 @@
     <dimen name="tw_indexview_favourite_rectangle_width">240dp</dimen>
     <dimen name="list_view_left_icon_size">78dp</dimen>
 
+    <dimen name="recycler_background_drawable_height">330dp</dimen>
 
 </resources>

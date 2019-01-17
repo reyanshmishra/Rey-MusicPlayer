@@ -42,15 +42,16 @@ SeekArc:-https://github.com/neild001/SeekArc<br>
 JAudioTagger:- https://bitbucket.org/ijabz/jaudiotagger
 and other android libraries and android support libraries.
 
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png">](https://play.google.com/store/apps/details?id=com.reyansh.audio.audioplayer.free)
 
-
-Download it here :- https://play.google.com/store/apps/details?id=com.reyansh.audio.audioplayer.free
 
 
 
 License
 ========
-All source code is licensed under Apache License 2.0. If you create your own app (free or commercial) that uses some or all of the code from this codebase, you MUST attribute it to the original author, no exceptions. You can do so by displaying an "About" or "Licenses" screen in your app that links back to this GitHub page AND includes the following notice:
+All source code is licensed under Apache License 2.0. If you create your own app (free or commercial) that uses some or all of the code from this codebase,
+you MUST attribute it to the original author, no exceptions. You can do so by displaying an "About" or "Licenses" screen in your app that links back to this
+GitHub page AND includes the following notice:
 
     Copyright 2015 - Reyansh Mishra
 

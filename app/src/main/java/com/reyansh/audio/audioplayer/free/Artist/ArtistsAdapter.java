@@ -116,15 +116,12 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ItemHold
 
         public ItemHolder(View itemView) {
             super(itemView);
-            int mWidth;
 
-            DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
-            mWidth = (metrics.widthPixels) / Common.getNumberOfColms();
+           int mWidth =  Common.getItemWidth();
 
-
-            mArtistName = (TextView) itemView.findViewById(R.id.gridViewTitleText);
-            mDetails = (TextView) itemView.findViewById(R.id.gridViewSubText);
-            mArtistImage = (ImageView) itemView.findViewById(R.id.gridViewImage);
+            mArtistName =  itemView.findViewById(R.id.gridViewTitleText);
+            mDetails =  itemView.findViewById(R.id.gridViewSubText);
+            mArtistImage = itemView.findViewById(R.id.gridViewImage);
 
             mArtistName.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
             mDetails.setTypeface(TypefaceHelper.getTypeface(itemView.getContext().getApplicationContext(), TypefaceHelper.FUTURA_BOOK));
@@ -135,7 +132,7 @@ public class ArtistsAdapter extends RecyclerView.Adapter<ArtistsAdapter.ItemHold
             mArtistImage.setLayoutParams(params);
 
 
-            mOverFlowImageView = (ImageView) itemView.findViewById(R.id.overflow);
+            mOverFlowImageView = itemView.findViewById(R.id.overflow);
             mOverFlowImageView.setVisibility(View.VISIBLE);
             mOverFlowImageView.setOnClickListener(this);
 

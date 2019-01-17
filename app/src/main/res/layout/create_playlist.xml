@@ -1,31 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center"
-                android:orientation="horizontal"
-              android:padding="4dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="4dp">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <RadioButton
-            android:text="Female"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-            <RadioButton
-        android:text="Reyansh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-    </RadioGroup>
-
-    </LinearLayout>
+    <EditText
+        android:id="@+id/edit_text_playlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="18dp"
+        android:hint="@string/enter_playlist_name"
+        android:inputType="textCapSentences"
+        android:singleLine="true">
+    </EditText>
 
 </LinearLayout>

@@ -111,10 +111,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.ItemHolder
 
         public ItemHolder(View itemView) {
             super(itemView);
-            int mWidth = 0;
-
-            DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
-            mWidth = (metrics.widthPixels) / Common.getNumberOfColms();
+            int mWidth =   Common.getItemWidth();
 
             albumName = itemView.findViewById(R.id.gridViewTitleText);
             artistName = itemView.findViewById(R.id.gridViewSubText);

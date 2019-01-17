@@ -52,6 +52,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
+import static com.reyansh.audio.audioplayer.free.Common.LARGE_TABLET_LANDSCAPE;
+import static com.reyansh.audio.audioplayer.free.Common.LARGE_TABLET_PORTRAIT;
+
 
 public class TracksSubGridViewFragment extends Fragment implements MusicUtils.Defs, OnAdapterItemClicked, OnTaskCompleted {
 
@@ -231,7 +234,7 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
         mSubHeaderTextView.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOOK));
         mPlayAllButton.setTypeface(TypefaceHelper.getTypeface(mContext, TypefaceHelper.FUTURA_BOLD));
 
-        mRecyclerView = (RecyclerView) mView.findViewById(R.id.browser_sub_grid_view);
+        mRecyclerView = mView.findViewById(R.id.browser_sub_grid_view);
 
 
         mRecyclerView.setOnTouchListener((v, event) -> {
@@ -249,7 +252,15 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
         COVER_PATH = bundle.getString(Constants.COVER_PATH);
 
         mHeaderTextView.setText(HEADER_TITLE);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, Common.getNumberOfColms()));
+
+        int noOfCols;
+        if (Common.getOrientation() == Common.ORIENTATION_LANDSCAPE) {
+            noOfCols = Common.getNumberOfColms() / 2;
+        } else {
+            noOfCols = Common.getNumberOfColms();
+        }
+
+        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, noOfCols));
 
         mHeaderPopUp.setOnClickListener(v -> onPopUpClicked(v));
 
@@ -274,7 +285,14 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
 
                     int scrollY = -(topChild.getTop()) + findRealFirstVisibleItemPosition(linearLayoutManager.findFirstVisibleItemPosition()) * topChild.getHeight();
 
-                    int adjustedScrollY = (int) ((-scrollY) - mApp.convertDpToPixels(290f, mContext));
+                    int screen = Common.getDeviceScreenConfiguration();
+                    float scrollOffset;
+                    if (screen == LARGE_TABLET_PORTRAIT || screen == LARGE_TABLET_LANDSCAPE) {
+                        scrollOffset = 550f;
+                    } else {
+                        scrollOffset = 290f;
+                    }
+                    int adjustedScrollY = (int) ((-scrollY) - mApp.convertDpToPixels(scrollOffset, mContext));
 
                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mHeaderLayout.getLayoutParams();
                     params.topMargin = (adjustedScrollY / 3);
@@ -625,9 +643,6 @@ public class TracksSubGridViewFragment extends Fragment implements MusicUtils.De
         return pos / 2;
     }
 
-    public String getFROMWHERE() {
-        return FROM_WHERE;
-    }
 
     public boolean checkSongsEmpty(ArrayList<Song> songs, int pos) {
         if (songs.size() == 0) {

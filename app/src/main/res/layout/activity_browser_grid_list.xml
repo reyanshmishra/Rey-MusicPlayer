@@ -9,14 +9,13 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="340dp"
-        android:background="@color/colorPrimary"
         android:visibility="invisible" />
 
     <RelativeLayout
         android:id="@+id/browser_sub_header_layout"
+        android:visibility="invisible"
         android:layout_width="match_parent"
-        android:layout_height="340dp"
-        android:visibility="invisible">
+        android:layout_height="340dp">
 
         <ImageView
             android:id="@+id/browser_sub_header_image"
@@ -150,9 +149,9 @@
         android:clipToPadding="false"
         android:paddingBottom="65dp"
         android:paddingLeft="6dp"
+        android:visibility="invisible"
         android:paddingRight="6dp"
         android:paddingTop="280dp"
-        android:visibility="invisible"
         tools:listitem="@layout/list_view_item">
 
     </android.support.v7.widget.RecyclerView>

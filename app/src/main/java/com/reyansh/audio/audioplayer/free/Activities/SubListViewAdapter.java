@@ -94,10 +94,10 @@ public class SubListViewAdapter extends RecyclerView.Adapter<SubListViewAdapter.
 
         public SongHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.listViewTitleText);
-            artist = (TextView) itemView.findViewById(R.id.listViewSubText);
-            duration = (TextView) itemView.findViewById(R.id.listViewRightSubText);
-            mTrackNo = (TextView) itemView.findViewById(R.id.listViewTrackNumber);
+            title =  itemView.findViewById(R.id.listViewTitleText);
+            artist =  itemView.findViewById(R.id.listViewSubText);
+            duration =  itemView.findViewById(R.id.listViewRightSubText);
+            mTrackNo =  itemView.findViewById(R.id.listViewTrackNumber);
 
             /**
             *Never ever set type face in {@link #onBindViewHolder(ViewHolder, int, List)}
